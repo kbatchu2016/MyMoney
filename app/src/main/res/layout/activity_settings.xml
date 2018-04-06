@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Settings">
+
+
+    <TextView
+        android:id="@+id/tvAddSourceType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="35dp"
+        android:text="Add SourceType" />
+
+    <EditText
+        android:id="@+id/etAddSourceType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/tvAddSourceType"
+        android:layout_marginTop="67dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <ImageButton
+        android:id="@+id/ibAddSourceType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/etAddSourceType"
+        android:layout_marginEnd="43dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+
+    <TextView
+        android:id="@+id/tvAddCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/tvAddSourceType"
+        android:layout_marginTop="169dp"
+        android:text="Add SourceType" />
+
+    <EditText
+        android:id="@+id/etAddCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/tvAddSourceType"
+        android:layout_marginTop="200dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <ImageButton
+        android:id="@+id/ibCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/ibAddSourceType"
+        android:layout_alignTop="@+id/etAddCategory"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+</RelativeLayout>
