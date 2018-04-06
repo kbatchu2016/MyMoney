@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MyMoney</string>
+    <string name="yes">MyMoney</string>
+    <string-array name="amountType_array">
+        <item>Cash</item>
+        <item>Bank</item>
+        <item>ICICI Bank</item>
+        <item>Axis Bank</item>
+        <item>Allahabad Bank</item>
+        <item>SBI Bank</item>
+        <item>ICICI Creadit Card</item>
+        <item>CITI Credit Card</item>
+    </string-array>
+
+
+</resources>
