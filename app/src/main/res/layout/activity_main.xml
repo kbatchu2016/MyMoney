@@ -20,7 +20,6 @@
             android:text="Total Balance"
             android:textAlignment="center"
             android:textAllCaps="false"
-
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -29,12 +28,11 @@
             android:id="@+id/etTotalBalance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="11dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="63dp"
+            android:layout_marginTop="45dp"
             android:inputType="textPersonName"
             android:text="100.00"
             android:textAlignment="center"
@@ -46,11 +44,11 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cvAmountDetails"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="280dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="145dp"
-        android:padding="5dp">
+        android:layout_marginTop="85dp"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tvAddAmount"
@@ -63,7 +61,7 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -86,8 +84,9 @@
                 android:id="@+id/ivDatePopup"
                 android:layout_width="30dp"
                 android:layout_height="39dp"
-                android:layout_alignTop="@+id/chkIncome"
-                android:layout_toStartOf="@+id/etDate"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/etDate"
+                android:layout_marginStart="48dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="AddDate"
                 app:srcCompat="@drawable/ic_date" />
@@ -96,22 +95,21 @@
                 android:id="@+id/etDate"
                 android:layout_width="170dp"
                 android:layout_height="36dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/chkIncome"
-                android:layout_marginEnd="34dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="83dp"
                 android:ems="10"
                 android:inputType="date"
                 android:text="Select Date"
-                android:textAlignment="center"
-                android:textSize="11sp"/>
+                android:textSize="11sp" />
 
 
             <CheckBox
                 android:id="@+id/ChkExpense"
                 android:layout_width="101dp"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/chkIncome"
-                android:layout_centerVertical="true"
+                android:layout_alignEnd="@+id/etDate"
+                android:layout_alignTop="@+id/chkIncome"
                 android:checked="true"
                 android:text="Expense" />
 
@@ -125,7 +123,7 @@
                 android:layout_marginStart="0dp"
                 android:text="Source\nType"
                 android:textSize="11sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spAmtSourceType"
@@ -137,12 +135,54 @@
                 android:background="@color/colorAccent"
                 android:text="Select SourceType" />
 
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/etDescription"
+                android:layout_alignStart="@+id/ivDatePopup"
+                android:text="Category"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+
+            <Spinner
+                android:id="@+id/spCategory"
+                android:layout_width="133dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/etDescription"
+                android:layout_toEndOf="@+id/chkIncome"
+                android:background="@color/colorAccent"
+                android:text="Select Category" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/etDescription"
+                android:layout_toStartOf="@+id/etDate"
+                android:text="Description"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/ivCurrencyIcon"
+                android:layout_centerHorizontal="true"
+                android:inputType="text"
+                android:selectAllOnFocus="true"
+                android:text="Others"
+                android:textAlignment="viewStart"
+                android:textSize="12sp" />
+
             <ImageView
                 android:id="@+id/ivCurrencyIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:layout_alignStart="@+id/ChkExpense"
-                android:layout_alignTop="@+id/etTransationAmount"
+                android:layout_alignBottom="@+id/etTransationAmount"
+                android:layout_alignStart="@+id/chkIncome"
                 android:background="@android:color/transparent"
                 android:contentDescription="AddTransaction"
                 android:src="@mipmap/ic_currency_round"
@@ -175,6 +215,8 @@
                 android:contentDescription="AddTransaction"
                 android:textAlignment="center"
                 app:srcCompat="@drawable/ic_add" />
+
+
         </RelativeLayout>
 
 
