@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     Context context = this;
     Calendar myCalendar = Calendar.getInstance();
-    String dateFormat = "dd-MM-yyyy";
+    String dateFormat = "yyyy-mm-dd";
     DatePickerDialog.OnDateSetListener date;
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
 
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         String stringDate = formatter.format(new Date());
         editDate.setText(stringDate.toString());
         editDate.setOnClickListener(new View.OnClickListener() {
@@ -129,10 +129,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //TODO Category like movie, others, home
-        //TODO description of the trassaction
-        // TODO DATE DESC Order
-        //TODO access the SQL DB
+        //TODO Category like movie, others, home  &    //TODO description of the trassaction
+        //https://android--code.blogspot.in/2015/08/android-spinner-add-item-dynamically.html
+
+
         //TODO MONTHLYWise report
         //TODO PayBills / Category
 
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         etTotBalance.setText("RS: "+Integer.toString(GetTotalBalance()));
        etTransAmount.setText("");
 
-        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         String stringDate = formatter.format(new Date());
         editDate.setText(stringDate.toString());
     }
@@ -168,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
-
-                            editDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                            editDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                           // editDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
 
                         }
                     }, mYear, mMonth, mDay);
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "dd-MM-yy", Locale.getDefault());
+                "yyyy-mm-dd", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
     }

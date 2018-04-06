@@ -12,7 +12,7 @@ public class DBHelper extends SQLiteOpenHelper {
     // table info & columns names
     private String table_name = "accountSummary";
     private String column_id = "id",column_amountsourcetype = "amountsourcetype",column_amount="amount",
-            column_date="dateoftrans",column_transType="transactiontype"  ;
+            column_date="dateoftrans",column_transType="transactiontype" , column_transCategory="transCategory" ,column_transDescription="transDescription";
 
 
     public static String getDatabase_name() {
