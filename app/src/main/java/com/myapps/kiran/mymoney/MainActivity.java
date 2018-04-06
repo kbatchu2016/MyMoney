@@ -129,6 +129,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        //TODO Category like movie, others, home
+        //TODO description of the trassaction
+        // TODO DATE DESC Order
+        //TODO access the SQL DB
+        //TODO MONTHLYWise report
+        //TODO PayBills / Category
+
 
     } //oncreate
 
