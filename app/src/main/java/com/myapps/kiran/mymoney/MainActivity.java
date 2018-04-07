@@ -25,7 +25,10 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,15 +51,16 @@ public class MainActivity extends AppCompatActivity {
     String dateFormat = "yyyy-mm-dd";
     DatePickerDialog.OnDateSetListener date;
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
-
     private int mYear, mMonth, mDay, mHour, mMinute;
 
-    // json file name
-    String accDetailsJsonDataFileName ="accountSummaryInfo.json";
 
+
+    List<String> mSourceTypesList,mCategorysList;
+    ArrayAdapter<String> adapterStype,adapterCat;
+    // db related
     private DBHelper dbHelper;
-
     private SQLiteDatabase mDatabase ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,24 +80,38 @@ public class MainActivity extends AppCompatActivity {
         ivIconAddDate = (ImageView) findViewById(R.id.ivDatePopup);
         editDate = (EditText) findViewById(R.id.etDate);
         ivIconAddTransaction = (ImageView) findViewById(R.id.ivAddTransaction);
-
+        //////////////////       AmtSourceType - Spinner           //////////////////
         spAmtType = (Spinner) findViewById(R.id.spAmtSourceType);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.amountType_array, android.R.layout.simple_spinner_item);
+        String[] mSourceTypeArray  = (String[]) getResources().getStringArray(R.array.amountType_array);
+        mSourceTypesList = new ArrayList<>(Arrays.asList(mSourceTypeArray));
+        adapterStype = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_item,
+                mSourceTypesList);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        // Apply the adapter to the spinner
-        spAmtType.setAdapter(adapter);
+        adapterStype.setDropDownViewResource(android.R.layout.simple_spinner_item);
+       // Apply the adapter to the spinner
+        spAmtType.setAdapter(adapterStype);
+        UpdateSourceType4Db();
+        adapterStype.notifyDataSetChanged();
 
+
+        //////////////////       Category - Spinner           //////////////////
         spCategoryType = (Spinner) findViewById(R.id.spCategory);
+        String[] mCatArray  = (String[]) getResources().getStringArray(R.array.categorytType_array);
+        mCategorysList = new ArrayList<>(Arrays.asList(mCatArray));
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapterCat = ArrayAdapter.createFromResource(this,
-                R.array.categorytType_array, android.R.layout.simple_spinner_item);
+        adapterCat = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_item,
+                mCategorysList);
         // Specify the layout to use when the list of choices appears
         adapterCat.setDropDownViewResource(android.R.layout.simple_spinner_item);
         // Apply the adapter to the spinner
         spCategoryType.setAdapter(adapterCat);
+        UpdateCategory4Db();
+        adapterCat.notifyDataSetChanged();
+
 
         etTransAmount = (EditText) findViewById(R.id.etTransationAmount);
         etTransAmount.setText("0.00");
@@ -175,7 +193,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Log.d("lifecycle","onStart invoked");
-        etTotBalance.setText("RS: "+Integer.toString(GetTotalBalance()));
+        adapterStype.notifyDataSetChanged();
+        adapterCat.notifyDataSetChanged();
+       etTotBalance.setText("RS: "+Integer.toString(GetTotalBalance()));
        etTransAmount.setText("");
 
         DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
@@ -229,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
         String transAmount =  etTransAmount.getText().toString();
         String amountSourceType= (String) spAmtType.getSelectedItem().toString();
         // insert the data in DB table
-        insertData(transType,amountSourceType,transDate,transAmount);
+        insertTransactionData(transType,amountSourceType,transDate,transAmount);
         Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
         startActivity(intent);
 
@@ -242,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
         return dateFormat.format(date);
     }
 
-    private void insertData(String transType,String amountSourceType,String  transDate,String  transAmount)
+    private void insertTransactionData(String transType,String amountSourceType,String  transDate,String  transAmount)
     {
          Log.i("insertData", "insertData: started");
 
@@ -317,6 +337,55 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateDate() {
         editDate.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    private void UpdateSourceType4Db()
+    {
+        String _amountsourcetype;
+        try {
+            Cursor cursor = mDatabase.rawQuery("select  DISTINCT "+dbHelper.getStcolumn_sourcetype() +" from "+ dbHelper.getTable_SoucrTypename() +"   ;", null);
+            System.out.println("MainActivity.onClick:"+ cursor.getCount());
+            if (cursor != null) {
+                // move cursor to first row
+                if (cursor.moveToFirst()) {
+                    do {
+                        // Get version from Cursor
+                         _amountsourcetype = cursor.getString(cursor.getColumnIndex(dbHelper.getStcolumn_sourcetype().toString()));
+                        mSourceTypesList.add(_amountsourcetype.toString());
+                        // move to next row
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void UpdateCategory4Db()
+    {
+        String _categoryName;
+        try {
+            Cursor cursor = mDatabase.rawQuery("select  DISTINCT "+dbHelper.getCatcolumn_Category() +" from "+ dbHelper.getTable_Categoryname() +"   ;", null);
+            System.out.println("MainActivity.onClick:"+ cursor.getCount());
+            if (cursor != null) {
+                // move cursor to first row
+                if (cursor.moveToFirst()) {
+                    do {
+                        // Get version from Cursor
+                        _categoryName = cursor.getString(cursor.getColumnIndex(dbHelper.getCatcolumn_Category().toString()));
+                        mCategorysList.add(_categoryName.toString());
+                        // move to next row
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
