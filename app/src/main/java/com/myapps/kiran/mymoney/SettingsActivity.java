@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -36,6 +37,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         etSourceType = (EditText) findViewById(R.id.etAddSourceType);
         etCategory = (EditText) findViewById(R.id.etAddCategory);
+
+        etSourceType.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        etCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
         ibAmtSourceType = (ImageButton) findViewById(R.id.ibAddSourceType);
         ibCategory = (ImageButton) findViewById(R.id.ibCategory);

@@ -19,6 +19,8 @@ public class TransactionActivity extends AppCompatActivity {
     ArrayList<String> _arrTransType = new ArrayList<>();
     ArrayList<String> _arrAmount = new ArrayList<>();
     ArrayList<String> _arrTransDate = new ArrayList<>();
+    ArrayList<String> _arrCategory= new ArrayList<>();
+    ArrayList<String> _arrDesc = new ArrayList<>();
 
     RecyclerView recyclerView;
     private DBHelper dbHelper;
@@ -61,16 +63,16 @@ public class TransactionActivity extends AppCompatActivity {
                         String _transType = cursor.getString(cursor.getColumnIndex("transactiontype"));
                         String _dateoftrans = cursor.getString(cursor.getColumnIndex("dateoftrans"));
                         int _transAmount =cursor.getInt(cursor.getColumnIndex("amount"));
+                        String _transCategory = cursor.getString(cursor.getColumnIndex("transCategory"));
+                        String _transDesc = cursor.getString(cursor.getColumnIndex("transdescription"));
 
                         _arrTransID.add(Integer.toString(_id));
                         _arrAmtSourceType.add(_amountsourcetype);
-                        // fetch mobile number and store it in arraylist
                         _arrTransType.add(_transType);
-                        // fetch mobile number and store it in arraylist
                         _arrAmount.add(Integer.toString( _transAmount));
-                        // fetch mobile number and store it in arraylist
                         _arrTransDate.add(_dateoftrans);
-
+                        _arrCategory.add(_transCategory);
+                        _arrDesc.add(_transDesc);
 
                         // move to next row
                     } while (cursor.moveToNext());
@@ -84,7 +86,7 @@ public class TransactionActivity extends AppCompatActivity {
 
         //  call the constructor of CustomAdapter to send the reference and data to Adapter
         CustomAdapter customAdapter;
-        customAdapter = new CustomAdapter(TransactionActivity.this, _arrTransID,_arrAmtSourceType, _arrTransType, _arrAmount,_arrTransDate);
+        customAdapter = new CustomAdapter(TransactionActivity.this, _arrTransID,_arrAmtSourceType, _arrTransType, _arrAmount,_arrTransDate,_arrCategory,_arrDesc);
         recyclerView.setAdapter(customAdapter); // set the Adapter to RecyclerView
 
     }

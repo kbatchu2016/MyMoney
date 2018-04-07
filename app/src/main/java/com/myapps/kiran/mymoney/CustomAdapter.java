@@ -18,18 +18,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     ArrayList<String> arrTransType;
     ArrayList<String> arrAmount;
     ArrayList<String> arrTransDate;
+    ArrayList<String> arrCategory;
+    ArrayList<String> arrDesc;
     Context context;
 
 
     // Constructor  with arraylist variables need to display in  the card
-    public CustomAdapter(Context context,ArrayList<String> arrTransID, ArrayList<String> arrAmtSourceType, ArrayList<String> arrTransType, ArrayList<String> arrAmount, ArrayList<String> arrTransDate) {
+    public CustomAdapter(Context context,ArrayList<String> arrTransID, ArrayList<String> arrAmtSourceType, ArrayList<String> arrTransType, ArrayList<String> arrAmount, ArrayList<String> arrTransDate,ArrayList<String> arrCategory, ArrayList<String> arrDesc) {
         this.context = context;
         this.arrTransID=arrTransID;
         this.arrAmtSourceType = arrAmtSourceType;
         this.arrTransType = arrTransType;
         this.arrAmount = arrAmount;
         this.arrTransDate=arrTransDate;
-
+        this.arrCategory=arrCategory;
+        this.arrDesc=arrDesc;
     }
 
     @Override
@@ -48,6 +51,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.mTransType.setText(arrTransType.get(position));
         holder.mAmount.setText(arrAmount.get(position));
         holder.mTransDate.setText(arrTransDate.get(position));
+        holder.mCategory.setText(arrCategory.get(position));
+        holder.mDesc.setText(arrDesc.get(position));
+
         // implement setOnClickListener event on item view.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +113,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                         arrAmount.remove(position);
                         arrTransDate.remove(position);
                         arrTransType.remove(position);
+                        arrCategory.remove(position);
+                        arrDesc.remove(position);
                         notifyItemRemoved(position);
                         // delete Item//
                     }
@@ -118,7 +126,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     // initialize / design the card view item with  each control
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView mtransId,mAmtSourceType, mTransType, mAmount,mTransDate;// init the item view's
+        TextView mtransId,mAmtSourceType, mTransType, mAmount,mTransDate,mCategory,mDesc;// init the item view's
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -129,6 +137,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             mTransType = (TextView) itemView.findViewById(R.id.transactiontype);
             mAmount = (TextView) itemView.findViewById(R.id.amount);
             mTransDate = (TextView) itemView.findViewById(R.id.date);
+
+            mCategory = (TextView) itemView.findViewById(R.id.tvCategory);
+            mDesc = (TextView) itemView.findViewById(R.id.tvDesc);
+
         }
 
 

@@ -10,8 +10,10 @@ import android.icu.util.Calendar;
 import android.icu.util.TimeZone;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editDate;
     Spinner spAmtType;
     Spinner spCategoryType;
+    EditText etDesc;
     ImageButton ibSummaryPage;
     ImageButton ibSettingsPage;
 
@@ -96,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
         adapterStype.notifyDataSetChanged();
 
 
+
+
         //////////////////       Category - Spinner           //////////////////
         spCategoryType = (Spinner) findViewById(R.id.spCategory);
         String[] mCatArray  = (String[]) getResources().getStringArray(R.array.categorytType_array);
@@ -112,9 +117,17 @@ public class MainActivity extends AppCompatActivity {
         UpdateCategory4Db();
         adapterCat.notifyDataSetChanged();
 
+        etDesc = (EditText) findViewById(R.id.etDescription);
+        etDesc.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
         etTransAmount = (EditText) findViewById(R.id.etTransationAmount);
         etTransAmount.setText("0.00");
+
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
 
         // On  Income checkbox click
         chkIncomeValue.setOnClickListener(new View.OnClickListener() {
@@ -195,12 +208,13 @@ public class MainActivity extends AppCompatActivity {
         Log.d("lifecycle","onStart invoked");
         adapterStype.notifyDataSetChanged();
         adapterCat.notifyDataSetChanged();
-       etTotBalance.setText("RS: "+Integer.toString(GetTotalBalance()));
-       etTransAmount.setText("");
 
+        etTotBalance.setText("RS: "+Integer.toString(GetTotalBalance()));
+        etTransAmount.setText("");
         DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         String stringDate = formatter.format(new Date());
         editDate.setText(stringDate.toString());
+        etDesc.setText("");
     }
 
     public void onClick1DateSelect(View v) {
@@ -248,8 +262,10 @@ public class MainActivity extends AppCompatActivity {
         String transDate = editDate.getText().toString();
         String transAmount =  etTransAmount.getText().toString();
         String amountSourceType= (String) spAmtType.getSelectedItem().toString();
+        String categoryName =  spCategoryType.getSelectedItem().toString();
+        String desc =etDesc.getText().toString();
         // insert the data in DB table
-        insertTransactionData(transType,amountSourceType,transDate,transAmount);
+        insertTransactionData(transType,amountSourceType,transDate,transAmount,categoryName,desc);
         Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
         startActivity(intent);
 
@@ -262,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
         return dateFormat.format(date);
     }
 
-    private void insertTransactionData(String transType,String amountSourceType,String  transDate,String  transAmount)
+    private void insertTransactionData(String transType,String amountSourceType,String  transDate,String  transAmount,String categoryName,String transdesc)
     {
          Log.i("insertData", "insertData: started");
 
@@ -277,6 +293,9 @@ public class MainActivity extends AppCompatActivity {
         values.put(dbHelper.getColumn_transType(),transType);
         values.put(dbHelper.getColumn_date(),transDate);
         values.put(dbHelper.getColumn_amount(),transAmount);
+        values.put(dbHelper.getColumn_transCategory(),categoryName);
+        values.put(dbHelper.getColumn_transDescription(),transdesc);
+;
         Log.i("insertData", "insertData:values started");
         long rowId = 0 ;
         if(mDatabase!=null)        {

@@ -16,15 +16,31 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // table info & columns names - MainActitity
     private String table_name = "accountSummary";
-    private String column_id = "id",column_amountsourcetype = "amountsourcetype",column_amount="amount",
-            column_date="dateoftrans",column_transType="transactiontype" , column_transCategory="transCategory" ,column_transDescription="transDescription";
+    private String column_id = "id";
+    private String column_amountsourcetype = "amountsourcetype";
+    private String column_amount="amount";
+    private String column_date="dateoftrans";
+    private String column_transType="transactiontype";
+    private String column_transCategory="transCategory";
+    String  column_transDescription ="transdescription";
+
+    public String getColumn_transCategory() {
+        return column_transCategory;
+    }
+
+    public String getColumn_transDescription() {
+        return column_transDescription;
+    }
+
     private String database_create_statement =
             "CREATE TABLE " + table_name + "("
                     + column_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + column_transType + " TEXT,"
                     + column_amountsourcetype + " TEXT,"
                     + column_date + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
-                    + column_amount + " INTEGER"
+                    + column_amount + " INTEGER,"
+                    + column_transCategory + " TEXT,"
+                    + column_transDescription + " TEXT"
                     + ")";
 
 
