@@ -6,55 +6,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rlMain"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".MainActivity">
 
 
-        <TextView
-            android:id="@+id/tvTotalBalance"
-            android:layout_width="281dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="19dp"
-            android:clickable="true"
-            android:text="Total Balance"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tvTotalBalance"
+        android:layout_width="281dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="19dp"
+        android:clickable="true"
+        android:text="Total Balance"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/etTotalBalance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="11dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="45dp"
-            android:inputType="textPersonName"
-            android:text="100.00"
-            android:textAlignment="center"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/etTotalBalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="45dp"
+        android:inputType="textPersonName"
+        android:text="100.00"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
 
     <android.support.v7.widget.CardView
         android:id="@+id/cvAmountDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="280dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="85dp"
-        android:padding="10dp">
+        android:layout_marginBottom="110dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="90dp"
+        android:padding="50dp">
 
         <TextView
             android:id="@+id/tvAddAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
             android:clickable="true"
             android:text="Add Transaction Details"
@@ -73,147 +77,155 @@
                 android:id="@+id/chkIncome"
                 android:layout_width="101dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="39dp"
                 android:layout_marginTop="39dp"
                 android:text="Income" />
-
-
-            <ImageView
-                android:id="@+id/ivDatePopup"
-                android:layout_width="30dp"
-                android:layout_height="39dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/etDate"
-                android:layout_marginStart="48dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="AddDate"
-                app:srcCompat="@drawable/ic_date" />
-
-            <EditText
-                android:id="@+id/etDate"
-                android:layout_width="170dp"
-                android:layout_height="36dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="83dp"
-                android:ems="10"
-                android:inputType="date"
-                android:text="Select Date"
-                android:textSize="11sp" />
 
 
             <CheckBox
                 android:id="@+id/ChkExpense"
                 android:layout_width="101dp"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/etDate"
-                android:layout_alignTop="@+id/chkIncome"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="39dp"
+                android:layout_toRightOf="@id/chkIncome"
                 android:checked="true"
                 android:text="Expense" />
 
-
-            <TextView
-                android:id="@+id/tvAmtType"
+            <ImageView
+                android:id="@+id/ivDatePopup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/ivDatePopup"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="0dp"
-                android:text="Source\nType"
+                android:layout_alignStart="@id/chkIncome"
+                android:layout_below="@id/chkIncome"
+                android:layout_margin="15dp"
+                android:contentDescription="AddDate"
+                app:srcCompat="@drawable/ic_date" />
+
+            <EditText
+                android:id="@+id/etDate"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/chkIncome"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/ivDatePopup"
+                android:inputType="date"
+                android:text="Select Date"
                 android:textSize="11sp"
+                android:ems="10"/>
+
+
+            <TextView
+                android:id="@+id/idSourceType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/chkIncome"
+                android:layout_below="@id/ivDatePopup"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:text="SourceType"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spAmtSourceType"
-                android:layout_width="133dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="30dp"
-                android:background="@color/colorAccent"
+                android:layout_below="@id/etDate"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/idSourceType"
                 android:text="Select SourceType" />
 
             <TextView
                 android:id="@+id/tvCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/etDescription"
-                android:layout_alignStart="@+id/ivDatePopup"
+                android:layout_alignStart="@id/chkIncome"
+                android:layout_below="@id/idSourceType"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="15dp"
                 android:text="Category"
-                android:textSize="11sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
 
             <Spinner
                 android:id="@+id/spCategory"
-                android:layout_width="133dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/etDescription"
-                android:layout_toEndOf="@+id/chkIncome"
-                android:background="@color/colorAccent"
-                android:text="Select Category" />
+                android:layout_below="@id/spAmtSourceType"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/tvCategory"
+                android:text="category" />
 
             <TextView
                 android:id="@+id/tvDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/etDescription"
-                android:layout_toStartOf="@+id/etDate"
+                android:layout_alignStart="@id/chkIncome"
+                android:layout_below="@id/tvCategory"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
                 android:text="Description"
-                android:textSize="11sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etDescription"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/ivCurrencyIcon"
-                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/spCategory"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/tvDescription"
                 android:inputType="text"
-                android:selectAllOnFocus="true"
-                android:text="Others"
-                android:textAlignment="viewStart"
-                android:textSize="12sp" />
+                android:textSize="11sp"
+                android:ems="10"/>
 
             <ImageView
                 android:id="@+id/ivCurrencyIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_alignBottom="@+id/etTransationAmount"
-                android:layout_alignStart="@+id/chkIncome"
-                android:background="@android:color/transparent"
+                android:layout_width="31dp"
+                android:layout_height="30dp"
+                android:layout_alignStart="@id/chkIncome"
+                android:layout_below="@id/tvDescription"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
                 android:contentDescription="AddTransaction"
-                android:src="@mipmap/ic_currency_round"
-                android:textAlignment="center" />
+                android:src="@mipmap/ic_currency_round" />
 
 
             <EditText
                 android:id="@+id/etTransationAmount"
-                android:layout_width="150dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="26dp"
-                android:layout_marginStart="104dp"
+                android:layout_below="@id/etDescription"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@id/ivCurrencyIcon"
                 android:inputType="numberDecimal"
                 android:selectAllOnFocus="true"
                 android:text="0.00"
                 android:textAlignment="viewStart"
-                android:textSize="18sp" />
+                android:textSize="15sp"
+                android:ems="10"/>
 
 
             <ImageView
                 android:id="@+id/ivAddTransaction"
                 android:layout_width="76dp"
                 android:layout_height="36dp"
-                android:layout_alignBottom="@+id/etTransationAmount"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="29dp"
+                android:layout_below="@id/etDescription"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/etTransationAmount"
                 android:background="@android:color/transparent"
                 android:contentDescription="AddTransaction"
-                android:textAlignment="center"
+                android:textAlignment="viewEnd"
                 app:srcCompat="@drawable/ic_add" />
 
 
@@ -221,6 +233,26 @@
 
 
     </android.support.v7.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/ibsettings"
+        android:layout_width="83dp"
+        android:layout_height="65dp"
+        android:layout_alignStart="@+id/etTotalBalance"
+        android:layout_alignTop="@+id/ibsummary"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:srcCompat="@mipmap/icon_settings" />
+    <ImageButton
+        android:id="@+id/ibsummary"
+        android:layout_width="69dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="26dp"
+        app:srcCompat="@mipmap/ic_summary_round" />
+
 
 
 

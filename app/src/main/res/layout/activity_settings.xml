@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".Settings">
 
+    <TextView
+        android:id="@+id/tvSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+
+        android:layout_marginTop="18dp"
+        android:text="Settings"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tvAddSourceType"
@@ -15,8 +26,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="41dp"
-        android:layout_marginTop="35dp"
-        android:text="Add SourceType" />
+        android:layout_marginTop="40dp"
+        android:text="Add SourceType"
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/etAddSourceType"
@@ -26,7 +38,7 @@
         android:layout_alignStart="@+id/tvAddSourceType"
         android:layout_marginTop="67dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="text" />
 
     <ImageButton
         android:id="@+id/ibAddSourceType"
@@ -45,7 +57,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/tvAddSourceType"
         android:layout_marginTop="169dp"
-        android:text="Add SourceType" />
+        android:text="Add Category"
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/etAddCategory"
@@ -55,7 +68,7 @@
         android:layout_alignStart="@+id/tvAddSourceType"
         android:layout_marginTop="200dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="text" />
 
     <ImageButton
         android:id="@+id/ibCategory"

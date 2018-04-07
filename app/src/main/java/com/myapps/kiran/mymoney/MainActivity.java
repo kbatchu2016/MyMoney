@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivIconAddTransaction;
     EditText editDate;
     Spinner spAmtType;
+    Spinner spCategoryType;
+    ImageButton ibSummaryPage;
+    ImageButton ibSettingsPage;
 
     Context context = this;
     Calendar myCalendar = Calendar.getInstance();
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-/// Create table in Database ///
+        /// Create table in Database ///
         dbHelper = new DBHelper(getApplicationContext());
         mDatabase = dbHelper.getReadableDatabase();
 
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         ivIconAddDate = (ImageView) findViewById(R.id.ivDatePopup);
         editDate = (EditText) findViewById(R.id.etDate);
         ivIconAddTransaction = (ImageView) findViewById(R.id.ivAddTransaction);
+
         spAmtType = (Spinner) findViewById(R.id.spAmtSourceType);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -80,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         // Apply the adapter to the spinner
         spAmtType.setAdapter(adapter);
+
+        spCategoryType = (Spinner) findViewById(R.id.spCategory);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapterCat = ArrayAdapter.createFromResource(this,
+                R.array.categorytType_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapterCat.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        // Apply the adapter to the spinner
+        spCategoryType.setAdapter(adapterCat);
 
         etTransAmount = (EditText) findViewById(R.id.etTransationAmount);
         etTransAmount.setText("0.00");
@@ -125,6 +139,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OnClickivAddTransaction(v);
+            }
+        });
+
+        ibSummaryPage = (ImageButton) findViewById(R.id.ibsummary);
+        ibSummaryPage.setOnClickListener  (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ibSettingsPage = (ImageButton) findViewById(R.id.ibsettings);
+        ibSettingsPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
             }
         });
 

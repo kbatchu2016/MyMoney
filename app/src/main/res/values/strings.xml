@@ -12,5 +12,17 @@
         <item>CITI Credit Card</item>
     </string-array>
 
+    <string-array name="categorytType_array">
+        <item>Home</item>
+        <item>CarLoan</item>
+        <item>Hyd Power Bill</item>
+        <item>Ndl Power Bill</item>
+        <item>Net Bill</item>
+        <item>Home Rent</item>
+        <item>Movie</item>
+        <item>Petrol</item>
+    </string-array>
+
+
 
 </resources>
