@@ -49,7 +49,6 @@
         android:layout_marginEnd="43dp"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-
     <TextView
         android:id="@+id/tvAddCategory"
         android:layout_width="wrap_content"
@@ -77,5 +76,7 @@
         android:layout_alignStart="@+id/ibAddSourceType"
         android:layout_alignTop="@+id/etAddCategory"
         app:srcCompat="@android:drawable/ic_input_add" />
+
+
 
 </RelativeLayout>
