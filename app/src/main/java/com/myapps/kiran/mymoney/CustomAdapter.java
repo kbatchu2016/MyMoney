@@ -59,7 +59,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             @Override
             public void onClick(View view) {
                 // display a toast with person name on item click
-                Toast.makeText(context, "Logn Press To Delete ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, " Logn Press To Delete The Item! ", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -72,13 +72,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 // Use the Builder class for convenient dialog construction
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.create();
-                builder.setMessage("Click 'Yes' To Delete Selected Transaction Details ")
+                builder.setMessage("Click 'Yes'  to Delete Selected Transaction Details! ")
+                      .setTitle("Delete Item")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 String amount=arrAmount.get(position);
                                 // delete Item - at the Display item selected  position //
                                 deleteItem( position);
-                                Toast.makeText(context, "Deleted the Transaction Details " + amount , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "   Deleted the Transaction ! " + amount , Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -91,7 +92,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 // show it
                 alertDialog.show();
                 ///  dialog end
-
                 return true;
             }
         });
@@ -100,24 +100,23 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
     // delete the card Item from the list
-    public void deleteItem(int position) { //removes the row
-
-
-                        String transid= arrTransID.get(position);
-                        Log.i("deleteItem",  "Delete   transid " + transid);
-                        Toast.makeText(context, "Delete   transid " + transid, Toast.LENGTH_SHORT).show();
-                        DBHelper dbHelper= new DBHelper( this.context);
-                        dbHelper.deleteByID(Integer.parseInt(transid));
-                        arrTransID.remove(position);
-                        arrAmtSourceType.remove(position);
-                        arrAmount.remove(position);
-                        arrTransDate.remove(position);
-                        arrTransType.remove(position);
-                        arrCategory.remove(position);
-                        arrDesc.remove(position);
-                        notifyItemRemoved(position);
-                        // delete Item//
-                    }
+    public void deleteItem(int position) {
+        //removes the row
+        String transid= arrTransID.get(position);
+        Log.i("deleteItem",  "Delete   transid " + transid);
+       // Toast.makeText(context, "Delete   transid " + transid, Toast.LENGTH_SHORT).show();
+        DBHelper dbHelper= new DBHelper( this.context);
+        dbHelper.deleteByID(Integer.parseInt(transid));
+        arrTransID.remove(position);
+        arrAmtSourceType.remove(position);
+        arrAmount.remove(position);
+        arrTransDate.remove(position);
+        arrTransType.remove(position);
+        arrCategory.remove(position);
+        arrDesc.remove(position);
+        notifyItemRemoved(position);
+        // delete Item//
+      }
 
     @Override
     public int getItemCount() {

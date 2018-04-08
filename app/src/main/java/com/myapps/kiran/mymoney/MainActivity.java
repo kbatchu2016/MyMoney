@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         adapterStype.setDropDownViewResource(android.R.layout.simple_spinner_item);
        // Apply the adapter to the spinner
         spAmtType.setAdapter(adapterStype);
-        UpdateSourceType4Db();
+        LoadSourceType4Db();
         adapterStype.notifyDataSetChanged();
 
         //////////////////       Category - Spinner           //////////////////
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         adapterCat.setDropDownViewResource(android.R.layout.simple_spinner_item);
         // Apply the adapter to the spinner
         spCategoryType.setAdapter(adapterCat);
-        UpdateCategory4Db();
+        LoadCategory4Db();
         adapterCat.notifyDataSetChanged();
         // description filed with Cap sentences
         etDesc = (EditText) findViewById(R.id.etDescription);
@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         etTransAmount = (EditText) findViewById(R.id.etTransationAmount);
         etTransAmount.setText("0.00");
 
+        // to close / hide the softkeyboard
         View view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -148,8 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
+        // to get today dat default
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String stringDate = formatter.format(new Date());
         editDate.setText(stringDate.toString());
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        // Add new transaction details
         ivIconAddTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
                 startActivity(intent);
+                Toast.makeText(context.getApplicationContext(), "Natigated to the Summary Page !", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
+                Toast.makeText(context.getApplicationContext(), "Natigated to the Settings Page !", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -213,56 +215,67 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick1DateSelect(View v) {
+        try {
+            if (v == editDate) {
 
-        if (v == editDate) {
-
-            // Get Current Date
-            final Calendar c = Calendar.getInstance();
-            mYear = c.get(Calendar.YEAR);
-             mMonth = c.get(Calendar.MONTH);
-             mDay = c.get(Calendar.DAY_OF_MONTH);
+                // Get Current Date
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                    new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                        new DatePickerDialog.OnDateSetListener() {
 
-                        @Override
-                        public void onDateSet(DatePicker view, int year,
-                                              int monthOfYear, int dayOfMonth) {
-                            editDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                           // editDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                editDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                                // editDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
 
-                        }
-                    }, mYear, mMonth, mDay);
-            datePickerDialog.show();
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
         }
+        catch (Exception e){}
 
     }
 
-
-
     // On click on the Save Transaction button
     public void OnClickivAddTransaction(View view) {
-        Context context = getApplicationContext();
-        String transactionamt = etTransAmount.getText().toString();
-        CharSequence text = "Expense Amount added RS: " + transactionamt;
-        //Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-        Log.i("MainActivity","Move to next");
+        try {
+            Context context = getApplicationContext();
+            String transactionamt = etTransAmount.getText().toString();
+            CharSequence text = "Expense Amount added RS: " + transactionamt;
+            //Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+            Log.i("MainActivity", "Move to next");
+            boolean chkExpValue = chkExpenseValue.isChecked();
+            boolean chkIncmValue = chkIncomeValue.isChecked();
+            String transType = "";
+            if (chkExpValue) {
+                transType = "expense";
+            } else if (chkIncmValue) {
+                transType = "income";
+            }
+            String transDate = editDate.getText().toString();
+            String transAmount = etTransAmount.getText().toString();
+            String amountSourceType = (String) spAmtType.getSelectedItem().toString();
+            String categoryName = spCategoryType.getSelectedItem().toString();
+            String desc = etDesc.getText().toString();
+            // check if the transaction date , amount & type are not null
+            if (!transDate.equals("") && !transAmount.equals("") && !amountSourceType.equals("") ) {
+                // insert the data in DB table
+                insertTransactionData(transType, amountSourceType, transDate, transAmount, categoryName, desc);
+                Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
+                startActivity(intent);
+                Toast.makeText(MainActivity.this, "Added the Amount "+  transAmount +" with Details !", Toast.LENGTH_LONG).show();
+            }
+            else
+            {  Toast.makeText(MainActivity.this, "Enter the SourceType ,Date,Amount Details Of the Transaction !", Toast.LENGTH_LONG).show();}
 
-        boolean chkExpValue=  chkExpenseValue.isChecked();
-        boolean chkIncmValue= chkIncomeValue.isChecked();
-        String transType=  "";
-        if(chkExpValue  ){ transType="expense"; }
-        else  if ( chkIncmValue){ transType="income";}
-        String transDate = editDate.getText().toString();
-        String transAmount =  etTransAmount.getText().toString();
-        String amountSourceType= (String) spAmtType.getSelectedItem().toString();
-        String categoryName =  spCategoryType.getSelectedItem().toString();
-        String desc =etDesc.getText().toString();
-        // insert the data in DB table
-        insertTransactionData(transType,amountSourceType,transDate,transAmount,categoryName,desc);
-        Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
-        startActivity(intent);
+        }catch(Exception e){e.printStackTrace();}
 
     }
 
@@ -276,38 +289,37 @@ public class MainActivity extends AppCompatActivity {
     private void insertTransactionData(String transType,String amountSourceType,String  transDate,String  transAmount,String categoryName,String transdesc)
     {
          Log.i("insertData", "insertData: started");
+        try {
+            DBHelper dbHelper = new DBHelper(getApplicationContext());
+            // Date dNow = new Timestamp( transDate.toString()) ;
+            String table_name = dbHelper.getTable_name();  // "accountSummary";
 
-        DBHelper dbHelper =new DBHelper(getApplicationContext());
-        // Date dNow = new Timestamp( transDate.toString()) ;
-        String table_name =  dbHelper.getTable_name();  // "accountSummary";
+            ContentValues values = new ContentValues();
 
-        ContentValues values = new ContentValues();
+            // values.put("id",1); // auto increment
+            values.put(dbHelper.getColumn_amountsourcetype(), amountSourceType);
+            values.put(dbHelper.getColumn_transType(), transType);
+            values.put(dbHelper.getColumn_date(), transDate);
+            values.put(dbHelper.getColumn_amount(), transAmount);
+            values.put(dbHelper.getColumn_transCategory(), categoryName);
+            values.put(dbHelper.getColumn_transDescription(), transdesc);
 
-        // values.put("id",1); // auto increment
-        values.put(dbHelper.getColumn_amountsourcetype(),amountSourceType);
-        values.put(dbHelper.getColumn_transType(),transType);
-        values.put(dbHelper.getColumn_date(),transDate);
-        values.put(dbHelper.getColumn_amount(),transAmount);
-        values.put(dbHelper.getColumn_transCategory(),categoryName);
-        values.put(dbHelper.getColumn_transDescription(),transdesc);
-;
-        Log.i("insertData", "insertData:values started");
-        long rowId = 0 ;
-        if(mDatabase!=null)        {
-            rowId = mDatabase.insert(table_name, null, values);
-            if (rowId != -1)            {
-                Toast.makeText(MainActivity.this, "Inserted Successfully !!!", Toast.LENGTH_SHORT).show();
-            }
-            else
+            Log.i("insertData", "insertData:values started");
+            long rowId = 0;
+            if (mDatabase != null) {
+                rowId = mDatabase.insert(table_name, null, values);
+                if (rowId != -1) {
+                    Toast.makeText(MainActivity.this, "Inserted Successfully !!!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Error inserting !!!", Toast.LENGTH_SHORT).show();
+                }
+            } else
+
             {
-                Toast.makeText(MainActivity.this, "Error inserting !!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Database is null!!!", Toast.LENGTH_SHORT).show();
             }
         }
-        else
-
-        {
-            Toast.makeText(MainActivity.this, "Database is null!!!", Toast.LENGTH_SHORT).show();
-        }
+        catch (Exception e){e.printStackTrace();}
 
 
     }
@@ -316,36 +328,38 @@ public class MainActivity extends AppCompatActivity {
     {
         int totBalance=0,totExp=0,totInc=0;
         Log.i("insertData", "insertData: started");
-
-        DBHelper dbHelper =new DBHelper(getApplicationContext());
-        // Date dNow = new Timestamp( transDate.toString()) ;
-        String table_name =  dbHelper.getTable_name();  // "accountSummary";
-        Cursor cursor = mDatabase.rawQuery("select SUM(amount) as 'totExp' from "+ dbHelper.getTable_name() +"  Where transactiontype ='expense'  ;", null);
-        System.out.println("GetTotalBalance - Totatl Expense:"+ cursor.getCount());
-        if (cursor != null) {
-            // move cursor to first row
-            if (cursor.moveToFirst()) {
-                do {
-                    // Get version from Cursor
-                    totExp = cursor.getInt(cursor.getColumnIndex("totExp"));
-                } while (cursor.moveToNext());
+            try {
+                DBHelper dbHelper = new DBHelper(getApplicationContext());
+                // Date dNow = new Timestamp( transDate.toString()) ;
+                String table_name = dbHelper.getTable_name();  // "accountSummary";
+                Cursor cursor = mDatabase.rawQuery("select SUM(amount) as 'totExp' from " + dbHelper.getTable_name() + "  Where transactiontype ='expense'  ;", null);
+                System.out.println("GetTotalBalance - Totatl Expense:" + cursor.getCount());
+                if (cursor != null) {
+                    // move cursor to first row
+                    if (cursor.moveToFirst()) {
+                        do {
+                            // Get version from Cursor
+                            totExp = cursor.getInt(cursor.getColumnIndex("totExp"));
+                        } while (cursor.moveToNext());
+                    }
+                    cursor.close();
+                }
+                // get the totoal income balance
+                Cursor cursor2 = mDatabase.rawQuery("select SUM(amount) as 'totInc' from " + dbHelper.getTable_name() + "  Where transactiontype ='income'  ;", null);
+                System.out.println("GetTotalBalance - Totatl Income" + cursor2.getCount());
+                if (cursor2 != null) {
+                    // move cursor to first row
+                    if (cursor2.moveToFirst()) {
+                        do {
+                            // Get version from Cursor
+                            totInc = cursor2.getInt(cursor2.getColumnIndex("totInc"));
+                        } while (cursor2.moveToNext());
+                    }
+                    cursor2.close();
+                }
+                totBalance = totInc - totExp;
             }
-            cursor.close();
-        }
-
-        Cursor cursor2 = mDatabase.rawQuery("select SUM(amount) as 'totInc' from "+ dbHelper.getTable_name() +"  Where transactiontype ='income'  ;", null);
-        System.out.println("GetTotalBalance - Totatl Income"+ cursor2.getCount());
-        if (cursor2 != null) {
-            // move cursor to first row
-            if (cursor2.moveToFirst()) {
-                do {
-                    // Get version from Cursor
-                    totInc = cursor2.getInt(cursor2.getColumnIndex("totInc"));
-                } while (cursor2.moveToNext());
-            }
-            cursor2.close();
-        }
-        totBalance= totInc-totExp;
+            catch (Exception e){e.printStackTrace();}
         return totBalance;
     }
 
@@ -353,7 +367,7 @@ public class MainActivity extends AppCompatActivity {
         editDate.setText(sdf.format(myCalendar.getTime()));
     }
 
-    private void UpdateSourceType4Db()
+    private void LoadSourceType4Db()
     {
         String _amountsourcetype;
         try {
@@ -378,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void UpdateCategory4Db()
+    private void LoadCategory4Db()
     {
         String _categoryName;
         try {

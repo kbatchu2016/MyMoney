@@ -56,10 +56,12 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick (View v) {
                 String amountSourceType = etSourceType.getText().toString();
-                if (amountSourceType != ""){
+                if (!amountSourceType.equals("")){
                     addSourceType(amountSourceType);
-
+                }else {
+                   // Toast.makeText( context.getApplicationContext(), " Enter SourceType to Add !!", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 
@@ -67,20 +69,19 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick (View v){
                 String categoryName = etCategory.getText().toString();
-                if(categoryName!="") {
+                if(!categoryName.equals("")) {
                     addCategory(categoryName);
                    // MainActivity ma = new MainActivity();
                    // ma.mCategorysList.add(categoryName.toString());
+                }
+                else {
+                 //   Toast.makeText(context.getApplicationContext(), " Enter Category to Add!!", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
 
     }///
-
-
-
-
 
     public void addSourceType(String amountSourceType)
     {
@@ -102,20 +103,19 @@ public class SettingsActivity extends AppCompatActivity {
             if (mDatabase != null) {
                 rowId = mDatabase.insert(table_name, null, values);
                 if (rowId != -1) {
-                    Toast.makeText(this.context, "Inserted Successfully !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.context, " SourceType Added Successfully !!!", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(this.context, "Error inserting !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.context, "Error inserting !!!", Toast.LENGTH_LONG).show();
                 }
             } else
 
             {
-                Toast.makeText(this.context, "Database is null!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.context, "Database is null!!!", Toast.LENGTH_LONG).show();
             }
         }
         catch (Exception e){}
 
     }
-
 
     public void addCategory(String categoryName)
     {
@@ -137,17 +137,17 @@ public class SettingsActivity extends AppCompatActivity {
             if(mDatabase!=null)        {
                 rowId = mDatabase.insert(table_name, null, values);
                 if (rowId != -1)            {
-                    Toast.makeText(this.context, "Inserted Successfully !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.context, "Category Inserted Successfully !!!", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    Toast.makeText(this.context, "Error inserting !!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.context, "Error inserting !!!", Toast.LENGTH_LONG).show();
                 }
             }
             else
 
             {
-                Toast.makeText(this.context, "Database is null!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.context, "Database is null!!!", Toast.LENGTH_LONG).show();
             }
         }
         catch (Exception e){}
