@@ -38,8 +38,8 @@ public class SettingsActivity extends AppCompatActivity {
         etSourceType = (EditText) findViewById(R.id.etAddSourceType);
         etCategory = (EditText) findViewById(R.id.etAddCategory);
 
-        etSourceType.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
-        etCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        etSourceType.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+        etCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
         ibAmtSourceType = (ImageButton) findViewById(R.id.ibAddSourceType);
         ibCategory = (ImageButton) findViewById(R.id.ibCategory);

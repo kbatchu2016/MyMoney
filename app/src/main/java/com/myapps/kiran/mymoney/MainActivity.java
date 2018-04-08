@@ -51,13 +51,12 @@ public class MainActivity extends AppCompatActivity {
 
     Context context = this;
     Calendar myCalendar = Calendar.getInstance();
-    String dateFormat = "yyyy-mm-dd";
+    String dateFormat = "yyyy-MM-dd";
     DatePickerDialog.OnDateSetListener date;
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.GERMAN);
     private int mYear, mMonth, mDay, mHour, mMinute;
 
-
-
+    // spinner variables
     List<String> mSourceTypesList,mCategorysList;
     ArrayAdapter<String> adapterStype,adapterCat;
     // db related
@@ -67,13 +66,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         /// Create table in Database ///
         dbHelper = new DBHelper(getApplicationContext());
         mDatabase = dbHelper.getReadableDatabase();
-
+        // initialize the  fields
         tVTotBalnce = (TextView) findViewById(R.id.tvTotalBalance);
         etTotBalance = (TextView) findViewById(R.id.etTotalBalance);
         chkIncomeValue = (CheckBox) findViewById(R.id.chkIncome);
@@ -98,9 +96,6 @@ public class MainActivity extends AppCompatActivity {
         UpdateSourceType4Db();
         adapterStype.notifyDataSetChanged();
 
-
-
-
         //////////////////       Category - Spinner           //////////////////
         spCategoryType = (Spinner) findViewById(R.id.spCategory);
         String[] mCatArray  = (String[]) getResources().getStringArray(R.array.categorytType_array);
@@ -116,9 +111,9 @@ public class MainActivity extends AppCompatActivity {
         spCategoryType.setAdapter(adapterCat);
         UpdateCategory4Db();
         adapterCat.notifyDataSetChanged();
-
+        // description filed with Cap sentences
         etDesc = (EditText) findViewById(R.id.etDescription);
-        etDesc.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        etDesc.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
         etTransAmount = (EditText) findViewById(R.id.etTransationAmount);
         etTransAmount.setText("0.00");
@@ -155,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String stringDate = formatter.format(new Date());
         editDate.setText(stringDate.toString());
         editDate.setOnClickListener(new View.OnClickListener() {
@@ -211,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
         etTotBalance.setText("RS: "+Integer.toString(GetTotalBalance()));
         etTransAmount.setText("");
-        DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String stringDate = formatter.format(new Date());
         editDate.setText(stringDate.toString());
         etDesc.setText("");
@@ -273,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-mm-dd", Locale.getDefault());
+                "yyyy-MM-dd", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
     }
