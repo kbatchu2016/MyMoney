@@ -5,8 +5,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.xml.datatype.Duration;
+
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -165,6 +177,8 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL(tblst_create_statement);
             db.execSQL(tblCat_create_statement);
             Log.i("DBHELPER", "all data base tables are created");
+
+
         }
         catch (Exception e){
             e.printStackTrace();;
@@ -172,7 +186,56 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {}
 
+    public boolean exportDB2CSVFile() {
+        boolean exportFileStaus =false;
+        boolean mExternalStorageAvailable=false,mExternalStorageWriteable=false;
+        // to check the storage space is avaiable or not
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            //External storage available
+            mExternalStorageAvailable = mExternalStorageWriteable = true;
+        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            mExternalStorageAvailable = true;
+            mExternalStorageWriteable = false;
+            //only internal available
+        } else {
+            mExternalStorageAvailable = mExternalStorageWriteable = false;
+            // no one is available
+        }
+
+        String baseDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() ;// + "/sdcard/Download";
+        String fileName = "MyMoney.csv";
+
+        File file = new File(baseDir, fileName);
+        try
+        {
+            file.createNewFile();
+            CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
+            SQLiteDatabase db = this.getReadableDatabase();
+            //Cursor curCSV = db.rawQuery("SELECT * FROM " + table_name ,null);
+            Cursor curCSV = db.rawQuery("select * from "+ table_name +"  Order by  dateoftrans ;", null);
+            System.out.println("From MainActivity.onClick:"+ curCSV.getCount());
+            if (curCSV != null) {
+                csvWrite.writeNext(curCSV.getColumnNames());
+                while (curCSV.moveToNext()) {
+                    //Which column you want to exprort
+                    String arrStr[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2)};
+                    csvWrite.writeNext(arrStr);
+                }
+                csvWrite.close();
+                curCSV.close();
+                exportFileStaus=true;
+
+            }
+            else
+            {exportFileStaus=false;}
+        }
+        catch(Exception sqlEx)
+        {
+            Log.e("Export", sqlEx.getMessage(), sqlEx);
+        }
+        return exportFileStaus;
+    }
 
 
-    
-}
+}///

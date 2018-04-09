@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     Spinner spCategoryType;
     EditText etDesc;
     ImageButton ibSummaryPage;
-    ImageButton ibSettingsPage;
+    ImageButton ibSettingsPage ,ibExportCSV;
 
     Context context = this;
     Calendar myCalendar = Calendar.getInstance();
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
                 startActivity(intent);
-                Toast.makeText(context.getApplicationContext(), "Natigated to the Summary Page !", Toast.LENGTH_LONG).show();
+                Toast.makeText(context.getApplicationContext(), "Natigated to the Summary Page !", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -184,7 +184,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
-                Toast.makeText(context.getApplicationContext(), "Natigated to the Settings Page !", Toast.LENGTH_LONG).show();
+                Toast.makeText(context.getApplicationContext(), "Natigated to the Settings Page !", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // export the data to aCSV file from DB SQLite
+        ibExportCSV = (ImageButton) findViewById(R.id.ibexport);
+        ibExportCSV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean exportFileStaus = dbHelper.exportDB2CSVFile();
+                if (exportFileStaus) {
+                    Toast.makeText(context.getApplicationContext(), "Exported To  Download Folder , FileName : ' MyMoney.csv ' !!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -212,7 +224,8 @@ public class MainActivity extends AppCompatActivity {
         String stringDate = formatter.format(new Date());
         editDate.setText(stringDate.toString());
         etDesc.setText("");
-    }
+
+           }
 
     public void onClick1DateSelect(View v) {
         try {

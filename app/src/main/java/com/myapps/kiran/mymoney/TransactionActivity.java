@@ -51,7 +51,7 @@ public class TransactionActivity extends AppCompatActivity {
             dbHelper = new DBHelper(getApplicationContext());
             mDatabase = dbHelper.getReadableDatabase();
 
-            Cursor cursor = mDatabase.rawQuery("select * from "+ dbHelper.getTable_name() +"   ;", null);
+            Cursor cursor = mDatabase.rawQuery("select * from "+ dbHelper.getTable_name() +"  Order by  dateoftrans ;", null);
             System.out.println("MainActivity.onClick:"+ cursor.getCount());
             if (cursor != null) {
                 // move cursor to first row
