@@ -224,7 +224,8 @@ public class MainActivity extends AppCompatActivity {
         String stringDate = formatter.format(new Date());
         editDate.setText(stringDate.toString());
         etDesc.setText("");
-
+        //chkExpenseValue.setFocusable(true);
+        //etTransAmount.setFocusable(true);
            }
 
     public void onClick1DateSelect(View v) {
