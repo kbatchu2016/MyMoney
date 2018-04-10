@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -247,7 +248,6 @@ public class MainActivity extends AppCompatActivity {
                                                   int monthOfYear, int dayOfMonth) {
                                 editDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                                 // editDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -308,6 +308,8 @@ public class MainActivity extends AppCompatActivity {
             // Date dNow = new Timestamp( transDate.toString()) ;
             String table_name = dbHelper.getTable_name();  // "accountSummary";
 
+           String selectedMonthYear=  getMonthofDate(transDate.toString());
+
             ContentValues values = new ContentValues();
 
             // values.put("id",1); // auto increment
@@ -317,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
             values.put(dbHelper.getColumn_amount(), transAmount);
             values.put(dbHelper.getColumn_transCategory(), categoryName);
             values.put(dbHelper.getColumn_transDescription(), transdesc);
+            values.put(dbHelper.getColumn_monthYear(),selectedMonthYear);
 
             Log.i("insertData", "insertData:values started");
             long rowId = 0;
@@ -379,6 +382,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateDate() {
         editDate.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    private String getMonthofDate(String actualDate){
+
+        SimpleDateFormat month_date = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //String actualDate = "2016-03-20";
+
+        Date date = null;
+        try {
+            date = sdf.parse(actualDate.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+       String month_name = month_date.format(date);
+        return (month_name);
+
     }
 
     private void LoadSourceType4Db()

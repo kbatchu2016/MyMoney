@@ -34,7 +34,13 @@ public class DBHelper extends SQLiteOpenHelper {
     private String column_date="dateoftrans";
     private String column_transType="transactiontype";
     private String column_transCategory="transCategory";
-    String  column_transDescription ="transdescription";
+    private String  column_transDescription ="transdescription";
+
+    public String getColumn_monthYear() {
+        return column_monthYear;
+    }
+
+    private String column_monthYear = "transmonthYear";
 
     public String getColumn_transCategory() {
         return column_transCategory;
@@ -52,7 +58,8 @@ public class DBHelper extends SQLiteOpenHelper {
                     + column_date + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
                     + column_amount + " INTEGER,"
                     + column_transCategory + " TEXT,"
-                    + column_transDescription + " TEXT"
+                    + column_transDescription + " TEXT ,"
+                    + column_monthYear + " TEXT"
                     + ")";
 
 
@@ -220,7 +227,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 while (curCSV.moveToNext()) {
                     //Which column you want to exprort
                     String arrStr[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2),
-                            curCSV.getString(3), curCSV.getString(4), curCSV.getString(5), curCSV.getString(6)};
+                            curCSV.getString(3), curCSV.getString(4), curCSV.getString(5), curCSV.getString(6),curCSV.getString(7)};
                     csvWrite.writeNext(arrStr);
                 }
                 csvWrite.close();
