@@ -35,12 +35,13 @@ public class DBHelper extends SQLiteOpenHelper {
     private String column_transType="transactiontype";
     private String column_transCategory="transCategory";
     private String  column_transDescription ="transdescription";
+    private String column_monthYear = "transmonthYear";
 
     public String getColumn_monthYear() {
         return column_monthYear;
     }
 
-    private String column_monthYear = "transmonthYear";
+
 
     public String getColumn_transCategory() {
         return column_transCategory;
