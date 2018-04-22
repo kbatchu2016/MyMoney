@@ -8,9 +8,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/mymoney"
+        android:icon="@drawable/myicon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/mymoney"
+
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">

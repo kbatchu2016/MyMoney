@@ -8,7 +8,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
-    android:fillViewport="false">
+    android:fillViewport="false"
+    android:background="@drawable/relative_layout_background">
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,9 +31,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="2dp"
         android:paddingLeft="15dp"
-        android:background="@drawable/ic_tableback3"
 
-        >
+       >
+       <!-- android:background="@drawable/ic_tableback3" -->
 
         <TableRow
             android:layout_width="fill_parent"
@@ -46,9 +47,10 @@
                 android:clickable="true"
                 android:text="Add Transaction Details"
                 android:textAllCaps="false"
-                android:textColor="@android:color/holo_blue_dark"
+
                 android:textSize="17sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
 
         </TableRow>
@@ -70,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="2"
                 android:layout_toRightOf="@id/chkIncome"
+
                 android:checked="true"
                 android:text="Expense" />
 
@@ -85,6 +88,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="45dp"
                 android:contentDescription="AddDate"
+
                 app:srcCompat="@drawable/ic_date1" />
 
             <EditText
@@ -113,7 +117,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
-                android:text="Select SourceType" />
+                android:text="Select SourceType"
+                />
         </TableRow>
 
         <TableRow android:layout_marginTop="10dp">
@@ -125,7 +130,7 @@
                 android:layout_column="1"
                 android:layout_marginLeft="45dp"
                 android:text="Category"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <Spinner
                 android:id="@+id/spCategory"
@@ -146,7 +151,7 @@
                 android:layout_marginLeft="45dp"
                 android:text="Description"
                 android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/etDescription"
@@ -154,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="2"
                 android:ems="10"
-                android:inputType="text" />
+                android:inputType="text"/>
         </TableRow>
 
         <TableRow>
@@ -169,7 +174,8 @@
                 android:layout_marginLeft="45dp"
                 android:layout_marginTop="5dp"
                 android:contentDescription="AddTransaction"
-                android:src="@drawable/ic_currency2" />
+                android:src="@drawable/ic_currency2"
+                />
 
             <EditText
                 android:id="@+id/etTransationAmount"
@@ -201,7 +207,7 @@
                 android:layout_height="67dp"
                 android:layout_column="1"
                 android:contentDescription="AddTransaction"
-                app:srcCompat="@drawable/ic_add" />
+                app:srcCompat="@drawable/ic_addtrans" />
 
         </TableRow>
 

@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
+    tools:context=".SettingsActivity"
+    android:background="@drawable/relative_settings">
+
 
     <TextView
         android:id="@+id/tvSettings"
@@ -14,10 +16,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
-
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="20sp"
         android:text="Settings"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/primaryTextColor"/>
 
     <TextView
         android:id="@+id/tvAddSourceType"
@@ -28,7 +30,8 @@
         android:layout_marginStart="41dp"
         android:layout_marginTop="40dp"
         android:text="Add SourceType"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/primaryTextColor"/>
 
     <EditText
         android:id="@+id/etAddSourceType"
@@ -38,7 +41,8 @@
         android:layout_alignStart="@+id/tvAddSourceType"
         android:layout_marginTop="67dp"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="text"
+        android:background="@color/primaryTextColor"/>
 
     <ImageButton
         android:id="@+id/ibAddSourceType"
@@ -57,7 +61,9 @@
         android:layout_alignStart="@+id/tvAddSourceType"
         android:layout_marginTop="169dp"
         android:text="Add Category"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+
+        android:textColor="@color/primaryTextColor"/>/>
 
     <EditText
         android:id="@+id/etAddCategory"
@@ -67,7 +73,9 @@
         android:layout_alignStart="@+id/tvAddSourceType"
         android:layout_marginTop="200dp"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="text"
+        android:background="@color/primaryTextColor"/>
+    <!-- style="@style/BlueText" -->
 
     <ImageButton
         android:id="@+id/ibCategory"

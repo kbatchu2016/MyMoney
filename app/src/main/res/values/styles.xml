@@ -6,7 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+          </style>
 
+    <style name="BlueText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#0c1848</item>
     </style>
+
+
 
 </resources>
