@@ -1,6 +1,7 @@
 package com.myapps.kiran.mymoney;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -45,15 +46,25 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        // set the data in items
-        holder.mtransId.setText(arrTransID.get(position));
-        holder.mAmtSourceType.setText(arrAmtSourceType.get(position));
-        holder.mTransType.setText(arrTransType.get(position));
-        holder.mAmount.setText(arrAmount.get(position));
-        holder.mTransDate.setText(arrTransDate.get(position));
-        holder.mCategory.setText(arrCategory.get(position));
-        holder.mDesc.setText(arrDesc.get(position));
 
+        try {
+            // set the data in items
+            holder.mtransId.setText(arrTransID.get(position));
+            holder.mAmtSourceType.setText(arrAmtSourceType.get(position));
+            holder.mTransType.setText(arrTransType.get(position));
+            holder.mAmount.setText(arrAmount.get(position));
+            holder.mTransDate.setText(arrTransDate.get(position));
+            holder.mCategory.setText(arrCategory.get(position));
+            holder.mDesc.setText(arrDesc.get(position));
+            if (arrTransType.get(position).toString().toLowerCase().equals("income")) {
+              //  holder.mTransType.setTextColor(Color.GREEN);
+            //    holder.mAmount.setTextColor(Color.GREEN);
+            } else {
+               // holder.mTransType.setTextColor(Color.RED);
+                holder.mAmount.setTextColor(Color.RED);
+            }
+        }
+        catch (Exception e){}
         // implement setOnClickListener event on item view.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
