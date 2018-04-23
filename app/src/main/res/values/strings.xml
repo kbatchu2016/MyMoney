@@ -11,12 +11,13 @@
         <item>ICICI Creadit Card</item>
         <item>CITI Credit Card</item>
         <item>Savings</item>
+        <item>Post Office</item>
     </string-array>
 
     <string-array name="categorytType_array">
         <item>Home</item>
         <item>Home Rent</item>
-        <item>BillPayments</item>
+        <item>Bill Payments</item>
         <item>CarLoan</item>
         <item>Food</item>
         <item>Hyd Power Bill</item>
@@ -26,6 +27,4 @@
         <item>Petrol</item>
         <item>Others</item>
     </string-array>
-
-
 </resources>
