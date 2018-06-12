@@ -1,13 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".TransactionActivity"
-  >
 
-<android.support.v7.widget.RecyclerView
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TransactionActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:id="@+id/lSearch">
+
+        <EditText
+            android:id="@+id/mSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter search term"
+            tools:layout_constraintTop_creator="1"
+            tools:layout_constraintRight_creator="1"
+            />
+        <Spinner
+            android:id="@+id/spmonthyear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Search Month"
+            android:layout_alignEnd="@+id/mSearch"
+
+            />
+
+
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:id="@+id/lrlist"
+        android:layout_below="@+id/lSearch"
+        >
+
+    <android.support.v7.widget.RecyclerView
     android:id="@+id/recyclerView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+        android:layout_below="@+id/lSearch"
+        />
+    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/tbacktoHomePage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        app:srcCompat="@android:drawable/ic_menu_directions"
+       />
+
 </RelativeLayout>
+
+
+
+
+

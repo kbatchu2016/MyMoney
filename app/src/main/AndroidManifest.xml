@@ -5,22 +5,38 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/myicon"
         android:label="@string/app_name"
-
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:label="AddMoney">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".TransactionActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".TransactionActivity"
+            android:label="Statement"
+            android:windowSoftInputMode="stateHidden"
+            />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings" />
+        <activity
+            android:name=".SummaryActivity"
+            android:label="@string/title_activity_summary"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BalanceViewActivity"
+            android:label="BalanceView"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

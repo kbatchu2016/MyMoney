@@ -7,19 +7,25 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.util.Calendar;
-import android.icu.util.TimeZone;
+
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
+
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,7 +34,7 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -48,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
     Spinner spAmtType;
     Spinner spCategoryType;
     EditText etDesc;
-    ImageButton ibSummaryPage;
-    ImageButton ibSettingsPage ,ibExportCSV;
+    FloatingActionButton ibSummaryPage;
+    FloatingActionButton ibSettingsPage ,ibExportCSV;
     TextView tvCurrentMonthExpense;
     TextView tvCurrentMOnthIncome;
 
@@ -67,11 +73,69 @@ public class MainActivity extends AppCompatActivity {
     // db related
     private DBHelper dbHelper;
     private SQLiteDatabase mDatabase ;
+    private TextView mTextMessage;
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Intent intent;
+            switch (item.getItemId()) {
+                /*case R.id.navigation_home:
+                   // mTextMessage.setText(R.string.title_home);
+                     intent = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    return true; */
+                case R.id.navigation_export:
+                    //mTextMessage.setText(R.string.title_export);
+                {
+                    boolean exportFileStaus = dbHelper.exportDB2CSVFile();
+                    if (exportFileStaus) {
+                        Toast.makeText(context.getApplicationContext(), "Exported To  Download Folder , FileName : ' MyMoney.csv ' !!", Toast.LENGTH_LONG).show();
+                        // Snackbar.make( v,"Exported To 'Downloads -> 'MyMoney.csv' ", Snackbar.LENGTH_LONG)
+                        // .setAction("Export", null).show();
+                    }
+                }
+                return true;
+                case R.id.navigation_SummaryList:
+                    //mTextMessage.setText(R.string.title_activity_summary);
+                    intent = new Intent(MainActivity.this, TransactionActivity.class);
+                    startActivity(intent);
+
+                    return true;
+                case R.id.navigation_setting:
+                     mTextMessage.setText(R.string.title_setting);
+                     intent = new Intent(MainActivity.this, SettingsActivity.class);
+                     startActivity(intent);
+                     return true;
+                case R.id.navigation_balancechart:
+                    mTextMessage.setText(R.string.title_balancechart);
+                    intent = new Intent(MainActivity.this, BalanceViewActivity.class);
+                    startActivity(intent);
+                    return true;
+
+                case R.id.navigation_expenseChart:
+                    mTextMessage.setText(R.string.title_expenseChart);
+                    intent = new Intent(MainActivity.this, SummaryActivity.class);
+                    startActivity(intent);
+                    return true;
+
+            }
+            return false;
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        mTextMessage = (TextView) findViewById(R.id.message);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        // disableShiftMode(navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
 
         /// Create table in Database ///
         dbHelper = new DBHelper(getApplicationContext());
@@ -173,43 +237,52 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ibSummaryPage = (ImageButton) findViewById(R.id.ibsummary);
+      /*  ibSummaryPage = (FloatingActionButton) findViewById(R.id.navigation_SummaryList);
         ibSummaryPage.setOnClickListener  (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
                 startActivity(intent);
-                Toast toast=Toast.makeText(context.getApplicationContext(), "Natigated to the Summary Page !", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
-                toast.show();
-
+               // Toast toast=Toast.makeText(context.getApplicationContext(), "Natigated to the Summary Page !", Toast.LENGTH_SHORT);
+                //toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
+                //toast.show();
             }
         });
 
-        ibSettingsPage = (ImageButton) findViewById(R.id.ibsettings);
+        ibSettingsPage = (FloatingActionButton) findViewById(R.id.navigation_setting);
         ibSettingsPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
-                Toast toast=Toast.makeText(context.getApplicationContext(), "Natigated to the Settings Page !", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
-                toast.show();
+            }
+        });
+        //to navigate to Charts page
+        ibSettingsPage = (FloatingActionButton) findViewById(R.id.navigation_expenseChart);
+        ibSettingsPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SummaryActivity.class);
+                startActivity(intent);
             }
         });
 
+
         // export the data to aCSV file from DB SQLite
-        ibExportCSV = (ImageButton) findViewById(R.id.ibexport);
+        ibExportCSV = (FloatingActionButton) findViewById(R.id.navigation_export);
         ibExportCSV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean exportFileStaus = dbHelper.exportDB2CSVFile();
                 if (exportFileStaus) {
-                    Toast.makeText(context.getApplicationContext(), "Exported To  Download Folder , FileName : ' MyMoney.csv ' !!", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(context.getApplicationContext(), "Exported To  Download Folder , FileName : ' MyMoney.csv ' !!", Toast.LENGTH_LONG).show();
+                    Snackbar.make(v, "Exported To 'Downloads -> 'MyMoney.csv' ", Snackbar.LENGTH_LONG)
+                            .setAction("Export", null).show();
+
                 }
             }
         });
-
+*/
 
 
         tvCurrentMonthExpense =(TextView) findViewById(R.id.etcurrentMonthExpense);
@@ -217,6 +290,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+        //to navigate to Charts page
+       /* etTotBalance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, BalanceViewActivity.class);
+                startActivity(intent);
+            }
+        }); */
         //TODO Category like movie, others, home  &    //TODO description of the trassaction
         //https://android--code.blogspot.in/2015/08/android-spinner-add-item-dynamically.html
 
@@ -234,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
                 adapterStype.notifyDataSetChanged();
                 adapterCat.notifyDataSetChanged();
 
-                etTotBalance.setText("RS: "+Integer.toString(GetTotalBalance()));
+                etTotBalance.setText("₹ "+Integer.toString(GetTotalBalance()));
                 etTransAmount.setText("");
                 DateFormat formatter = new SimpleDateFormat(dateFormat);
                 String stringDate = formatter.format(new Date());
@@ -244,8 +326,8 @@ public class MainActivity extends AppCompatActivity {
                 String pattern = dateFormat;
                 String dateInString =new SimpleDateFormat(pattern).format(new Date());
                 String selectedMonthYear=  getMonthofDate(dateInString).toString() ;
-                tvCurrentMonthExpense.setText( selectedMonthYear + " Expense: \n "+Integer.toString( GetCurrentMothExpenseIncome("expense")));
-                tvCurrentMOnthIncome.setText( selectedMonthYear + " Income:\n "+Integer.toString( GetCurrentMothExpenseIncome("income")));
+                tvCurrentMonthExpense.setText( selectedMonthYear + " Expense:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("expense")));
+                tvCurrentMOnthIncome.setText( selectedMonthYear + " Income:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("income")));
     }
 
     public void onClick1DateSelect(View v) {
@@ -311,11 +393,13 @@ public class MainActivity extends AppCompatActivity {
             if (isThisDateValid(transDate,dateFormat) && !transAmount.equals("") && !amountSourceType.equals("") ) {
                 // insert the data in DB table
                 insertTransactionData(transType, amountSourceType, transDate, transAmount, categoryName, desc);
-                Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
-                startActivity(intent);
-                Toast toast = Toast.makeText(MainActivity.this, "Added the Amount "+  transAmount +" with Details !", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.TOP|Gravity.CENTER,0,0);
+               // Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
+              //  startActivity(intent);
+                Toast toast = Toast.makeText(MainActivity.this, "Added the Amount "+  transAmount +" with Details !", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.AXIS_PULL_BEFORE|Gravity.CENTER,0,0);
                 toast.show();
+               //notifyDataSetChanged();
+                onStart();
 
             }
             else
@@ -358,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
                 if (mDatabase != null) {
                     rowId = mDatabase.insert(table_name, null, values);
                     if (rowId != -1) {
-                        Toast.makeText(MainActivity.this, "Inserted Successfully !!!", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(MainActivity.this, "Inserted Successfully !!!", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(MainActivity.this, "Error inserting !!!", Toast.LENGTH_SHORT).show();
                     }
@@ -411,11 +495,7 @@ public class MainActivity extends AppCompatActivity {
         return totBalance;
     }
 
-
-
-
-    //// get the current month details
-
+    // get the current month details
     private int GetCurrentMothExpenseIncome(String _transactiontype)
     {
         int totBalance=0,totExp=0,totInc=0;
@@ -468,7 +548,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String getMonthofDate(String actualDate){
 
-        SimpleDateFormat month_date = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
+        SimpleDateFormat month_date = new SimpleDateFormat("MMM yy", Locale.ENGLISH);
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         //String actualDate = "2016-03-20";
 
@@ -508,7 +588,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private void LoadCategory4Db()
     {
         String _categoryName;
@@ -533,7 +612,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public boolean isThisDateValid(String dateToValidate, String dateFromat){
 
         if(dateToValidate == null || dateToValidate ==""){
@@ -556,6 +634,35 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbHelper=null;
+        mDatabase=null;
     }
 
 }/////////////

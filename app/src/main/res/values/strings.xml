@@ -25,6 +25,20 @@
         <item>Net Bill</item>
         <item>Movie</item>
         <item>Petrol</item>
+        <item>ATM Withdrawal</item>
+        <item>Online Transfer</item>
         <item>Others</item>
     </string-array>
+
+    <string-array name="MonthYear_array">
+        <item>All</item>
+    </string-array>
+    <string name="title_activity_summary">SummaryActivity</string>
+    <string name="title_activity_main_bottom">mainBottomActivity</string>
+
+    <string name="title_export">Export</string>
+    <string name="title_summaryList">Summary</string>
+    <string name="title_setting">Settings</string>
+    <string name="title_balancechart">BalanceChart</string>
+    <string name="title_expenseChart">ExpenseChart</string>
 </resources>

@@ -1,15 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/title_summaryList"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation"
+        app:itemTextColor="@color/micro_text_light"
+        />
+
+<ScrollView
+
+
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
     android:fillViewport="false"
     android:background="@drawable/relative_layout_background">
+
+
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -19,8 +54,9 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".MainActivity">
+    android:shape="rectangle"
 
+   >
 
     <TableLayout
 
@@ -31,31 +67,15 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="2dp"
         android:paddingLeft="15dp"
-
-       >
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"
+      >
        <!-- android:background="@drawable/ic_tableback3" -->
 
-        <TableRow
+        <TableRow android:layout_marginTop="15dp"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <TextView
-                android:id="@+id/tvAddAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:clickable="true"
-                android:text="Add Transaction Details"
-                android:textAllCaps="false"
-
-                android:textSize="17sp"
-                android:textStyle="bold"
-                />
-
-
-        </TableRow>
-
-        <TableRow android:layout_marginTop="15dp">
+            android:layout_height="fill_parent"
+            android:layout_centerHorizontal="true">
 
             <CheckBox
                 android:id="@+id/chkIncome"
@@ -63,7 +83,6 @@
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:focusable="true"
-
                 android:text="Income" />
 
             <CheckBox
@@ -71,14 +90,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
+                android:layout_marginLeft="30dp"
                 android:layout_toRightOf="@id/chkIncome"
-
                 android:checked="true"
                 android:text="Expense" />
 
         </TableRow>
 
-        <TableRow android:layout_marginTop="10dp">
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
             <ImageView
                 android:id="@+id/ivDatePopup"
@@ -86,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="45dp"
+                android:layout_marginLeft="1dp"
                 android:contentDescription="AddDate"
 
                 app:srcCompat="@drawable/ic_date1" />
@@ -96,11 +117,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
+                android:layout_marginLeft="20dp"
                 android:inputType="date"
                 android:text="Select Date" />
         </TableRow>
 
-        <TableRow android:layout_marginTop="10dp">
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
             <TextView
                 android:id="@+id/idSourceType"
@@ -108,7 +132,7 @@
                 android:layout_height="wrap_content"
 
                 android:layout_column="1"
-                android:layout_marginLeft="45dp"
+                android:layout_marginLeft="1dp"
                 android:text="SourceType"
                 android:textStyle="bold" />
 
@@ -116,19 +140,23 @@
                 android:id="@+id/spAmtSourceType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_column="2"
                 android:text="Select SourceType"
+
                 />
         </TableRow>
 
-        <TableRow android:layout_marginTop="10dp">
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
             <TextView
                 android:id="@+id/tvCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_marginLeft="45dp"
+                android:layout_marginLeft="1dp"
                 android:text="Category"
                 android:textStyle="bold"/>
 
@@ -137,18 +165,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
+                android:layout_marginLeft="20dp"
                 android:text="Select Category" />
 
         </TableRow>
 
-        <TableRow>
+        <TableRow android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
             <TextView
                 android:id="@+id/tvDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_marginLeft="45dp"
+                android:layout_marginLeft="1dp"
                 android:text="Description"
                 android:textSize="13sp"
                 android:textStyle="bold"/>
@@ -158,11 +188,13 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
+                android:layout_marginLeft="20dp"
                 android:ems="10"
                 android:inputType="text"/>
         </TableRow>
 
-        <TableRow>
+        <TableRow android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
             <ImageView
                 android:id="@+id/ivCurrencyIcon"
@@ -171,7 +203,7 @@
                 android:layout_alignStart="@id/chkIncome"
                 android:layout_below="@id/tvDescription"
                 android:layout_column="1"
-                android:layout_marginLeft="45dp"
+                android:layout_marginLeft="1dp"
                 android:layout_marginTop="5dp"
                 android:contentDescription="AddTransaction"
                 android:src="@drawable/ic_currency2"
@@ -183,6 +215,7 @@
                 android:layout_height="wrap_content"
 
                 android:layout_column="2"
+                android:layout_marginLeft="20dp"
                 android:ems="10"
                 android:inputType="numberDecimal"
                 android:selectAllOnFocus="true"
@@ -207,34 +240,43 @@
                 android:layout_height="67dp"
                 android:layout_column="1"
                 android:contentDescription="AddTransaction"
-                app:srcCompat="@drawable/ic_addtrans" />
+                app:srcCompat="@drawable/ic_addtrans"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="50dp"/>
 
         </TableRow>
 
     </TableLayout>
+
     <TextView
         android:id="@+id/etcurrentMonthExpense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tblMaintrans"
-        android:layout_alignParentStart="true"
+
         android:inputType="textPersonName"
         android:text="00.00"
         android:textColor="@android:color/holo_red_light"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
         />
     <TextView
         android:id="@+id/etcurrentMonthIncome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tblMaintrans"
-        android:layout_alignParentEnd="true"
+
+        android:layout_below="@id/etcurrentMonthExpense"
         android:inputType="textPersonName"
         android:text="00.00"
         android:textColor="@android:color/holo_green_dark"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold"
+
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
      />
 
     <TextView
@@ -242,7 +284,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="false"
-        android:layout_below="@id/etcurrentMonthExpense"
+        android:layout_below="@id/etcurrentMonthIncome"
         android:layout_centerHorizontal="true"
         android:clickable="false"
         android:text="Total Balance"
@@ -262,40 +304,25 @@
         android:text="100000.00"
         android:textAlignment="center"
         android:textColor="@android:color/holo_purple"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:textStyle="bold" />
-
-
-
-    <ImageButton
-        android:id="@+id/ibsettings"
-        android:layout_width="50dp"
-        android:layout_height="41dp"
-
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/etTotalBalance"
-        android:layout_marginStart="17dp"
-        app:srcCompat="@drawable/ic_setting1" />
-
-    <ImageButton
-        android:id="@+id/ibexport"
-        android:layout_width="50dp"
-        android:layout_height="41dp"
-        android:layout_below="@+id/etTotalBalance"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/ic_export" />
-
-    <ImageButton
-        android:id="@+id/ibsummary"
-        android:layout_width="45dp"
-        android:layout_height="44dp"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/etTotalBalance"
-        android:layout_marginEnd="19dp"
-        app:srcCompat="@drawable/ic_list" />
 
 
 
 
 </RelativeLayout>
+
+
+
+
+
+
+
 </ScrollView>
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+

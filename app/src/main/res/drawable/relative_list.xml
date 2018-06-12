@@ -2,13 +2,17 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
+            <corners android:radius="15dp" />
             <!-- solid background -->
-            <solid android:color="@color/cardview_light_background"/>
+            <solid android:color="@color/primaryTextColor"/>
             <!-- draw a border around rectangle shape-->
             <stroke
-                android:color="#d6d0cf"
-                android:width="4dp"
+                android:color="#8ea6f4"
+                android:width="1dp"
                 />
         </shape>
+
+
     </item>
+
 </selector>

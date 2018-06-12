@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,7 +75,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             }
         });
 
-
         // long Press to delete the Item
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -90,6 +90,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                                 String amount=arrAmount.get(position);
                                 // delete Item - at the Display item selected  position //
                                 deleteItem( position);
+                                notifyDataSetChanged();
                                 Toast.makeText(context, "   Deleted the Transaction ! " + amount , Toast.LENGTH_SHORT).show();
                             }
                         })
@@ -105,13 +106,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 ///  dialog end
                 return true;
             }
+
         });
 
 
     }
 
     // delete the card Item from the list
-    public void deleteItem(int position) {
+    public void deleteItem(int position)
+    {
         //removes the row
         String transid= arrTransID.get(position);
         Log.i("deleteItem",  "Delete   transid " + transid);
@@ -140,7 +143,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         public MyViewHolder(View itemView) {
             super(itemView);
-
             // get the reference of item view's
             mtransId= (TextView) itemView.findViewById(R.id.transId);
             mAmtSourceType = (TextView) itemView.findViewById(R.id.amountsourcetype);
@@ -152,11 +154,41 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             mDesc = (TextView) itemView.findViewById(R.id.tvDesc);
 
         }
+    }
 
 
+
+    //This method will filter the list
+    //here we are passing the filtered data
+    //and assigning it to the list with notifydatasetchanged method
+    public void filterListarrTransType(ArrayList<String> filterdNames) {
+        this.arrTransType = filterdNames;
+        notifyDataSetChanged();
+    }
+    public void filterListarrAmtSourceType(ArrayList<String> filterdNames) {
+        this.arrAmtSourceType = filterdNames;
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        try {
+            arrTransID.removeAll(arrTransID);
+            arrAmtSourceType.removeAll(arrAmtSourceType);
+            arrAmount.removeAll(arrAmount);
+            arrTransDate.removeAll(arrTransDate);
+            arrTransType.removeAll(arrTransType);
+            arrCategory.removeAll(arrCategory);
+            arrDesc.removeAll(arrDesc);
+            notifyDataSetChanged();
+        }
+        catch (Exception ex)
+        {
+                    ex.printStackTrace();
+        }
 
     }
 
 
 
+///////////
 }

@@ -1,101 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SettingsActivity"
-    android:background="@drawable/relative_settings">
 
 
-    <TextView
-        android:id="@+id/tvSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20sp"
-        android:text="Settings"
-        android:textStyle="bold"
-        android:textColor="@color/primaryTextColor"/>
 
-    <TextView
-        android:id="@+id/tvAddSourceType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="40dp"
-        android:text="Add SourceType"
-        android:textStyle="bold"
-        android:textColor="@color/primaryTextColor"/>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SettingsActivity">
+        <!--android:background="@drawable/relative_settings" -->
 
-    <EditText
-        android:id="@+id/etAddSourceType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tvAddSourceType"
-        android:layout_marginTop="67dp"
-        android:ems="10"
-        android:inputType="text"
-        android:background="@color/primaryTextColor"/>
 
-    <ImageButton
-        android:id="@+id/ibAddSourceType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/etAddSourceType"
-        android:layout_marginEnd="43dp"
-        app:srcCompat="@android:drawable/ic_input_add" />
 
-    <TextView
-        android:id="@+id/tvAddCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tvAddSourceType"
-        android:layout_marginTop="169dp"
-        android:text="Add Category"
-        android:textStyle="bold"
+      <!--  <TextView
+            android:id="@+id/tvSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20sp"
+            android:text="Settings"
+            android:textStyle="bold"
+            android:textColor="@color/primaryTextColor"/> -->
 
-        android:textColor="@color/primaryTextColor"/>
+        <TextView
+            android:id="@+id/tvAddSourceType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="41dp"
+            android:layout_marginTop="40dp"
+            android:text="Add SourceType"
+            android:textStyle="bold"
+            android:textColor="@color/cardview_dark_background"/>
 
-    <EditText
-        android:id="@+id/etAddCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tvAddSourceType"
-        android:layout_marginTop="200dp"
-        android:ems="10"
-        android:inputType="text"
-        android:background="@color/primaryTextColor"/>
-    <!-- style="@style/BlueText" -->
+        <EditText
+            android:id="@+id/etAddSourceType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/tvAddSourceType"
+            android:layout_marginTop="67dp"
+            android:ems="10"
+            android:inputType="text"
+            android:background="@color/primaryTextColor"/>
 
-    <ImageButton
-        android:id="@+id/ibCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ibAddSourceType"
-        android:layout_alignTop="@+id/etAddCategory"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        <ImageButton
+            android:id="@+id/ibAddSourceType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/etAddSourceType"
+            android:layout_marginEnd="43dp"
+            app:srcCompat="@android:drawable/ic_input_add" />
 
-    <TextView
-        android:id="@+id/tvInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-       android:layout_below="@id/tvAddCategory"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp"
-        android:text="Note:\n1.Add Extra 'Income' Transaction to the Cash Withdrawal and Creditcard Payments.
+        <TextView
+            android:id="@+id/tvAddCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/tvAddSourceType"
+            android:layout_marginTop="169dp"
+            android:text="Add Category"
+            android:textStyle="bold"
+
+            android:textColor="@color/cardview_dark_background"/>
+
+        <EditText
+            android:id="@+id/etAddCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/tvAddSourceType"
+            android:layout_marginTop="200dp"
+            android:ems="10"
+            android:inputType="text"
+            android:background="@color/primaryTextColor"/>
+        <!-- style="@style/BlueText" -->
+
+        <ImageButton
+            android:id="@+id/ibCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/ibAddSourceType"
+            android:layout_alignTop="@+id/etAddCategory"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+        <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/tvAddCategory"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="80dp"
+            android:text="Note:\n1.Add Extra 'Income' Transaction to the Cash Withdrawal and Creditcard Payments.
          \n2.Export File is stored in the 'Downloads' Folder By Default."
-        android:textStyle="italic"
-        android:textColor="@color/cardview_shadow_start_color"/>
+            android:textStyle="italic"
+            android:textColor="@color/cardview_shadow_start_color"/>
 
-</RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/backtoHomePage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:srcCompat="@android:drawable/ic_menu_directions" />
+
+
+    </RelativeLayout>
+
+
+

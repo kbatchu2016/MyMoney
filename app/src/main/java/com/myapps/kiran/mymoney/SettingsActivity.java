@@ -2,7 +2,9 @@ package com.myapps.kiran.mymoney;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -45,6 +47,16 @@ public class SettingsActivity extends AppCompatActivity {
         ibAmtSourceType = (ImageButton) findViewById(R.id.ibAddSourceType);
         ibCategory = (ImageButton) findViewById(R.id.ibCategory);
 
+
+
+        FloatingActionButton  backtoHomePage = (FloatingActionButton) findViewById(R.id.backtoHomePage);
+        backtoHomePage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }//
 
@@ -175,5 +187,32 @@ public class SettingsActivity extends AppCompatActivity {
         return  addFlag;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbHelper=null;
+        mDatabase=null;
+    }
 
 }////
