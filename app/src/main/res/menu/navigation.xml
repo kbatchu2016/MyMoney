@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_SummaryList"
+        android:icon="@drawable/ic_list"
+        android:title="@string/title_summaryList" />
+    <item
+        android:id="@+id/navigation_export"
+        android:icon="@drawable/ic_export"
+        android:title="@string/title_export" />
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/ic_setting1"
+        android:title="@string/title_setting" />
+
+    <item
+        android:id="@+id/navigation_expenseChart"
+        android:icon="@drawable/ic_barchart"
+        android:title="@string/title_expenseChart" />
+    <item
+        android:id="@+id/navigation_balancechart"
+        android:icon="@drawable/ic_balance"
+        android:title="@string/title_balancechart" />
+</menu>

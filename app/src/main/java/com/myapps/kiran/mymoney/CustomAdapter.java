@@ -1,6 +1,7 @@
 package com.myapps.kiran.mymoney;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -94,6 +95,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                                 Toast.makeText(context, "   Deleted the Transaction ! " + amount , Toast.LENGTH_SHORT).show();
                             }
                         })
+                        .setNeutralButton("Edit", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                String amount=arrAmount.get(position);
+                                Intent intent = new Intent(context, MainActivity.class);
+                                ArrayList<String> myEditList = new ArrayList<String>();
+                                intent.putExtra("myEditList", myEditList);
+                                context.startActivity(intent);
+                                Toast.makeText(context, "   Deleted the Transaction ! " + amount , Toast.LENGTH_SHORT).show();
+                            }
+                        })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User cancelled the dialog - do nothing
@@ -131,6 +142,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         notifyItemRemoved(position);
         // delete Item//
       }
+
 
     @Override
     public int getItemCount() {
