@@ -84,8 +84,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 // Use the Builder class for convenient dialog construction
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.create();
-                builder.setMessage("Click 'Yes'  to Delete Selected Transaction Details! ")
-                      .setTitle("Delete Item")
+                builder.setMessage("Click 'Yes/Edit' To Delete/Update The Selected Transaction Details!!! ")
+                      .setTitle("Modify Item")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 String amount=arrAmount.get(position);
