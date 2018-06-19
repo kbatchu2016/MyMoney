@@ -95,15 +95,27 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                                 Toast.makeText(context, "   Deleted the Transaction ! " + amount , Toast.LENGTH_SHORT).show();
                             }
                         })
-                        .setNeutralButton("Edit", new DialogInterface.OnClickListener() {
+                       .setNeutralButton("Edit", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 String amount=arrAmount.get(position);
                                 Intent intent = new Intent(context, MainActivity.class);
                                 ArrayList<String> myEditList = new ArrayList<String>();
-                                intent.putExtra("myEditList", myEditList);
+                                //intent.putExtra("position",Integer.toString(  position));
+                                intent.putExtra("amount",arrAmount.get(position));
+                                intent.putExtra("AmtSourceType",arrAmtSourceType.get(position));
+                                intent.putExtra("Category", arrCategory.get(  position));
+                                intent.putExtra("Desc", arrDesc.get(  position));
+                                intent.putExtra( "TransDate",arrTransDate.get(  position));
+                                intent.putExtra("TransID", arrTransID.get(  position));
+                                intent.putExtra("TransType", arrTransType.get(  position));
+
+                                deleteItem( position);
+
+
                                 context.startActivity(intent);
-                                Toast.makeText(context, "   Deleted the Transaction ! " + amount , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "   Edit the Transaction ! " + amount , Toast.LENGTH_SHORT).show();
                             }
+                        
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
