@@ -328,6 +328,40 @@ public class MainActivity extends AppCompatActivity {
                 String selectedMonthYear=  getMonthofDate(dateInString).toString() ;
                 tvCurrentMonthExpense.setText( selectedMonthYear + " Expense:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("expense")));
                 tvCurrentMOnthIncome.setText( selectedMonthYear + " Income:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("income")));
+ 
+    //---------------------------//
+                   // fill the Mian Page with existing data from  summary screen to edit the recycle data
+        {
+                Intent intent = getIntent();
+                // get the data from the putExtra
+                if(intent.getStringExtra("TransID")!=null &&   ! intent.getStringExtra("TransID").isEmpty()){
+                String amount = intent.getStringExtra("amount");
+                String AmtSourceType = intent.getStringExtra("AmtSourceType");
+                String TransType = intent.getStringExtra("TransType");
+                String Category = intent.getStringExtra("Category");
+                String Desc = intent.getStringExtra("Desc");
+                String TransDate = intent.getStringExtra("TransDate");
+                String TransID = intent.getStringExtra("TransID");
+                TransID.equals(null);
+                int selectionPosition= adapterStype.getPosition(AmtSourceType);
+                spAmtType.setSelection(selectionPosition);
+                int selectionPosition2= adapterCat.getPosition(Category);
+                spCategoryType.setSelection(selectionPosition2);
+                chkIncomeValue.setChecked(false);
+                chkExpenseValue.setChecked(false);
+                if (TransType.equals("income")) chkIncomeValue.setChecked(true);
+                if (TransType.equals("expense")) chkExpenseValue.setChecked(true);
+                editDate.setText(TransDate);
+                etTransAmount.setText(amount);
+                etDesc.setText(Desc);
+                TransID=null;
+                //remove the  inten content
+                intent.removeExtra("TransID");
+
+            }
+        }
+    //--------------------------//
+    
     }
 
     public void onClick1DateSelect(View v) {
