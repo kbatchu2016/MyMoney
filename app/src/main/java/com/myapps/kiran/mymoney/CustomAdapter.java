@@ -95,7 +95,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                                 Toast.makeText(context, "   Deleted the Transaction ! " + amount , Toast.LENGTH_SHORT).show();
                             }
                         })
-                       .setNeutralButton("Edit", new DialogInterface.OnClickListener() {
+                       /*.setNeutralButton("Edit", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 String amount=arrAmount.get(position);
                                 Intent intent = new Intent(context, MainActivity.class);
@@ -115,8 +115,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                                 context.startActivity(intent);
                                 Toast.makeText(context, "   Edit the Transaction ! " + amount , Toast.LENGTH_SHORT).show();
                             }
-                        
-                        })
+
+                        }) */
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User cancelled the dialog - do nothing

@@ -18,7 +18,7 @@
             android:id="@+id/mSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter search term"
+            android:hint="Enter search Item"
             tools:layout_constraintTop_creator="1"
             tools:layout_constraintRight_creator="1"
             />

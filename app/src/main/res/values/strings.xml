@@ -41,4 +41,5 @@
     <string name="title_setting">Settings</string>
     <string name="title_balancechart">BalanceChart</string>
     <string name="title_expenseChart">ExpenseChart</string>
+    <string name="title_activity_accounts_view">AccountsViewActivity</string>
 </resources>

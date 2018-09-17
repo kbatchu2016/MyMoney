@@ -14,18 +14,16 @@
         <activity
             android:name=".MainActivity"
             android:label="AddMoney">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".TransactionActivity"
             android:label="Statement"
-            android:windowSoftInputMode="stateHidden"
-            />
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".SettingsActivity"
             android:label="Settings" />
@@ -37,6 +35,10 @@
             android:name=".BalanceViewActivity"
             android:label="BalanceView"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AccountsViewActivity"
+            android:label="@string/title_activity_accounts_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

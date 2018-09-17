@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
                     //mTextMessage.setText(R.string.title_activity_summary);
                     intent = new Intent(MainActivity.this, TransactionActivity.class);
                     startActivity(intent);
-
                     return true;
                 case R.id.navigation_setting:
                      mTextMessage.setText(R.string.title_setting);
@@ -291,14 +290,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //to navigate to Charts page
-       /* etTotBalance.setOnClickListener(new View.OnClickListener() {
+        //to navigate to Accounts View  page
+       tVTotBalnce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, BalanceViewActivity.class);
+                Intent intent = new Intent(MainActivity.this, AccountsViewActivity.class);
                 startActivity(intent);
             }
-        }); */
+        });
         //TODO Category like movie, others, home  &    //TODO description of the trassaction
         //https://android--code.blogspot.in/2015/08/android-spinner-add-item-dynamically.html
 
