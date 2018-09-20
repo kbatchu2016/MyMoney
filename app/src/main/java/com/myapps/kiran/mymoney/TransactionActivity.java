@@ -1,3 +1,6 @@
+//summary page in the application - recycle view
+// detailed transactions
+
 package com.myapps.kiran.mymoney;
 
 import android.content.Context;
@@ -201,6 +204,13 @@ private void displayRecyclerViewList()
 
             System.out.println("MainActivity.onClick:"+ cursor.getCount());
             if (cursor != null) {
+                _arrAmtSourceType.clear();
+                _arrTransType.clear();
+                _arrTransID.clear();
+                _arrAmount.clear();
+                _arrTransDate.clear();
+                _arrCategory.clear();
+                _arrDesc.clear();
                 // move cursor to first row
                 if (cursor.moveToFirst()) {
                     do {
@@ -212,6 +222,7 @@ private void displayRecyclerViewList()
                         int _transAmount =cursor.getInt(cursor.getColumnIndex("amount"));
                         String _transCategory = cursor.getString(cursor.getColumnIndex("transCategory"));
                         String _transDesc = cursor.getString(cursor.getColumnIndex("transdescription"));
+
 
                         _arrTransID.add(Integer.toString(_id));
                         _arrAmtSourceType.add(_amountsourcetype);

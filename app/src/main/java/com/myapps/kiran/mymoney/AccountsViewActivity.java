@@ -1,3 +1,4 @@
+// to display the each account type balance
 package com.myapps.kiran.mymoney;
 
 import android.content.Intent;
@@ -149,6 +150,7 @@ public class AccountsViewActivity extends AppCompatActivity {
                     _incomeamt=  Integer.parseInt(  dictionaryIncome.get(_months).toString() );
                 if (dictionaryExpense.containsKey(_months))
                     _expenseamt = Integer.parseInt(   dictionaryExpense.get(_months).toString());
+                // only the balance for each acoount type
                 data.add(new ValueDataEntry(_months,  (_incomeamt - _expenseamt )));
             }
 
@@ -174,7 +176,7 @@ public class AccountsViewActivity extends AppCompatActivity {
             cartesian.getInteractivity().setHoverMode(HoverMode.BY_X);
 
             cartesian.getXAxis().setTitle("Accounts");
-            cartesian.getYAxis().setTitle("Amount");
+            cartesian.getYAxis().setTitle("మిగిలిన మొత్తం");
 
             anyChartView.setChart(cartesian);
         }
