@@ -37,27 +37,50 @@
             android:textStyle="bold"
             android:textColor="@color/cardview_dark_background"/>
 
-        <EditText
-            android:id="@+id/etAddSourceType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/tvAddSourceType"
-            android:layout_marginTop="67dp"
-            android:ems="10"
-            android:inputType="text"
-            android:background="@color/primaryTextColor"/>
 
-        <ImageButton
-            android:id="@+id/ibAddSourceType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/etAddSourceType"
-            android:layout_marginEnd="43dp"
-            app:srcCompat="@android:drawable/ic_input_add" />
+    <Spinner
+        android:id="@+id/etAddSourceType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvAddSourceType"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="67dp"
+        android:background="@color/primaryTextColor"
+        android:ems="10"
+        android:text="Select SourceType" />
 
-        <TextView
+
+    <ImageButton
+        android:id="@+id/ibAddSourceType"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/etAddSourceType"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="79dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <ImageButton
+        android:id="@+id/ibRemoveCat1"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/etAddSourceType"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="23dp"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    <ImageButton
+        android:id="@+id/ibRemoveSourceType1"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/etAddSourceType"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="22dp"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    <TextView
             android:id="@+id/tvAddCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,38 +92,41 @@
 
             android:textColor="@color/cardview_dark_background"/>
 
-        <EditText
-            android:id="@+id/etAddCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/tvAddSourceType"
-            android:layout_marginTop="200dp"
-            android:ems="10"
-            android:inputType="text"
-            android:background="@color/primaryTextColor"/>
+
+
+    <Spinner
+        android:id="@+id/etAddCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/tvAddSourceType"
+        android:layout_marginTop="200dp"
+        android:ems="10"
+        android:text="Select "
+        android:background="@color/primaryTextColor"/>
+
         <!-- style="@style/BlueText" -->
 
-        <ImageButton
-            android:id="@+id/ibCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/ibAddSourceType"
-            android:layout_alignTop="@+id/etAddCategory"
-            app:srcCompat="@android:drawable/ic_input_add" />
+    <ImageButton
+        android:id="@+id/ibCategory"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/ibAddSourceType"
+        android:layout_alignTop="@+id/etAddCategory"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="-12dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
-        <TextView
-            android:id="@+id/tvInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/tvAddCategory"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="80dp"
-            android:text="Note:\n1.Add Extra 'Income' Transaction to the Cash Withdrawal and Creditcard Payments.
-         \n2.Export File is stored in the 'Downloads' Folder By Default."
-            android:textStyle="italic"
-            android:textColor="@color/cardview_shadow_start_color"/>
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvAddCategory"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
+        android:textColor="@color/cardview_shadow_start_color"
+        android:textStyle="italic" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/backtoHomePage"

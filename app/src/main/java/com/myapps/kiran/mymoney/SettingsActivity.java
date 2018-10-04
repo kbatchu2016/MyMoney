@@ -3,6 +3,7 @@ package com.myapps.kiran.mymoney;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -11,16 +12,24 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity {
 
 
     TextView tvAddAmtSouurceType, tcAddCategory;
-    EditText etSourceType, etCategory;
+    Spinner etSourceType, etCategory;
+    List<String> mSourceTypesList,mCategorysList;
+    ArrayAdapter<String> adapterStype,adapterCat;
     ImageButton ibAmtSourceType, ibCategory;
 
     Context context;
@@ -38,11 +47,42 @@ public class SettingsActivity extends AppCompatActivity {
         tvAddAmtSouurceType = (TextView) findViewById(R.id.tvAddSourceType);
         tcAddCategory = (TextView) findViewById(R.id.tvAddCategory);
 
-        etSourceType = (EditText) findViewById(R.id.etAddSourceType);
-        etCategory = (EditText) findViewById(R.id.etAddCategory);
+      //  etSourceType = (Spinner) findViewById(R.id.etAddSourceType);
+       // etCategory = (Spinner) findViewById(R.id.etAddCategory);
 
-        etSourceType.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        etCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+        //////////////////       AmtSourceType - Spinner           //////////////////
+        etSourceType = (Spinner) findViewById(R.id.etAddSourceType);
+        String[] mSourceTypeArray  = (String[]) getResources().getStringArray(R.array.amountType_array);
+        mSourceTypesList = new ArrayList<>(Arrays.asList(mSourceTypeArray));
+        adapterStype = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_item,
+                mSourceTypesList);
+        // Specify the layout to use when the list of choices appears
+        adapterStype.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        // Apply the adapter to the spinner
+        etSourceType.setAdapter(adapterStype);
+        LoadSourceType4Db();
+        adapterStype.notifyDataSetChanged();
+
+        //////////////////       Category - Spinner           //////////////////
+        etCategory =(Spinner) findViewById(R.id.etAddCategory);
+        String[] mCatArray  = (String[]) getResources().getStringArray(R.array.categorytType_array);
+        mCategorysList = new ArrayList<>(Arrays.asList(mCatArray));
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        adapterCat = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_item,
+                mCategorysList);
+        // Specify the layout to use when the list of choices appears
+        adapterCat.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        // Apply the adapter to the spinner
+        etCategory.setAdapter(adapterCat);
+        LoadCategory4Db();
+        adapterCat.notifyDataSetChanged();
+
+     //   etSourceType.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+      //  etCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
         ibAmtSourceType = (ImageButton) findViewById(R.id.ibAddSourceType);
         ibCategory = (ImageButton) findViewById(R.id.ibCategory);
@@ -58,6 +98,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
+
+
+
     }//
 
     @Override
@@ -68,7 +115,8 @@ public class SettingsActivity extends AppCompatActivity {
         ibAmtSourceType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                String amountSourceType = etSourceType.getText().toString();
+
+                String amountSourceType =  (String) etSourceType.getSelectedItem().toString();
                 if (!amountSourceType.equals("")){
                      if(addSourceType(amountSourceType)) {
                          Toast toast = Toast.makeText(SettingsActivity.this, "  SourceType Added !!", Toast.LENGTH_LONG);
@@ -88,7 +136,7 @@ public class SettingsActivity extends AppCompatActivity {
         ibCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
-                String categoryName = etCategory.getText().toString();
+                String categoryName =   (String) etCategory.getSelectedItem().toString();
                 if(!categoryName.equals("")) {
                     if(addCategory(categoryName)){
                        // MainActivity ma = new MainActivity();
@@ -215,4 +263,55 @@ public class SettingsActivity extends AppCompatActivity {
         mDatabase=null;
     }
 
+    private void LoadSourceType4Db()
+    {
+        String _amountsourcetype;
+        try {
+            Cursor cursor = mDatabase.rawQuery("select  DISTINCT "+dbHelper.getStcolumn_sourcetype() +" from "+ dbHelper.getTable_SoucrTypename() +"   ;", null);
+            System.out.println("MainActivity.onClick:"+ cursor.getCount());
+            if (cursor != null) {
+                // move cursor to first row
+                if (cursor.moveToFirst()) {
+                    do {
+                        // Get version from Cursor
+                        _amountsourcetype = cursor.getString(cursor.getColumnIndex(dbHelper.getStcolumn_sourcetype().toString()));
+                        mSourceTypesList.add(_amountsourcetype.toString());
+                        // move to next row
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void LoadCategory4Db()
+    {
+        String _categoryName;
+        try {
+            Cursor cursor = mDatabase.rawQuery("select  DISTINCT "+dbHelper.getCatcolumn_Category() +" from "+ dbHelper.getTable_Categoryname() +"   ;", null);
+            System.out.println("MainActivity.onClick:"+ cursor.getCount());
+            if (cursor != null) {
+                // move cursor to first row
+                if (cursor.moveToFirst()) {
+                    do {
+                        // Get version from Cursor
+                        _categoryName = cursor.getString(cursor.getColumnIndex(dbHelper.getCatcolumn_Category().toString()));
+                        mCategorysList.add(_categoryName.toString());
+                        // move to next row
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }////
+
+
+

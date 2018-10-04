@@ -3,6 +3,7 @@ package com.myapps.kiran.mymoney;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -417,10 +419,10 @@ public class MainActivity extends AppCompatActivity {
             } else if (chkIncmValue) {
                 transType = "income";
             }
-            String transDate = editDate.getText().toString();
-            String transAmount = etTransAmount.getText().toString();
-            String amountSourceType = (String) spAmtType.getSelectedItem().toString();
-            String categoryName = spCategoryType.getSelectedItem().toString();
+            final String transDate = editDate.getText().toString();
+            final String transAmount = etTransAmount.getText().toString();
+            final String amountSourceType = (String) spAmtType.getSelectedItem().toString();
+            final String categoryName = spCategoryType.getSelectedItem().toString();
             String desc = etDesc.getText().toString();
             // check if the transaction date , amount & type are not null
             if (isThisDateValid(transDate,dateFormat) && !transAmount.equals("") && !amountSourceType.equals("") ) {
@@ -429,9 +431,64 @@ public class MainActivity extends AppCompatActivity {
                // Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
               //  startActivity(intent);
                 Toast toast = Toast.makeText(MainActivity.this, "Added the Amount "+  transAmount +" with Details !", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.AXIS_PULL_BEFORE|Gravity.CENTER,0,0);
+                //toast.setGravity(Gravity.AXIS_PULL_BEFORE|Gravity.CENTER,0,0);
                 toast.show();
-               //notifyDataSetChanged();
+
+                if( (amountSourceType.toLowerCase().contains("bank")) &&  (categoryName.toLowerCase().contains("atm withdrawal")) && transType.contains("expense") ){
+
+                    // Use the Builder class for convenient dialog construction
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.create();
+                    builder.setMessage("Click 'Yes' to add the 'ATM Withdrawal' amount "+ transAmount +" In 'Cash' as 'Income' type !")
+                            .setTitle("ATM Withdrawal")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    String _transDate = editDate.getText().toString();
+                                    //String _transAmount = etTransAmount.getText().toString();
+                                    String _desamountSourceType = (String) spAmtType.getSelectedItem().toString();
+                                    //insertTransactionData(transType, amountSourceType, transDate, transAmount, categoryName, desc);
+                                    insertTransactionData("Income", "Cash", transDate, transAmount, categoryName, "ATM " + amountSourceType);
+                                    Toast.makeText(MainActivity.this, "   updated the Transaction ! " + transAmount , Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog - do nothing
+                        };
+                    });
+                    // create alert dialog
+                    AlertDialog alertDialog = builder.create();
+                    // show it
+                    alertDialog.show();
+                }
+                if( (amountSourceType.toLowerCase().contains("bank")) &&  (categoryName.toLowerCase().contains("credit")) && transType.contains("expense") ){
+
+                    // Use the Builder class for convenient dialog construction
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.create();
+                    builder.setMessage("Click 'Yes' to add the 'ATM Withdrawal' amount "+ transAmount +" In 'Cash' as 'Income' type !")
+                            .setTitle("Credit Card")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                    //insertTransactionData(transType, amountSourceType, transDate, transAmount, categoryName, desc);
+                                    insertTransactionData("Income", amountSourceType, transDate, transAmount, categoryName, " Payment");
+                                    Toast.makeText(MainActivity.this, "   updated the Transaction ! " + transAmount , Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User cancelled the dialog - do nothing
+                                };
+                            });
+                    // create alert dialog
+                    AlertDialog alertDialog = builder.create();
+                    // show it
+                    alertDialog.show();
+                }
+
+
+                //notifyDataSetChanged();
                 onStart();
 
             }

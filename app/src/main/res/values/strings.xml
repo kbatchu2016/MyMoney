@@ -8,10 +8,11 @@
         <item>Axis Bank</item>
         <item>Allahabad Bank</item>
         <item>SBI Bank</item>
-        <item>ICICI Creadit Card</item>
+        <item>ICICI Credit Card</item>
         <item>CITI Credit Card</item>
         <item>Savings</item>
         <item>Post Office</item>
+        <item>TicketRestuarent Card</item>
     </string-array>
 
     <string-array name="categorytType_array">
@@ -28,6 +29,10 @@
         <item>ATM Withdrawal</item>
         <item>Online Transfer</item>
         <item>Others</item>
+        <item>ICICI Credit Card</item>
+        <item>CITI Credit Card</item>
+        <item>Traveling</item>
+
     </string-array>
 
     <string-array name="MonthYear_array">

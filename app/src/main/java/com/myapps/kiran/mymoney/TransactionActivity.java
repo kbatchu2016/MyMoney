@@ -130,7 +130,7 @@ public class TransactionActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 //after the change calling the method and passing the search input
-                filter_arrTransType(editable.toString());
+             //   filter_arrTransType(editable.toString());
                 filter_arrAmtSourceType(editable.toString());
 
             }
