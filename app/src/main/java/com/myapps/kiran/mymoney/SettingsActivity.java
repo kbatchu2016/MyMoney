@@ -314,4 +314,4 @@ public class SettingsActivity extends AppCompatActivity {
 }////
 
 
-
+// TODO: 10/4/2018  http://www.mysamplecode.com/2012/10/android-spinner-programmatically.html 
