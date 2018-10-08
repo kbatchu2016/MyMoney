@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +28,8 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     TextView tvAddAmtSouurceType, tcAddCategory;
-    Spinner etSourceType, etCategory;
+    EditText etSourceType, etCategory;
+    Spinner spSourceType, spCategory;
     List<String> mSourceTypesList,mCategorysList;
     ArrayAdapter<String> adapterStype,adapterCat;
     ImageButton ibAmtSourceType, ibCategory;
@@ -47,26 +49,44 @@ public class SettingsActivity extends AppCompatActivity {
         tvAddAmtSouurceType = (TextView) findViewById(R.id.tvAddSourceType);
         tcAddCategory = (TextView) findViewById(R.id.tvAddCategory);
 
-      //  etSourceType = (Spinner) findViewById(R.id.etAddSourceType);
-       // etCategory = (Spinner) findViewById(R.id.etAddCategory);
+        spSourceType = (Spinner) findViewById(R.id.spAmtSourceType);
+        spCategory =(Spinner) findViewById(R.id.spCategory);
+
+       etSourceType = (EditText) findViewById(R.id.etAddSourceType);
+       etCategory = (EditText) findViewById(R.id.etAddCategory);
 
         //////////////////       AmtSourceType - Spinner           //////////////////
-        etSourceType = (Spinner) findViewById(R.id.etAddSourceType);
-        String[] mSourceTypeArray  = (String[]) getResources().getStringArray(R.array.amountType_array);
-        mSourceTypesList = new ArrayList<>(Arrays.asList(mSourceTypeArray));
+
+        List<String> mSourceTypesList12 = new ArrayList<String>();
+        mSourceTypesList12.add("Automobile");
+
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mSourceTypesList12);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spSourceType.setAdapter(dataAdapter);
+
+
+        String[] mSourceTypeArray  = {"none"}; //(String[]) getResources().getStringArray(R.array.amountType_array);
+
+      mSourceTypesList = new ArrayList<>(Arrays.asList(mSourceTypeArray));
         adapterStype = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_spinner_item,
                 mSourceTypesList);
         // Specify the layout to use when the list of choices appears
         adapterStype.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        // Apply the adapter to the spinner
-        etSourceType.setAdapter(adapterStype);
         LoadSourceType4Db();
+        if(! adapterStype.equals(null))
+        // Apply the adapter to the spinner
+        spSourceType.setAdapter(adapterStype);
+
         adapterStype.notifyDataSetChanged();
 
         //////////////////       Category - Spinner           //////////////////
-        etCategory =(Spinner) findViewById(R.id.etAddCategory);
+
         String[] mCatArray  = (String[]) getResources().getStringArray(R.array.categorytType_array);
         mCategorysList = new ArrayList<>(Arrays.asList(mCatArray));
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -77,12 +97,12 @@ public class SettingsActivity extends AppCompatActivity {
         // Specify the layout to use when the list of choices appears
         adapterCat.setDropDownViewResource(android.R.layout.simple_spinner_item);
         // Apply the adapter to the spinner
-        etCategory.setAdapter(adapterCat);
+        spCategory.setAdapter(adapterCat);
         LoadCategory4Db();
         adapterCat.notifyDataSetChanged();
 
-     //   etSourceType.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-      //  etCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+      etSourceType.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+       etCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
         ibAmtSourceType = (ImageButton) findViewById(R.id.ibAddSourceType);
         ibCategory = (ImageButton) findViewById(R.id.ibCategory);
@@ -116,7 +136,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick (View v) {
 
-                String amountSourceType =  (String) etSourceType.getSelectedItem().toString();
+                String amountSourceType =  (String) etSourceType.getText().toString();
                 if (!amountSourceType.equals("")){
                      if(addSourceType(amountSourceType)) {
                          Toast toast = Toast.makeText(SettingsActivity.this, "  SourceType Added !!", Toast.LENGTH_LONG);
@@ -136,7 +156,7 @@ public class SettingsActivity extends AppCompatActivity {
         ibCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
-                String categoryName =   (String) etCategory.getSelectedItem().toString();
+                String categoryName =   (String) etCategory.getText().toString();
                 if(!categoryName.equals("")) {
                     if(addCategory(categoryName)){
                        // MainActivity ma = new MainActivity();

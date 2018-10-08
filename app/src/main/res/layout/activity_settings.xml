@@ -38,18 +38,6 @@
             android:textColor="@color/cardview_dark_background"/>
 
 
-    <Spinner
-        android:id="@+id/etAddSourceType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tvAddSourceType"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="67dp"
-        android:background="@color/primaryTextColor"
-        android:ems="10"
-        android:text="Select SourceType" />
-
-
     <ImageButton
         android:id="@+id/ibAddSourceType"
         android:layout_width="42dp"
@@ -66,8 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/etAddSourceType"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="23dp"
+        android:layout_marginTop="320dp"
+        android:layout_marginEnd="76dp"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 
     <ImageButton
@@ -76,8 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/etAddSourceType"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="22dp"
+        android:layout_marginTop="238dp"
+        android:layout_marginEnd="78dp"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 
     <TextView
@@ -93,19 +81,7 @@
             android:textColor="@color/cardview_dark_background"/>
 
 
-
-    <Spinner
-        android:id="@+id/etAddCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tvAddSourceType"
-        android:layout_marginTop="200dp"
-        android:ems="10"
-        android:text="Select "
-        android:background="@color/primaryTextColor"/>
-
-        <!-- style="@style/BlueText" -->
+    <!-- style="@style/BlueText" -->
 
     <ImageButton
         android:id="@+id/ibCategory"
@@ -138,8 +114,50 @@
         android:layout_margin="16dp"
         app:srcCompat="@android:drawable/ic_menu_directions" />
 
+    <Spinner
+        android:id="@+id/spRemoveSourcetype"
+        android:layout_width="236dp"
+        android:layout_height="58dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="151dp" />
 
-    </RelativeLayout>
+    <Spinner
+        android:id="@+id/spRemoveCategory"
+        android:layout_width="236dp"
+        android:layout_height="58dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="65dp" />
+
+    <EditText
+        android:id="@+id/etAddSourceType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAddSourceType"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="0dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Enter Source Type" />
+
+    <EditText
+        android:id="@+id/etAddCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAddSourceType"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="133dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Enter Category" />
+
+
+</RelativeLayout>
 
 
 
