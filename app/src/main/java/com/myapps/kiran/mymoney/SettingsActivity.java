@@ -27,17 +27,24 @@ import java.util.List;
 public class SettingsActivity extends AppCompatActivity {
 
 
+
+
     TextView tvAddAmtSouurceType, tcAddCategory;
     EditText etSourceType, etCategory;
     Spinner spSourceType, spCategory;
-    List<String> mSourceTypesList,mCategorysList;
-    ArrayAdapter<String> adapterStype,adapterCat;
+
     ImageButton ibAmtSourceType, ibCategory;
+    ImageButton ibRemoveSourceType, ibRemoveCategory;
 
     Context context;
     private DBHelper dbHelper;
 
     private SQLiteDatabase mDatabase ;
+
+    List<String> mSourceTypesList,mCategorysList;
+
+    ArrayAdapter<String> adapterStype,adapterCat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,45 +56,37 @@ public class SettingsActivity extends AppCompatActivity {
         tvAddAmtSouurceType = (TextView) findViewById(R.id.tvAddSourceType);
         tcAddCategory = (TextView) findViewById(R.id.tvAddCategory);
 
-        spSourceType = (Spinner) findViewById(R.id.spAmtSourceType);
-        spCategory =(Spinner) findViewById(R.id.spCategory);
+        etSourceType = (EditText) findViewById(R.id.etAddSourceType);
+        etCategory = (EditText) findViewById(R.id.etAddCategory);
+        etSourceType.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+        etCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
-       etSourceType = (EditText) findViewById(R.id.etAddSourceType);
-       etCategory = (EditText) findViewById(R.id.etAddCategory);
-
-        //////////////////       AmtSourceType - Spinner           //////////////////
-
-        List<String> mSourceTypesList12 = new ArrayList<String>();
-        mSourceTypesList12.add("Automobile");
+        ibAmtSourceType = (ImageButton) findViewById(R.id.ibAddSourceType);
+        ibCategory = (ImageButton) findViewById(R.id.ibCategory);
 
 
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mSourceTypesList12);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spSourceType.setAdapter(dataAdapter);
+        ibRemoveSourceType = (ImageButton) findViewById(R.id.ibRemoveSourceType1);
+        ibRemoveCategory = (ImageButton) findViewById(R.id.ibRemoveCat1);
 
 
-        String[] mSourceTypeArray  = {"none"}; //(String[]) getResources().getStringArray(R.array.amountType_array);
+        spSourceType = (Spinner) findViewById(R.id.spRemoveSourcetype);
 
-      mSourceTypesList = new ArrayList<>(Arrays.asList(mSourceTypeArray));
+        String[] mSourceTypeArray  = {""};//(String[]) getResources().getStringArray(R.array.amountType_array);
+        mSourceTypesList = new ArrayList<>(Arrays.asList(mSourceTypeArray));
         adapterStype = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_spinner_item,
                 mSourceTypesList);
         // Specify the layout to use when the list of choices appears
         adapterStype.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        LoadSourceType4Db();
-        if(! adapterStype.equals(null))
         // Apply the adapter to the spinner
         spSourceType.setAdapter(adapterStype);
-
+        LoadSourceType4Db();
         adapterStype.notifyDataSetChanged();
 
-        //////////////////       Category - Spinner           //////////////////
 
-        String[] mCatArray  = (String[]) getResources().getStringArray(R.array.categorytType_array);
+        spCategory =(Spinner) findViewById(R.id.spRemoveCategory);
+        String[] mCatArray  = {""};//(String[]) getResources().getStringArray(R.array.categorytType_array);
         mCategorysList = new ArrayList<>(Arrays.asList(mCatArray));
         // Create an ArrayAdapter using the string array and a default spinner layout
         adapterCat = new ArrayAdapter<String>(
@@ -101,11 +100,7 @@ public class SettingsActivity extends AppCompatActivity {
         LoadCategory4Db();
         adapterCat.notifyDataSetChanged();
 
-      etSourceType.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-       etCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-
-        ibAmtSourceType = (ImageButton) findViewById(R.id.ibAddSourceType);
-        ibCategory = (ImageButton) findViewById(R.id.ibCategory);
+        //////////////////       AmtSourceType - Spinner           //////////////////
 
 
 
@@ -120,6 +115,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 
+//////////////////////  sipnner data /////////////////////
 
 
 
@@ -168,6 +164,51 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 else {
                     Toast toast=Toast.makeText(SettingsActivity.this, " Enter Category to Add!!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER,0,0);
+                    toast.show();
+                }
+
+            }
+        });
+
+
+
+        ibRemoveSourceType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+
+                String amountSourceType =  (String) spSourceType.getSelectedItem().toString();
+                if (!amountSourceType.equals("")){
+                    if(removeSourceType(amountSourceType)) {
+                        Toast toast = Toast.makeText(SettingsActivity.this, "  SourceType Removed !!", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
+                        toast.show();
+                    }
+                }
+                else {
+                    Toast toast=Toast.makeText(SettingsActivity.this, " Select SourceType to Remove!!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER,0,0);
+                    toast.show();
+                }
+
+            }
+        });
+
+        ibRemoveCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+                String categoryName =   (String) spCategory.getSelectedItem().toString();
+                if(!categoryName.equals("")) {
+                    if(removeCategory(categoryName)){
+                        // MainActivity ma = new MainActivity();
+                        // ma.mCategorysList.add(categoryName.toString());
+                        Toast toast=Toast.makeText(SettingsActivity.this, "  Category Removed !!", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.TOP|Gravity.CENTER,0,0);
+                        toast.show();
+                    }
+                }
+                else {
+                    Toast toast=Toast.makeText(SettingsActivity.this, " Select Category to Removed!!", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.TOP|Gravity.CENTER,0,0);
                     toast.show();
                 }
@@ -331,6 +372,48 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+
+    public boolean removeSourceType(String amountSourceType)
+    {
+        boolean addFlag=false;
+        Log.i("insertData", "insertData: started");
+        try {
+            dbHelper = new DBHelper(getApplicationContext());
+            mDatabase = dbHelper.getReadableDatabase();
+            // Date dNow = new Timestamp( transDate.toString()) ;
+            String table_name = dbHelper.getTable_SoucrTypename();  // "accountSummary";
+            String keyColumn =dbHelper.getStcolumn_sourcetype();
+
+            mDatabase.execSQL("delete from "+table_name+" where keyColumn =" + amountSourceType );
+            addFlag=true;
+            Toast.makeText(this.context, amountSourceType + "   deleted  !!!", Toast.LENGTH_LONG).show();
+        }
+        catch (Exception e){}
+
+        return addFlag;
+
+    }
+
+    public boolean removeCategory(String categoryName)
+    {
+        boolean addFlag=false;
+        Log.i("insertData", "insertData: started");
+        try {
+            dbHelper = new DBHelper(getApplicationContext());
+            mDatabase = dbHelper.getReadableDatabase();
+            // Date dNow = new Timestamp( transDate.toString()) ;
+            String table_name = dbHelper.getTable_Categoryname();  // "accountSummary";
+            String keyColumn =dbHelper.getCatcolumn_Category();
+           // mDatabase.delete(table_name ,keyColumn + "=" +categoryName,null);
+            mDatabase.execSQL("delete from "+table_name+" where keyColumn =" + categoryName );
+            addFlag=true;
+            Toast.makeText(this.context, categoryName + "   deleted  !!!", Toast.LENGTH_LONG).show();
+        }
+        catch (Exception e){}
+
+        return addFlag;
+
+    }
 }////
 
 

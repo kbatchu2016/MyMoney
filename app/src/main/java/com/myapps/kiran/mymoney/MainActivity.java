@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
+
         /// Create table in Database ///
         dbHelper = new DBHelper(getApplicationContext());
         mDatabase = dbHelper.getReadableDatabase();

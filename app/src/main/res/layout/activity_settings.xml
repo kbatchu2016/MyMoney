@@ -1,108 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+    <!--android:background="@drawable/relative_settings" -->
+    <TableLayout
 
-
-
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/tblSettings"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".SettingsActivity">
-        <!--android:background="@drawable/relative_settings" -->
-
-
-
-      <!--  <TextView
-            android:id="@+id/tvSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20sp"
-            android:text="Settings"
-            android:textStyle="bold"
-            android:textColor="@color/primaryTextColor"/> -->
-
-        <TextView
-            android:id="@+id/tvAddSourceType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="41dp"
-            android:layout_marginTop="40dp"
-            android:text="Add SourceType"
-            android:textStyle="bold"
-            android:textColor="@color/cardview_dark_background"/>
-
-
-    <ImageButton
-        android:id="@+id/ibAddSourceType"
-        android:layout_width="42dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/etAddSourceType"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="79dp"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
-    <ImageButton
-        android:id="@+id/ibRemoveCat1"
-        android:layout_width="45dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/etAddSourceType"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="76dp"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
-
-    <ImageButton
-        android:id="@+id/ibRemoveSourceType1"
-        android:layout_width="44dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/etAddSourceType"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="238dp"
-        android:layout_marginEnd="78dp"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
-
-    <TextView
-            android:id="@+id/tvAddCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/tvAddSourceType"
-            android:layout_marginTop="169dp"
-            android:text="Add Category"
-            android:textStyle="bold"
-
-            android:textColor="@color/cardview_dark_background"/>
-
-
-    <!-- style="@style/BlueText" -->
-
-    <ImageButton
-        android:id="@+id/ibCategory"
-        android:layout_width="42dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ibAddSourceType"
-        android:layout_alignTop="@+id/etAddCategory"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="-12dp"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
-    <TextView
-        android:id="@+id/tvInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvAddCategory"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp"
-        android:textColor="@color/cardview_shadow_start_color"
-        android:textStyle="italic" />
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="2dp"
+        android:paddingLeft="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"        >
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <TextView
+                android:id="@+id/tvAddRemove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="20dp"
+                android:text="Add/Remove SourceType,Category"
+                android:textStyle="bold"
+                android:textColor="@color/cardview_dark_background"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="20dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </TableRow>
+
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <TextView
+                android:id="@+id/tvAddSourceType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="1dp"
+                android:text="Add SourceType"
+                android:textStyle="bold"
+                android:textColor="@color/cardview_dark_background"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <EditText
+                android:id="@+id/etAddSourceType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="20dp"
+                android:inputType="textPersonName" />
+            <ImageButton
+                android:id="@+id/ibAddSourceType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="1dp"
+                android:contentDescription="AddSourceType"
+                app:srcCompat="@android:drawable/ic_input_add" />
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <TextView
+                android:id="@+id/tvAddCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="1dp"
+                android:text="Add Category"
+                android:textStyle="bold"
+
+                android:textColor="@color/cardview_dark_background"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <EditText
+                android:id="@+id/etAddCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="20dp"
+                android:inputType="textPersonName" />
+            <ImageButton
+                android:id="@+id/ibCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="1dp"
+                android:contentDescription="Category"
+                app:srcCompat="@android:drawable/ic_input_add" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="40dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <TextView
+                android:id="@+id/tvRemoveSourceType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="1dp"
+                android:text="Remove SourceType"
+                android:textStyle="bold"
+                android:textColor="@color/cardview_dark_background"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <Spinner
+                android:id="@+id/spRemoveSourcetype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="20dp"
+                />
+            <ImageButton
+                android:id="@+id/ibRemoveSourceType1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="1dp"
+                android:contentDescription="RemoveSourceType"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <TextView
+                android:id="@+id/tvRemoveCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="1dp"
+                android:text="Remove SourceType"
+                android:textStyle="bold"
+                android:textColor="@color/cardview_dark_background"/>
+        </TableRow>
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <Spinner
+                android:id="@+id/spRemoveCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="20dp"
+                />
+            <ImageButton
+                android:id="@+id/ibRemoveCat1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="1dp"
+                android:contentDescription="RemoveSourceType"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
+        </TableRow>
+
+    </TableLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/backtoHomePage"
@@ -113,50 +188,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         app:srcCompat="@android:drawable/ic_menu_directions" />
-
-    <Spinner
-        android:id="@+id/spRemoveSourcetype"
-        android:layout_width="236dp"
-        android:layout_height="58dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="151dp" />
-
-    <Spinner
-        android:id="@+id/spRemoveCategory"
-        android:layout_width="236dp"
-        android:layout_height="58dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="65dp" />
-
-    <EditText
-        android:id="@+id/etAddSourceType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAddSourceType"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="0dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Enter Source Type" />
-
-    <EditText
-        android:id="@+id/etAddCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAddSourceType"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="133dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Enter Category" />
-
-
 </RelativeLayout>
 
 
