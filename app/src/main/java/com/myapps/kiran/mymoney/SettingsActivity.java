@@ -135,9 +135,13 @@ public class SettingsActivity extends AppCompatActivity {
                 String amountSourceType =  (String) etSourceType.getText().toString();
                 if (!amountSourceType.equals("")){
                      if(addSourceType(amountSourceType)) {
-                         Toast toast = Toast.makeText(SettingsActivity.this, "  SourceType Added !!", Toast.LENGTH_LONG);
+                         Toast toast = Toast.makeText(SettingsActivity.this, amountSourceType+" -  SourceType Added !!", Toast.LENGTH_LONG);
                          toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
                          toast.show();
+                         //reload the SourceTypes
+                         mSourceTypesList.removeAll(mSourceTypesList);
+                         LoadSourceType4Db();
+
                      }
                 }
                 else {
@@ -157,9 +161,12 @@ public class SettingsActivity extends AppCompatActivity {
                     if(addCategory(categoryName)){
                        // MainActivity ma = new MainActivity();
                        // ma.mCategorysList.add(categoryName.toString());
-                        Toast toast=Toast.makeText(SettingsActivity.this, "  Category Added !!", Toast.LENGTH_LONG);
+                        Toast toast=Toast.makeText(SettingsActivity.this, categoryName + " - Category Added !!", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.TOP|Gravity.CENTER,0,0);
                         toast.show();
+                        //reload the SourceTypes
+                        mCategorysList.removeAll(mCategorysList);
+                        LoadCategory4Db();
                     }
                 }
                 else {
@@ -179,11 +186,18 @@ public class SettingsActivity extends AppCompatActivity {
 
                 String amountSourceType =  (String) spSourceType.getSelectedItem().toString();
                 if (!amountSourceType.equals("")){
-                    if(removeSourceType(amountSourceType)) {
-                        Toast toast = Toast.makeText(SettingsActivity.this, "  SourceType Removed !!", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
-                        toast.show();
-                    }
+
+                    dbHelper= new DBHelper(getApplicationContext());
+                    String table_name = dbHelper.getTable_SoucrTypename();
+                    String keyColumn =dbHelper.getStcolumn_sourcetype();
+                    dbHelper.deleteByQuery("DELETE FROM  "+table_name+"  where  "+keyColumn+" = '" + amountSourceType +"'" );
+
+                    Toast toast = Toast.makeText(SettingsActivity.this,   amountSourceType + "-  SourceType Removed !!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
+                    toast.show();
+                    //reload the SourceTypes
+                    mSourceTypesList.removeAll(mSourceTypesList);
+                    LoadSourceType4Db();
                 }
                 else {
                     Toast toast=Toast.makeText(SettingsActivity.this, " Select SourceType to Remove!!", Toast.LENGTH_LONG);
@@ -199,13 +213,18 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick (View v){
                 String categoryName =   (String) spCategory.getSelectedItem().toString();
                 if(!categoryName.equals("")) {
-                    if(removeCategory(categoryName)){
-                        // MainActivity ma = new MainActivity();
-                        // ma.mCategorysList.add(categoryName.toString());
-                        Toast toast=Toast.makeText(SettingsActivity.this, "  Category Removed !!", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.TOP|Gravity.CENTER,0,0);
+                        dbHelper= new DBHelper(getApplicationContext());
+                        String table_name = dbHelper.getTable_Categoryname();
+                        String keyColumn =dbHelper.getCatcolumn_Category();
+                        dbHelper.deleteByQuery("DELETE FROM  "+table_name+"  where  "+keyColumn+" = '" + categoryName +"'" );
+
+                        Toast toast = Toast.makeText(SettingsActivity.this,   categoryName + "-  category Removed !!", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
                         toast.show();
-                    }
+
+                        //reload the SourceTypes
+                        mCategorysList.removeAll(mCategorysList);
+                        LoadCategory4Db();
                 }
                 else {
                     Toast toast=Toast.makeText(SettingsActivity.this, " Select Category to Removed!!", Toast.LENGTH_LONG);
@@ -324,6 +343,7 @@ public class SettingsActivity extends AppCompatActivity {
         mDatabase=null;
     }
 
+    // load spinner items from Database
     private void LoadSourceType4Db()
     {
         String _amountsourcetype;
@@ -348,6 +368,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    // load spinner items from Database
     private void LoadCategory4Db()
     {
         String _categoryName;
@@ -372,48 +393,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-
-    public boolean removeSourceType(String amountSourceType)
-    {
-        boolean addFlag=false;
-        Log.i("insertData", "insertData: started");
-        try {
-            dbHelper = new DBHelper(getApplicationContext());
-            mDatabase = dbHelper.getReadableDatabase();
-            // Date dNow = new Timestamp( transDate.toString()) ;
-            String table_name = dbHelper.getTable_SoucrTypename();  // "accountSummary";
-            String keyColumn =dbHelper.getStcolumn_sourcetype();
-
-            mDatabase.execSQL("delete from "+table_name+" where keyColumn =" + amountSourceType );
-            addFlag=true;
-            Toast.makeText(this.context, amountSourceType + "   deleted  !!!", Toast.LENGTH_LONG).show();
-        }
-        catch (Exception e){}
-
-        return addFlag;
-
-    }
-
-    public boolean removeCategory(String categoryName)
-    {
-        boolean addFlag=false;
-        Log.i("insertData", "insertData: started");
-        try {
-            dbHelper = new DBHelper(getApplicationContext());
-            mDatabase = dbHelper.getReadableDatabase();
-            // Date dNow = new Timestamp( transDate.toString()) ;
-            String table_name = dbHelper.getTable_Categoryname();  // "accountSummary";
-            String keyColumn =dbHelper.getCatcolumn_Category();
-           // mDatabase.delete(table_name ,keyColumn + "=" +categoryName,null);
-            mDatabase.execSQL("delete from "+table_name+" where keyColumn =" + categoryName );
-            addFlag=true;
-            Toast.makeText(this.context, categoryName + "   deleted  !!!", Toast.LENGTH_LONG).show();
-        }
-        catch (Exception e){}
-
-        return addFlag;
-
-    }
 }////
 
 

@@ -166,6 +166,19 @@ public class DBHelper extends SQLiteOpenHelper {
         System.out.println("MainActivity.onClick:"+ cursor.getCount());
     }
 
+
+    public void deleteByQuery(String  query) {
+
+try {
+    Log.i("delete Item", query);
+    sqldatabase.execSQL(query);
+}
+ catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    }
+
     private DBHelper dbHelper;
     private SQLiteDatabase sqldatabase;
 
