@@ -135,7 +135,7 @@ public class SettingsActivity extends AppCompatActivity {
                 String amountSourceType =  (String) etSourceType.getText().toString();
                 if (!amountSourceType.equals("")){
                      if(addSourceType(amountSourceType)) {
-                         Toast toast = Toast.makeText(SettingsActivity.this, amountSourceType+" -  SourceType Added !!", Toast.LENGTH_LONG);
+                         Toast toast = Toast.makeText(SettingsActivity.this, amountSourceType+"     -  SourceType Added !!", Toast.LENGTH_LONG);
                          toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
                          toast.show();
                          //reload the SourceTypes
@@ -161,7 +161,7 @@ public class SettingsActivity extends AppCompatActivity {
                     if(addCategory(categoryName)){
                        // MainActivity ma = new MainActivity();
                        // ma.mCategorysList.add(categoryName.toString());
-                        Toast toast=Toast.makeText(SettingsActivity.this, categoryName + " - Category Added !!", Toast.LENGTH_LONG);
+                        Toast toast=Toast.makeText(SettingsActivity.this, categoryName + "      - Category Added !!", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.TOP|Gravity.CENTER,0,0);
                         toast.show();
                         //reload the SourceTypes

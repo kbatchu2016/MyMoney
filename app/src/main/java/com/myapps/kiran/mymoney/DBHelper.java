@@ -36,6 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private String column_transCategory="transCategory";
     private String  column_transDescription ="transdescription";
     private String column_monthYear = "transmonthYear";
+    private String column_paidbills ="paidbills";
 
     public String getColumn_monthYear() {
         return column_monthYear;
@@ -60,7 +61,8 @@ public class DBHelper extends SQLiteOpenHelper {
                     + column_amount + " INTEGER,"
                     + column_transCategory + " TEXT,"
                     + column_transDescription + " TEXT ,"
-                    + column_monthYear + " TEXT"
+                    + column_monthYear + " TEXT,"
+                    + column_paidbills	+" INTEGER DEFAULT  0 "
                     + ")";
 
 
@@ -98,10 +100,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return column_amountsourcetype;
     }
 
+    public String getcolumn_paidbills() {return column_paidbills;}
 
     public String getTable_SoucrTypename() {
         return table_SoucrTypename;
     }
+
 
     // Table 2 - SourceTYpe
     private String table_SoucrTypename = "sourceType";

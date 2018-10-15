@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     TextView etTotBalance;
     CheckBox chkIncomeValue;
     CheckBox chkExpenseValue;
+    CheckBox chkBillsValue;
     EditText etTransAmount;
     ImageView ivIconAddDate;
     ImageView ivIconAddTransaction;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton ibSettingsPage ,ibExportCSV;
     TextView tvCurrentMonthExpense;
     TextView tvCurrentMOnthIncome;
+    TextView tvCurrentMonthPendingPayments;
 
 
     Context context = this;
@@ -121,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, SummaryActivity.class);
                     startActivity(intent);
                     return true;
-
             }
             return false;
         }
@@ -131,13 +132,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         // disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-
 
         /// Create table in Database ///
         dbHelper = new DBHelper(getApplicationContext());
@@ -149,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
         chkIncomeValue.setChecked(false);
         chkExpenseValue = (CheckBox) findViewById(R.id.ChkExpense);
         chkExpenseValue.setChecked(true);
+        chkBillsValue =(CheckBox) findViewById(R.id.ChkCreditCardExpenses);
+        chkBillsValue.setChecked(false);
+
         ivIconAddDate = (ImageView) findViewById(R.id.ivDatePopup);
         editDate = (EditText) findViewById(R.id.etDate);
         ivIconAddTransaction = (ImageView) findViewById(R.id.ivAddTransaction);
@@ -202,9 +203,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (chkIncomeValue.isChecked()) {
                     chkExpenseValue.setChecked(false);
+                    chkBillsValue.setChecked(false);
                 } else {
                     chkExpenseValue.setChecked(true);
                     chkIncomeValue.setChecked(false);
+                    chkBillsValue.setChecked(false);
                 }
             }
         });
@@ -217,9 +220,26 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     chkExpenseValue.setChecked(false);
                     chkIncomeValue.setChecked(true);
+                    chkBillsValue.setChecked(false);
                 }
             }
         });
+
+        // On  Billpaments checkbox click
+        chkBillsValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (chkBillsValue.isChecked()) {
+                    chkIncomeValue.setChecked(false);
+                    chkExpenseValue.setChecked(false);
+                } else {
+                    chkIncomeValue.setChecked(false);
+                    chkExpenseValue.setChecked(true);
+                    chkBillsValue.setChecked(false);
+                }
+            }
+        });
+
         // to get today dat default
         DateFormat formatter = new SimpleDateFormat(dateFormat);
         String stringDate = formatter.format(new Date());
@@ -239,58 +259,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-      /*  ibSummaryPage = (FloatingActionButton) findViewById(R.id.navigation_SummaryList);
-        ibSummaryPage.setOnClickListener  (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
-                startActivity(intent);
-               // Toast toast=Toast.makeText(context.getApplicationContext(), "Natigated to the Summary Page !", Toast.LENGTH_SHORT);
-                //toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
-                //toast.show();
-            }
-        });
-
-        ibSettingsPage = (FloatingActionButton) findViewById(R.id.navigation_setting);
-        ibSettingsPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
-        //to navigate to Charts page
-        ibSettingsPage = (FloatingActionButton) findViewById(R.id.navigation_expenseChart);
-        ibSettingsPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SummaryActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        // export the data to aCSV file from DB SQLite
-        ibExportCSV = (FloatingActionButton) findViewById(R.id.navigation_export);
-        ibExportCSV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean exportFileStaus = dbHelper.exportDB2CSVFile();
-                if (exportFileStaus) {
-                   // Toast.makeText(context.getApplicationContext(), "Exported To  Download Folder , FileName : ' MyMoney.csv ' !!", Toast.LENGTH_LONG).show();
-                    Snackbar.make(v, "Exported To 'Downloads -> 'MyMoney.csv' ", Snackbar.LENGTH_LONG)
-                            .setAction("Export", null).show();
-
-                }
-            }
-        });
-*/
-
-
         tvCurrentMonthExpense =(TextView) findViewById(R.id.etcurrentMonthExpense);
         tvCurrentMOnthIncome=(TextView) findViewById(R.id.etcurrentMonthIncome);
-
-
+        tvCurrentMonthPendingPayments =(TextView) findViewById(R.id.etcurrentMonthPendingPayments) ;
 
 
         //to navigate to Accounts View  page
@@ -307,8 +278,6 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO MONTHLYWise report
         //TODO PayBills / Category
-
-
     } //oncreate
 
     @Override
@@ -328,8 +297,11 @@ public class MainActivity extends AppCompatActivity {
                 String pattern = dateFormat;
                 String dateInString =new SimpleDateFormat(pattern).format(new Date());
                 String selectedMonthYear=  getMonthofDate(dateInString).toString() ;
+
+                tvCurrentMonthPendingPayments.setText(selectedMonthYear + " PendingBills:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("pendingbills")));
                 tvCurrentMonthExpense.setText( selectedMonthYear + " Expense:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("expense")));
                 tvCurrentMOnthIncome.setText( selectedMonthYear + " Income:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("income")));
+
  
     //---------------------------//
                    // fill the Mian Page with existing data from  summary screen to edit the recycle data
@@ -406,6 +378,8 @@ public class MainActivity extends AppCompatActivity {
 
     // On click on the Save Transaction button
     public void OnClickivAddTransaction(View view) {
+        boolean paidBills=false;
+        String  transType = "nothing";
         try {
             Context context = getApplicationContext();
             String transactionamt = etTransAmount.getText().toString();
@@ -414,29 +388,90 @@ public class MainActivity extends AppCompatActivity {
             Log.i("MainActivity", "Move to next");
             boolean chkExpValue = chkExpenseValue.isChecked();
             boolean chkIncmValue = chkIncomeValue.isChecked();
-            String transType = "";
+            boolean chkPendingbillsValue = chkBillsValue.isChecked();
+
+
             if (chkExpValue) {
                 transType = "expense";
-            } else if (chkIncmValue) {
+            }
+            if (chkIncmValue) {
                 transType = "income";
             }
+            if (chkPendingbillsValue) {
+             transType = "pendingbills";
+            }
+            if (chkExpValue && chkPendingbillsValue) {
+                transType = "expense";
+            }
+
             final String transDate = editDate.getText().toString();
             final String transAmount = etTransAmount.getText().toString();
             final String amountSourceType = (String) spAmtType.getSelectedItem().toString();
             final String categoryName = spCategoryType.getSelectedItem().toString();
-            String desc = etDesc.getText().toString();
+            final String desc = etDesc.getText().toString();
+           // final String _transType =transType;
+
             // check if the transaction date , amount & type are not null
             if (isThisDateValid(transDate,dateFormat) && !transAmount.equals("") && !amountSourceType.equals("") ) {
+
                 // insert the data in DB table
-                insertTransactionData(transType, amountSourceType, transDate, transAmount, categoryName, desc);
+                if (chkExpValue && chkPendingbillsValue){
+                    paidBills=true;
+                    // Use the Builder class for convenient dialog construction
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.create();
+                    builder.setMessage("Click 'Yes' to Pay the  amount "+ transAmount +" As 'Pending Payments' in  'Expense' type !")
+                            .setTitle("Paid CreditCard/Bills Paymeny")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    insertTransactionData("expense", amountSourceType, transDate, transAmount, categoryName, "Paid "+desc , true);
+                                    Toast.makeText(MainActivity.this, "Added the Amount "+  transAmount +" with Details !", Toast.LENGTH_SHORT).show();
+
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User cancelled the dialog - do nothing
+                                };
+                            });
+                    // create alert dialog
+                    AlertDialog alertDialog = builder.create();
+                    // show it
+                    alertDialog.show();
+                }else {
+                    if(  transType.contains("pendingbills") ){
+                        // Use the Builder class for convenient dialog construction
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.create();
+                        builder.setMessage("Click 'Yes' to add the  amount "+ transAmount +" As 'Credit Cards / Pending Payments  ' in  'PendingBills' type !")
+                                .setTitle("CreditCard/Bills")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        //insertTransactionData(transType, amountSourceType, transDate, transAmount, categoryName, desc);
+                                        insertTransactionData("pendingbills", amountSourceType, transDate, transAmount, categoryName, desc + " Pending Bills",false);
+                                        Toast.makeText(MainActivity.this, "Added the Amount "+  transAmount +" with Details !", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User cancelled the dialog - do nothing
+                                    };
+                                });
+                        // create alert dialog
+                        AlertDialog alertDialog = builder.create();
+                        // show it
+                        alertDialog.show();
+                    }else{// add all type transations
+                    insertTransactionData(transType, amountSourceType, transDate, transAmount, categoryName, desc, false);}
+                }
                // Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
               //  startActivity(intent);
                 Toast toast = Toast.makeText(MainActivity.this, "Added the Amount "+  transAmount +" with Details !", Toast.LENGTH_SHORT);
                 //toast.setGravity(Gravity.AXIS_PULL_BEFORE|Gravity.CENTER,0,0);
                 toast.show();
-
+                // add an extra transaction for ATM withdrwal
                 if( (amountSourceType.toLowerCase().contains("bank")) &&  (categoryName.toLowerCase().contains("atm withdrawal")) && transType.contains("expense") ){
-
                     // Use the Builder class for convenient dialog construction
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.create();
@@ -448,7 +483,7 @@ public class MainActivity extends AppCompatActivity {
                                     //String _transAmount = etTransAmount.getText().toString();
                                     String _desamountSourceType = (String) spAmtType.getSelectedItem().toString();
                                     //insertTransactionData(transType, amountSourceType, transDate, transAmount, categoryName, desc);
-                                    insertTransactionData("Income", "Cash", transDate, transAmount, categoryName, "ATM " + amountSourceType);
+                                    insertTransactionData("Income", "Cash", transDate, transAmount, categoryName, "ATM " + amountSourceType,false);
                                     Toast.makeText(MainActivity.this, "   updated the Transaction ! " + transAmount , Toast.LENGTH_SHORT).show();
                                 }
                             })
@@ -462,32 +497,6 @@ public class MainActivity extends AppCompatActivity {
                     // show it
                     alertDialog.show();
                 }
-                if( (amountSourceType.toLowerCase().contains("bank")) &&  (categoryName.toLowerCase().contains("credit")) && transType.contains("expense") ){
-
-                    // Use the Builder class for convenient dialog construction
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.create();
-                    builder.setMessage("Click 'Yes' to add the 'ATM Withdrawal' amount "+ transAmount +" In 'Cash' as 'Income' type !")
-                            .setTitle("Credit Card")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-
-                                    //insertTransactionData(transType, amountSourceType, transDate, transAmount, categoryName, desc);
-                                    insertTransactionData("Income", amountSourceType, transDate, transAmount, categoryName, " Payment");
-                                    Toast.makeText(MainActivity.this, "   updated the Transaction ! " + transAmount , Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // User cancelled the dialog - do nothing
-                                };
-                            });
-                    // create alert dialog
-                    AlertDialog alertDialog = builder.create();
-                    // show it
-                    alertDialog.show();
-                }
-
 
                 //notifyDataSetChanged();
                 onStart();
@@ -511,10 +520,13 @@ public class MainActivity extends AppCompatActivity {
         return dateFormat.format(date);
     }
 
-    private void insertTransactionData(String transType,String amountSourceType,String  transDate,String  transAmount,String categoryName,String transdesc)
+    private void insertTransactionData(String transType,String amountSourceType,String  transDate,String  transAmount,String categoryName,String transdesc,boolean paidbills )
     {
          Log.i("insertData", "insertData: started");
         try {
+
+                 paidbills = paidbills == false ? false : paidbills;
+
                 DBHelper dbHelper = new DBHelper(getApplicationContext());
                 // Date dNow = new Timestamp( transDate.toString()) ;
                 String table_name = dbHelper.getTable_name();  // "accountSummary";
@@ -528,28 +540,36 @@ public class MainActivity extends AppCompatActivity {
                 values.put(dbHelper.getColumn_transCategory(), categoryName);
                 values.put(dbHelper.getColumn_transDescription(), transdesc);
                 values.put(dbHelper.getColumn_monthYear(),selectedMonthYear);
+                values.put(dbHelper.getcolumn_paidbills(),paidbills);
+
                 Log.i("insertData", "insertData:values started");
-                long rowId = 0;
-                if (mDatabase != null) {
-                    rowId = mDatabase.insert(table_name, null, values);
-                    if (rowId != -1) {
-                      //  Toast.makeText(MainActivity.this, "Inserted Successfully !!!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(MainActivity.this, "Error inserting !!!", Toast.LENGTH_SHORT).show();
-                    }
-            }
-            else
-            {
-                Toast.makeText(MainActivity.this, "Database is null!!!", Toast.LENGTH_SHORT).show();
-            }
+                    long rowId = 0;
+                    if (mDatabase != null) {
+                        rowId = mDatabase.insert(table_name, null, values);
+                        if (rowId != -1) {
+                          //  Toast.makeText(MainActivity.this, "Inserted Successfully !!!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Error inserting !!!", Toast.LENGTH_SHORT).show();
+                        }
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this, "Database is null!!!", Toast.LENGTH_SHORT).show();
+                }
+            // refresh the data with new values
+            tvCurrentMonthPendingPayments.setText(getMonthofDate(new SimpleDateFormat(dateFormat).format(new Date())).toString() + " PendingBills:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("pendingbills")));
+            tvCurrentMonthExpense.setText( getMonthofDate(new SimpleDateFormat(dateFormat).format(new Date())).toString() + " Expense:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("expense")));
+            tvCurrentMOnthIncome.setText( getMonthofDate(new SimpleDateFormat(dateFormat).format(new Date())).toString() + " Income:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("income")));
+
         }
         catch (Exception e)
             {e.printStackTrace();}
     }
 
+
     private int GetTotalBalance()
     {
-        int totBalance=0,totExp=0,totInc=0;
+        int totBalance=0,totExp=0,totInc=0,totBills=0;
         Log.i("insertData", "insertData: started");
             try {
                 DBHelper dbHelper = new DBHelper(getApplicationContext());
@@ -580,6 +600,21 @@ public class MainActivity extends AppCompatActivity {
                     }
                     cursor2.close();
                 }
+
+                // get the totoal Pending Bills balance
+                Cursor cursor3 = mDatabase.rawQuery("select SUM(amount) as 'totBills' from " + dbHelper.getTable_name() + "  Where transactiontype ='pendingbills'  ;", null);
+                System.out.println("GetTotal pendingbills - Totatl pendingbills " + cursor3.getCount());
+                if (cursor3 != null) {
+                    // move cursor to first row
+                    if (cursor3.moveToFirst()) {
+                        do {
+                            // Get version from Cursor
+                            totBills = cursor3.getInt(cursor3.getColumnIndex("totBills"));
+                        } while (cursor3.moveToNext());
+                    }
+                    cursor2.close();
+                }
+
                 totBalance = totInc - totExp;
             }
             catch (Exception e){e.printStackTrace();}
@@ -589,7 +624,7 @@ public class MainActivity extends AppCompatActivity {
     // get the current month details
     private int GetCurrentMothExpenseIncome(String _transactiontype)
     {
-        int totBalance=0,totExp=0,totInc=0;
+        int totBalance=0,totExporInc=0,totpendingbolls=0,totreturnValue=0;
         Log.i("insertData", "insertData: started");
         try {
             DBHelper dbHelper = new DBHelper(getApplicationContext());
@@ -599,38 +634,43 @@ public class MainActivity extends AppCompatActivity {
             String pattern = dateFormat;
             String dateInString =new SimpleDateFormat(pattern).format(new Date());
             String selectedMonthYear=  getMonthofDate(dateInString).toString() ;
-
-
-            Cursor cursor = mDatabase.rawQuery("select SUM(amount) as 'totExp' from " + dbHelper.getTable_name() + "  Where transactiontype ='"+_transactiontype+"' and  transmonthYear = '"+selectedMonthYear+"' ;", null);
-            System.out.println("GetTotalBalance - Totatl Expense:" + cursor.getCount());
-            if (cursor != null) {
-                // move cursor to first row
-                if (cursor.moveToFirst()) {
-                    do {
-                        // Get version from Cursor
-                        totExp = cursor.getInt(cursor.getColumnIndex("totExp"));
-                    } while (cursor.moveToNext());
+            // totoal remainging pending bills
+            if(_transactiontype.toLowerCase().trim().contains("pendingbills")){
+               // Cursor cursor = mDatabase.rawQuery("select SUM(amount) as 'totExp' from " + dbHelper.getTable_name() + "  Where transactiontype ='" + _transactiontype + "' and  transmonthYear = '" + selectedMonthYear + "' ;", null);
+                Cursor cursor = mDatabase.rawQuery("select  ((SELECT COALESCE(SUM(amount),0)  FROM   accountSummary WHERE (transactiontype='"+_transactiontype+"' AND transmonthYear='"+ selectedMonthYear+"')) - (select COALESCE(SUM(amount),0)  from accountSummary where (Paidbills=1 AND transactiontype ='expense' and transmonthYear='"+selectedMonthYear+"')) ) as totpaidpendbills;", null);
+                 System.out.println("Get Pending Bills - Totatl paid bills:" + cursor.getCount());
+                if (cursor != null) {
+                    // move cursor to first row
+                    if (cursor.moveToFirst()) {
+                        do {
+                            // Get version from Cursor
+                            totpendingbolls = cursor.getInt(cursor.getColumnIndex("totpaidpendbills"));
+                        } while (cursor.moveToNext());
+                    }
+                    cursor.close();
+                    totreturnValue=totpendingbolls;
                 }
-                cursor.close();
+            }else {
+                Cursor cursor = mDatabase.rawQuery("select COALESCE(SUM(amount),0)  as 'totExp' from " + dbHelper.getTable_name() + "  Where transactiontype ='" + _transactiontype + "' and  transmonthYear = '" + selectedMonthYear + "' ;", null);
+                System.out.println("GetTotalBalance - Totatl Expense:" + cursor.getCount());
+                if (cursor != null) {
+                    // move cursor to first row
+                    if (cursor.moveToFirst()) {
+                        do {
+                            // Get version from Cursor
+                            totExporInc = cursor.getInt(cursor.getColumnIndex("totExp"));
+                        } while (cursor.moveToNext());
+                    }
+                    cursor.close();
+                    totreturnValue=totExporInc;
+                }
             }
-            /*
-            // get the totoal income balance
-            Cursor cursor2 = mDatabase.rawQuery("select SUM(amount) as 'totInc' from " + dbHelper.getTable_name() + "  Where transactiontype ='income'  ;", null);
-            System.out.println("GetTotalBalance - Totatl Income" + cursor2.getCount());
-            if (cursor2 != null) {
-                // move cursor to first row
-                if (cursor2.moveToFirst()) {
-                    do {
-                        // Get version from Cursor
-                        totInc = cursor2.getInt(cursor2.getColumnIndex("totInc"));
-                    } while (cursor2.moveToNext());
-                }
-                cursor2.close();
-            }*/
-            totBalance = totInc - totExp;
+
+
+
         }
         catch (Exception e){e.printStackTrace();}
-        return totExp;
+        return totreturnValue;
     }
 
     private void updateDate() {
@@ -732,6 +772,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+
 
     }
     @Override
