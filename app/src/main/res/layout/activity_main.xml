@@ -9,17 +9,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/title_summaryList"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
@@ -54,7 +43,8 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:shape="rectangle" >
+    android:shape="rectangle"
+    android:background="@color/highlighted_text_dark">
 
     <TableLayout
         android:id="@+id/tblMaintrans"
@@ -62,21 +52,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="2dp"
-        android:paddingLeft="45dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginRight="1dp"
+        android:paddingLeft="5dp"
+        android:layout_marginLeft="1dp"
         android:layout_centerVertical="true"
-      >
+        android:background="@color/white"
+ >
        <!-- android:background="@drawable/ic_tableback3" -->
 
-        <TableRow android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_centerHorizontal="true">
 
             <CheckBox
                 android:id="@+id/chkIncome"
-                android:layout_width="1dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:focusable="true"
@@ -84,18 +75,20 @@
 
             <CheckBox
                 android:id="@+id/ChkExpense"
-                android:layout_width="136dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
                 android:layout_toRightOf="@id/chkIncome"
                 android:checked="true"
-                android:text="Expense" />
+                android:text="Expense"
+                android:layout_gravity="start"
+                android:layout_marginLeft="20dp"/>
 
 
         </TableRow>
 
         <TableRow android:layout_marginTop="1dp"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_centerHorizontal="true">
 
@@ -104,14 +97,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
-                android:layout_marginLeft="1dp"
+                android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/ChkExpense"
                 android:checked="false"
-                android:text="CreditCard Expenses/Bills" />
+                android:text="CreditCard Expenses/Bills"
+                android:layout_gravity="start"/>
 
         </TableRow>
 
-        <TableRow android:layout_marginTop="10dp"
+        <TableRow android:layout_marginTop="5dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
@@ -120,10 +114,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
+                android:layout_gravity="end"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="1dp"
-                android:contentDescription="AddDate"
 
+                android:contentDescription="AddDate"
                 app:srcCompat="@drawable/ic_date1" />
 
             <EditText
@@ -144,8 +138,8 @@
                 android:id="@+id/idSourceType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_column="1"
+                android:layout_gravity="end"
                 android:layout_marginLeft="1dp"
                 android:text="SourceType"
                 android:textStyle="bold" />
@@ -156,9 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_column="2"
-                android:text="Select SourceType"
-
-                />
+                android:text="Select SourceType" />
         </TableRow>
 
         <TableRow android:layout_marginTop="10dp"
@@ -170,9 +162,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
+                android:layout_gravity="end"
                 android:layout_marginLeft="1dp"
                 android:text="Category"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spCategory"
@@ -184,7 +177,8 @@
 
         </TableRow>
 
-        <TableRow android:layout_width="10dp"
+        <TableRow android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
             <TextView
@@ -192,50 +186,66 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
+                android:layout_gravity="end"
                 android:layout_marginLeft="1dp"
                 android:text="Description"
                 android:textSize="13sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etDescription"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
                 android:layout_marginLeft="20dp"
                 android:ems="10"
+                android:layout_gravity="start"
                 android:inputType="text"/>
         </TableRow>
 
-        <TableRow android:layout_width="10dp"
+        <TableRow android:layout_marginTop="5dp"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
             <ImageView
                 android:id="@+id/ivCurrencyIcon"
                 android:layout_width="31dp"
                 android:layout_height="30dp"
-                android:layout_alignStart="@id/chkIncome"
-                android:layout_below="@id/tvDescription"
                 android:layout_column="1"
-                android:layout_marginLeft="1dp"
-                android:layout_marginTop="5dp"
+                android:layout_below="@id/tvDescription"
+                android:layout_alignStart="@id/chkIncome"
+                android:layout_gravity="right|center"
+                android:layout_marginLeft="10dp"
                 android:contentDescription="AddTransaction"
-                android:src="@drawable/ic_currency2"
-                />
+                android:src="@drawable/ic_ruppee" />
 
             <EditText
                 android:id="@+id/etTransationAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_column="2"
-                android:layout_marginLeft="20dp"
+                android:layout_column="1"
+                android:layout_gravity="left|center"
                 android:ems="10"
                 android:inputType="numberDecimal"
                 android:selectAllOnFocus="true"
                 android:text="0.00"
-                android:textAlignment="viewStart"
-                android:textSize="15sp" />
+                android:textAlignment="center"
+                android:textSize="15sp"
+
+
+                />
+
+            <ImageView
+                android:id="@+id/ivAddTransaction"
+                android:layout_width="wrap_content"
+                android:layout_height="67dp"
+                android:layout_gravity="end"
+                android:layout_column="2"
+                android:contentDescription="AddTransaction"
+                app:srcCompat="@drawable/ic_addtrans"
+                android:layout_marginLeft="-20dp"
+
+               />
         </TableRow>
 
         <TableRow
@@ -243,23 +253,7 @@
             android:layout_height="fill_parent"></TableRow>
 
 
-        <TableRow
-            android:paddingBottom="30dp"
-            android:paddingLeft="60dp"
-            android:paddingTop="10dp">
 
-            <ImageView
-                android:id="@+id/ivAddTransaction"
-                android:layout_width="wrap_content"
-                android:layout_height="67dp"
-                android:layout_column="1"
-                android:contentDescription="AddTransaction"
-                app:srcCompat="@drawable/ic_addtrans"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="50dp"/>
-
-        </TableRow>
 
     </TableLayout>
 

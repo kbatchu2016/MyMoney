@@ -483,7 +483,7 @@ public class MainActivity extends AppCompatActivity {
                                     //String _transAmount = etTransAmount.getText().toString();
                                     String _desamountSourceType = (String) spAmtType.getSelectedItem().toString();
                                     //insertTransactionData(transType, amountSourceType, transDate, transAmount, categoryName, desc);
-                                    insertTransactionData("Income", "Cash", transDate, transAmount, categoryName, "ATM " + amountSourceType,false);
+                                    insertTransactionData("income", "Cash", transDate, transAmount, categoryName, "ATM " + amountSourceType,false);
                                     Toast.makeText(MainActivity.this, "   updated the Transaction ! " + transAmount , Toast.LENGTH_SHORT).show();
                                 }
                             })
@@ -525,7 +525,7 @@ public class MainActivity extends AppCompatActivity {
          Log.i("insertData", "insertData: started");
         try {
 
-                 paidbills = paidbills == false ? false : paidbills;
+                boolean _paidbills = paidbills == false ? false : paidbills;
 
                 DBHelper dbHelper = new DBHelper(getApplicationContext());
                 // Date dNow = new Timestamp( transDate.toString()) ;
@@ -540,13 +540,14 @@ public class MainActivity extends AppCompatActivity {
                 values.put(dbHelper.getColumn_transCategory(), categoryName);
                 values.put(dbHelper.getColumn_transDescription(), transdesc);
                 values.put(dbHelper.getColumn_monthYear(),selectedMonthYear);
-                values.put(dbHelper.getcolumn_paidbills(),paidbills);
+                values.put(dbHelper.getcolumn_paidbills(),_paidbills);
 
                 Log.i("insertData", "insertData:values started");
                     long rowId = 0;
                     if (mDatabase != null) {
                         rowId = mDatabase.insert(table_name, null, values);
                         if (rowId != -1) {
+                            Log.i("insertData", "insertData:values started");
                           //  Toast.makeText(MainActivity.this, "Inserted Successfully !!!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(MainActivity.this, "Error inserting !!!", Toast.LENGTH_SHORT).show();
@@ -560,7 +561,7 @@ public class MainActivity extends AppCompatActivity {
             tvCurrentMonthPendingPayments.setText(getMonthofDate(new SimpleDateFormat(dateFormat).format(new Date())).toString() + " PendingBills:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("pendingbills")));
             tvCurrentMonthExpense.setText( getMonthofDate(new SimpleDateFormat(dateFormat).format(new Date())).toString() + " Expense:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("expense")));
             tvCurrentMOnthIncome.setText( getMonthofDate(new SimpleDateFormat(dateFormat).format(new Date())).toString() + " Income:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("income")));
-
+            etTotBalance.setText("₹ "+Integer.toString(GetTotalBalance()));
         }
         catch (Exception e)
             {e.printStackTrace();}
