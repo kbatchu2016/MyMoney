@@ -80,12 +80,13 @@ public class BalanceViewActivity extends AppCompatActivity {
                     // move cursor to first row
                     if (cursor.moveToFirst()) {
                         do {
+                            int _transAmount=0;
                             // Get version from Cursor
                            // int _id = cursor.getInt(cursor.getColumnIndex("id"));
                            // String _amountsourcetype = cursor.getString(cursor.getColumnIndex("amountsourcetype"));
                            // String _transType = cursor.getString(cursor.getColumnIndex("transactiontype"));
                            // String _dateoftrans = cursor.getString(cursor.getColumnIndex("dateoftrans"));
-                            int _transAmount = cursor.getInt(cursor.getColumnIndex("monthlyexpense"));
+                            _transAmount = cursor.getInt(cursor.getColumnIndex("monthlyexpense"));
                            // String _transCategory = cursor.getString(cursor.getColumnIndex("transCategory"));
                             String _transmonthYear = cursor.getString(cursor.getColumnIndex("transmonthYear"));
                             // String _transDesc = cursor.getString(cursor.getColumnIndex("transdescription"));
@@ -119,12 +120,13 @@ public class BalanceViewActivity extends AppCompatActivity {
                     // move cursor to first row
                     if (cursor1.moveToFirst()) {
                         do {
+                            int _transAmount=0;
                             // Get version from Cursor
                             // int _id = cursor.getInt(cursor.getColumnIndex("id"));
                             // String _amountsourcetype = cursor.getString(cursor.getColumnIndex("amountsourcetype"));
                        //     String _transType = cursor1.getString(cursor1.getColumnIndex("transactiontype"));
                             // String _dateoftrans = cursor.getString(cursor.getColumnIndex("dateoftrans"));
-                            int _transAmount = cursor1.getInt(cursor1.getColumnIndex("monthlyincome"));
+                            _transAmount = cursor1.getInt(cursor1.getColumnIndex("monthlyincome"));
                             // String _transCategory = cursor.getString(cursor.getColumnIndex("transCategory"));
                             String _transmonthYear = cursor1.getString(cursor1.getColumnIndex("transmonthYear"));
                             // String _transDesc = cursor.getString(cursor.getColumnIndex("transdescription"));

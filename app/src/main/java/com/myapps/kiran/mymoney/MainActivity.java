@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true; */
                 case R.id.navigation_export:
-                    //mTextMessage.setText(R.string.title_export);
+                     mTextMessage.setText(R.string.title_export);
                 {
                     boolean exportFileStaus = dbHelper.exportDB2CSVFile();
                     if (exportFileStaus) {
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
                 case R.id.navigation_SummaryList:
-                    //mTextMessage.setText(R.string.title_activity_summary);
+                      mTextMessage.setText(R.string.title_activity_summary);
                     intent = new Intent(MainActivity.this, TransactionActivity.class);
                     startActivity(intent);
                     return true;
@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //to navigate to Accounts View  page
-       tVTotBalnce.setOnClickListener(new View.OnClickListener() {
+        etTotBalance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AccountsViewActivity.class);
@@ -298,9 +298,19 @@ public class MainActivity extends AppCompatActivity {
                 String dateInString =new SimpleDateFormat(pattern).format(new Date());
                 String selectedMonthYear=  getMonthofDate(dateInString).toString() ;
 
+                int _currentMonthExpense= GetCurrentMothExpenseIncome("expense");
+                if(_currentMonthExpense==0){
+                     insertTransactionData("expense", "Cash", stringDate, "0", "Home", "Monthly Adj Balance " ,false);
+                }
+                int _currentMonthIncome= GetCurrentMothExpenseIncome("income");
+                if(_currentMonthExpense==0){
+                    insertTransactionData("income", "Cash", stringDate, "0", "Home", "Monthly Adj Balance " ,false);
+                }
                 tvCurrentMonthPendingPayments.setText(selectedMonthYear + " PendingBills:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("pendingbills")));
-                tvCurrentMonthExpense.setText( selectedMonthYear + " Expense:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("expense")));
-                tvCurrentMOnthIncome.setText( selectedMonthYear + " Income:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("income")));
+                tvCurrentMonthExpense.setText( selectedMonthYear + " Expense:\n ₹"+Integer.toString( _currentMonthExpense ));
+                tvCurrentMOnthIncome.setText( selectedMonthYear + " Income:\n ₹"+Integer.toString( _currentMonthIncome));
+
+
 
  
     //---------------------------//
@@ -638,8 +648,10 @@ public class MainActivity extends AppCompatActivity {
             // totoal remainging pending bills
             if(_transactiontype.toLowerCase().trim().contains("pendingbills")){
                // Cursor cursor = mDatabase.rawQuery("select SUM(amount) as 'totExp' from " + dbHelper.getTable_name() + "  Where transactiontype ='" + _transactiontype + "' and  transmonthYear = '" + selectedMonthYear + "' ;", null);
-                Cursor cursor = mDatabase.rawQuery("select  ((SELECT COALESCE(SUM(amount),0)  FROM   accountSummary WHERE (transactiontype='"+_transactiontype+"' AND transmonthYear='"+ selectedMonthYear+"')) - (select COALESCE(SUM(amount),0)  from accountSummary where (Paidbills=1 AND transactiontype ='expense' and transmonthYear='"+selectedMonthYear+"')) ) as totpaidpendbills;", null);
-                 System.out.println("Get Pending Bills - Totatl paid bills:" + cursor.getCount());
+               // Cursor cursor = mDatabase.rawQuery("select  ((SELECT COALESCE(SUM(amount),0)  FROM   accountSummary WHERE (transactiontype='"+_transactiontype+"' AND transmonthYear='"+ selectedMonthYear+"')) - (select COALESCE(SUM(amount),0)  from accountSummary where (Paidbills=1 AND transactiontype ='expense' and transmonthYear='"+selectedMonthYear+"')) ) as totpaidpendbills;", null);
+
+                Cursor cursor = mDatabase.rawQuery("select  ((SELECT COALESCE(SUM(amount),0)  FROM   accountSummary WHERE (transactiontype='"+_transactiontype+"' )) - (select COALESCE(SUM(amount),0)  from accountSummary where (Paidbills=1 AND transactiontype ='expense' )) ) as totpaidpendbills;", null);
+                System.out.println("Get Pending Bills - Totatl paid bills:" + cursor.getCount());
                 if (cursor != null) {
                     // move cursor to first row
                     if (cursor.moveToFirst()) {

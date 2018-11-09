@@ -68,15 +68,17 @@ public class AccountsViewActivity extends AppCompatActivity {
                 Cursor cursor = mDatabase.rawQuery("select amountsourcetype, SUM(amount) as 'monthlyexpense'  from " + dbHelper.getTable_name() + "  where transactiontype = 'expense'   Group  by amountsourcetype ,transactiontype   Order by  amountsourcetype  DESC ;", null);
                 System.out.println("MainActivity.onClick:" + cursor.getCount());
                 if (cursor != null) {
+
                     // move cursor to first row
                     if (cursor.moveToFirst()) {
                         do {
+                            int _transAmount=0;
                             // Get version from Cursor
                             // int _id = cursor.getInt(cursor.getColumnIndex("id"));
                             // String _amountsourcetype = cursor.getString(cursor.getColumnIndex("amountsourcetype"));
                             // String _transType = cursor.getString(cursor.getColumnIndex("transactiontype"));
                             // String _dateoftrans = cursor.getString(cursor.getColumnIndex("dateoftrans"));
-                            int _transAmount = cursor.getInt(cursor.getColumnIndex("monthlyexpense"));
+                             _transAmount = cursor.getInt(cursor.getColumnIndex("monthlyexpense"));
                             // String _transCategory = cursor.getString(cursor.getColumnIndex("transCategory"));
                             String _transmonthYear = cursor.getString(cursor.getColumnIndex("amountsourcetype"));
                             // String _transDesc = cursor.getString(cursor.getColumnIndex("transdescription"));
@@ -110,12 +112,13 @@ public class AccountsViewActivity extends AppCompatActivity {
                     // move cursor to first row
                     if (cursor1.moveToFirst()) {
                         do {
+                            int _transAmount=0;
                             // Get version from Cursor
                             // int _id = cursor.getInt(cursor.getColumnIndex("id"));
                             // String _amountsourcetype = cursor.getString(cursor.getColumnIndex("amountsourcetype"));
                             //     String _transType = cursor1.getString(cursor1.getColumnIndex("transactiontype"));
                             // String _dateoftrans = cursor.getString(cursor.getColumnIndex("dateoftrans"));
-                            int _transAmount = cursor1.getInt(cursor1.getColumnIndex("monthlyincome"));
+                             _transAmount = cursor1.getInt(cursor1.getColumnIndex("monthlyincome"));
                             // String _transCategory = cursor.getString(cursor.getColumnIndex("transCategory"));
                             String _transmonthYear = cursor1.getString(cursor1.getColumnIndex("amountsourcetype"));
                             // String _transDesc = cursor.getString(cursor.getColumnIndex("transdescription"));
