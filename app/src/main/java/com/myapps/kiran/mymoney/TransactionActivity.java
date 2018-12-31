@@ -47,7 +47,7 @@ public class TransactionActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
     CustomAdapter customAdapter;
     EditText editTextSearch;
-    Spinner spmonthyear;
+    Spinner spmonthyear,spFilterType;
     // spinner variables
     List<String> mMonthYearList;
     ArrayAdapter<String> adapterMonthYear;
@@ -83,6 +83,7 @@ public class TransactionActivity extends AppCompatActivity {
         //////////////////       AmtSourceType - Spinner           //////////////////
 
         spmonthyear = (Spinner) findViewById(R.id.spmonthyear);
+        spFilterType= (Spinner) findViewById(R.id.spFilterType);
 
         String[] mMMYYArray = (String[]) getResources().getStringArray(R.array.MonthYear_array);
         mMonthYearList = new ArrayList<>(Arrays.asList(mMMYYArray));
@@ -113,7 +114,19 @@ public class TransactionActivity extends AppCompatActivity {
                 });
 
 
+        spFilterType.setOnItemSelectedListener(       new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(
+                    AdapterView<?> parent, View view, int position, long id) {
+                //showToast("Spinner2: position=" + position + " id=" + id);
+                //if(position>0)
+                 editTextSearch.setText("");
+                displayRecyclerViewList();
+            }
 
+            public void onNothingSelected(AdapterView<?> parent) {
+                // showToast("Spinner2: unselected");
+            }
+        });
         //adding a TextChangedListener
         //to call a method whenever there is some change on the EditText
         editTextSearch.addTextChangedListener(new TextWatcher() {
@@ -130,8 +143,33 @@ public class TransactionActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 //after the change calling the method and passing the search input
-             //   filter_arrTransType(editable.toString());
-                filter_arrAmtSourceType(editable.toString());
+
+                // switch statement
+                switch(spFilterType.getSelectedItem().toString().trim())
+                {
+                    // case statements
+                    // values must be of same type of expression
+                    case "Source Type" :
+                       // filter_arrAmtSourceType(editable.toString());
+                        filter_SearchArray(editable.toString(),_arrAmtSourceType,"Source Type");
+                        break; // break is optional
+
+                    case "Category" :
+                        filter_SearchArray(editable.toString(),_arrCategory,"Category");
+                        break; // break is optional
+                    case "Transaction Type" :
+                        //filter_arrTransType(editable.toString());
+                        filter_SearchArray(editable.toString(),_arrTransType,"Transaction Type");
+                        break; // break is optional
+                    case "Description" :
+                        filter_SearchArray(editable.toString(),_arrDesc,"Description");
+
+                        break; // break is optional
+
+                    // No break is needed in the default case.
+                    default :
+                        // Statements
+                }
 
             }
         });
@@ -249,6 +287,24 @@ private void displayRecyclerViewList()
 
 }
 
+
+
+
+    private void filter_SearchArray(String text,ArrayList<String> _array,String arrayName) {
+        //new array list that will hold the filtered data
+        ArrayList<String> arrNames = new ArrayList<>();
+
+        //looping through existing elements
+        for (String s : _array) {
+            //if the existing elements contains the search input
+            if (s.toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                arrNames.add(s);
+            }
+        }
+        //calling a method of the adapter class and passing the filtered list
+        customAdapter.filterListarrType(arrNames,arrayName);
+    }
     private void filter_arrTransType(String text) {
         //new array list that will hold the filtered data
         ArrayList<String> arrNames = new ArrayList<>();
