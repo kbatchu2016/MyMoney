@@ -140,10 +140,11 @@ public class TransactionActivity extends AppCompatActivity {
 
             }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
+           @Override
+           public void afterTextChanged(Editable editable) {
+             //  displayRecyclerViewList();
                 //after the change calling the method and passing the search input
-
+  /*
                 // switch statement
                 switch(spFilterType.getSelectedItem().toString().trim())
                 {
@@ -169,7 +170,7 @@ public class TransactionActivity extends AppCompatActivity {
                     // No break is needed in the default case.
                     default :
                         // Statements
-                }
+                } */
 
             }
         });
@@ -220,7 +221,7 @@ private void displayRecyclerViewList()
 {
     dbHelper = new DBHelper(getApplicationContext());
     mDatabase = dbHelper.getReadableDatabase();
-    Cursor cursor;
+    Cursor cursor=null;
    // customAdapter=null;
 
 
@@ -230,9 +231,40 @@ private void displayRecyclerViewList()
         try {
 
             String mmyyFilter = (String) spmonthyear.getSelectedItem().toString().trim();
+            String ftyFilter = (String) spFilterType.getSelectedItem().toString().trim();
+            String searchFilter = (String) editTextSearch.getText().toString().trim();
+            String filterType="";
+
             if (mmyyFilter.contains("All")){
                 customAdapter.clear();
                 cursor = mDatabase.rawQuery("select * from "+ dbHelper.getTable_name() +"  Order by  dateoftrans  DESC ;", null);
+            }
+            else if(!searchFilter.equals("") ){
+                customAdapter.clear();
+                switch (ftyFilter.trim()){
+
+                           // values must be of same type of expression
+                case "Source Type" :
+                    cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_amountsourcetype() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                    break; // break is optional
+
+                case "Category" :
+                    cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_transCategory() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                    break; // break is optional
+                case "Transaction Type" :
+                    //filter_arrTransType(editable.toString());
+                    cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_transType() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                    break; // break is optional
+                case "Description" :
+                    cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_transDescription() +"  LIKE ' %" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+
+                    break; // break is optional
+
+                // No break is needed in the default case.
+                default :
+                    // Statements
+            }
+
             }
             else
             {
@@ -304,37 +336,6 @@ private void displayRecyclerViewList()
         }
         //calling a method of the adapter class and passing the filtered list
         customAdapter.filterListarrType(arrNames,arrayName);
-    }
-    private void filter_arrTransType(String text) {
-        //new array list that will hold the filtered data
-        ArrayList<String> arrNames = new ArrayList<>();
-
-        //looping through existing elements
-        for (String s : _arrTransType) {
-            //if the existing elements contains the search input
-            if (s.toLowerCase().contains(text.toLowerCase())) {
-                //adding the element to filtered list
-                arrNames.add(s);
-            }
-        }
-        //calling a method of the adapter class and passing the filtered list
-        customAdapter.filterListarrTransType(arrNames);
-    }
-
-    private void filter_arrAmtSourceType(String text) {
-        //new array list that will hold the filtered data
-        ArrayList<String> arrNames = new ArrayList<>();
-
-        //looping through existing elements
-        for (String s : _arrAmtSourceType) {
-            //if the existing elements contains the search input
-            if (s.toLowerCase().contains(text.toLowerCase())) {
-                //adding the element to filtered list
-                arrNames.add(s);
-            }
-        }
-        //calling a method of the adapter class and passing the filtered list
-        customAdapter.filterListarrAmtSourceType(arrNames);
     }
 
 
