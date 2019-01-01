@@ -27,7 +27,8 @@
 
 
 
-        <EditText
+       <EditText
+            class="android.support.v7.widget.SearchView"
             android:id="@+id/mSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,6 +37,24 @@
             android:autofillHints=""
             android:hint="@string/enter_search_item"
             android:inputType="" />
+
+
+
+       <!-- <view
+            android:id="@+id/mSearch"
+            class="android.support.v7.widget.SearchView"
+            id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/spFilterType"
+            android:text="Search" /> -->
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="35dp"
+            android:layout_height="36dp"
+            android:layout_toEndOf="@+id/mSearch"
+            android:text="Search" />
 
         <Spinner
             android:id="@+id/spmonthyear"
