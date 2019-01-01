@@ -185,6 +185,31 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     //This method will filter the list
     //here we are passing the filtered data
     //and assigning it to the list with notifydatasetchanged method
+    public void filterListarrType(ArrayList<String> filterdNames,String arrayName) {
+        switch(arrayName.toString().trim())
+        {
+            // case statements
+            // values must be of same type of expression
+            case "Source Type" :
+                this.arrAmtSourceType = filterdNames;
+                break; // break is optional
+            case "Category" :
+                this.arrCategory = filterdNames;
+                break; // break is optional
+            case "Transaction Type" :
+                this.arrTransType = filterdNames;
+                break; // break is optional
+            case "Description" :
+                this.arrDesc = filterdNames;
+                break; // break is optional
+            // No break is needed in the default case.
+            default :
+                // Statements
+        }
+
+        notifyDataSetChanged();
+    }
+
     public void filterListarrTransType(ArrayList<String> filterdNames) {
         this.arrTransType = filterdNames;
         notifyDataSetChanged();

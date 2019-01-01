@@ -34,6 +34,13 @@
         <item>Traveling</item>
 
     </string-array>
+    <string-array name="filterTypes_array">
+        <item>Source Type</item>
+        <item>Category</item>
+        <item>Transaction Type</item>
+        <item>Description</item>
+
+    </string-array>
 
     <string-array name="MonthYear_array">
         <item>All</item>
@@ -47,4 +54,7 @@
     <string name="title_balancechart">BalanceChart</string>
     <string name="title_expenseChart">ExpenseChart</string>
     <string name="title_activity_accounts_view">AccountsViewActivity</string>
+    <string name="search_month">Search Month</string>
+    <string name="filtertype">FilterType</string>
+    <string name="enter_search_item">Enter search Item</string>
 </resources>

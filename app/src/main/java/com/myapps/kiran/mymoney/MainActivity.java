@@ -300,19 +300,16 @@ public class MainActivity extends AppCompatActivity {
 
                 int _currentMonthExpense= GetCurrentMothExpenseIncome("expense");
                 if(_currentMonthExpense==0){
-                     insertTransactionData("expense", "Cash", stringDate, "0", "Home", "Monthly Adj Balance " ,false);
+                     insertTransactionData("expense", "Cash", stringDate, "1", "Home", "Monthly Adj Balance " ,false);
                 }
                 int _currentMonthIncome= GetCurrentMothExpenseIncome("income");
                 if(_currentMonthExpense==0){
-                    insertTransactionData("income", "Cash", stringDate, "0", "Home", "Monthly Adj Balance " ,false);
+                    insertTransactionData("income", "Cash", stringDate, "1", "Home", "Monthly Adj Balance " ,false);
                 }
                 tvCurrentMonthPendingPayments.setText(selectedMonthYear + " PendingBills:\n ₹"+Integer.toString( GetCurrentMothExpenseIncome("pendingbills")));
                 tvCurrentMonthExpense.setText( selectedMonthYear + " Expense:\n ₹"+Integer.toString( _currentMonthExpense ));
                 tvCurrentMOnthIncome.setText( selectedMonthYear + " Income:\n ₹"+Integer.toString( _currentMonthIncome));
 
-
-
- 
     //---------------------------//
                    // fill the Mian Page with existing data from  summary screen to edit the recycle data
         {
@@ -678,9 +675,6 @@ public class MainActivity extends AppCompatActivity {
                     totreturnValue=totExporInc;
                 }
             }
-
-
-
         }
         catch (Exception e){e.printStackTrace();}
         return totreturnValue;

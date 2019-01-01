@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -47,8 +48,10 @@ public class TransactionActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
     CustomAdapter customAdapter;
     EditText editTextSearch;
+   // View editTextSearch;
     Spinner spmonthyear,spFilterType;
     // spinner variables
+    Button btnserach;
     List<String> mMonthYearList;
     ArrayAdapter<String> adapterMonthYear;
     LinearLayout rv;
@@ -59,12 +62,13 @@ public class TransactionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction);
 
-        rv = (LinearLayout) findViewById(R.id.lrlist) ;
+        rv = (LinearLayout) findViewById(R.id.lrlist);
         // get the reference of RecyclerView
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         editTextSearch = (EditText) findViewById(R.id.mSearch);
         editTextSearch.clearFocus();
+        btnserach = (Button) findViewById(R.id.btnSearch);
         // set a LinearLayoutManager with default vertical orientation
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -83,7 +87,7 @@ public class TransactionActivity extends AppCompatActivity {
         //////////////////       AmtSourceType - Spinner           //////////////////
 
         spmonthyear = (Spinner) findViewById(R.id.spmonthyear);
-        spFilterType= (Spinner) findViewById(R.id.spFilterType);
+        spFilterType = (Spinner) findViewById(R.id.spFilterType);
 
         String[] mMMYYArray = (String[]) getResources().getStringArray(R.array.MonthYear_array);
         mMonthYearList = new ArrayList<>(Arrays.asList(mMMYYArray));
@@ -104,22 +108,23 @@ public class TransactionActivity extends AppCompatActivity {
                             AdapterView<?> parent, View view, int position, long id) {
                         //showToast("Spinner2: position=" + position + " id=" + id);
                         //if(position>0)
+
                         editTextSearch.setText("");
-                       displayRecyclerViewList();
+                        displayRecyclerViewList();
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {
-                       // showToast("Spinner2: unselected");
+                        // showToast("Spinner2: unselected");
                     }
                 });
 
 
-        spFilterType.setOnItemSelectedListener(       new AdapterView.OnItemSelectedListener() {
+        spFilterType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(
                     AdapterView<?> parent, View view, int position, long id) {
                 //showToast("Spinner2: position=" + position + " id=" + id);
                 //if(position>0)
-                 editTextSearch.setText("");
+                editTextSearch.setText("");
                 displayRecyclerViewList();
             }
 
@@ -140,9 +145,9 @@ public class TransactionActivity extends AppCompatActivity {
 
             }
 
-           @Override
-           public void afterTextChanged(Editable editable) {
-             //  displayRecyclerViewList();
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //  displayRecyclerViewList();
                 //after the change calling the method and passing the search input
   /*
                 // switch statement
@@ -176,7 +181,13 @@ public class TransactionActivity extends AppCompatActivity {
         });
 
 
+        btnserach.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                displayRecyclerViewList();
 
+            }
+        });
     }
 
     @Override
@@ -235,11 +246,8 @@ private void displayRecyclerViewList()
             String searchFilter = (String) editTextSearch.getText().toString().trim();
             String filterType="";
 
-            if (mmyyFilter.contains("All")){
-                customAdapter.clear();
-                cursor = mDatabase.rawQuery("select * from "+ dbHelper.getTable_name() +"  Order by  dateoftrans  DESC ;", null);
-            }
-            else if(!searchFilter.equals("") ){
+
+             if(!searchFilter.equals("") ){
                 customAdapter.clear();
                 switch (ftyFilter.trim()){
 
@@ -264,8 +272,13 @@ private void displayRecyclerViewList()
                 default :
                     // Statements
             }
+             }
+            else if (mmyyFilter.contains("All") && searchFilter.equals("")  ){
+                    customAdapter.clear();
+                    cursor = mDatabase.rawQuery("select * from "+ dbHelper.getTable_name() +"  Order by  dateoftrans  DESC ;", null);
+                }
 
-            }
+
             else
             {
                 customAdapter.clear();

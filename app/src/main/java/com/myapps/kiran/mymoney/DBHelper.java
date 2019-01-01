@@ -74,9 +74,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return column_id;
     }
 
-    public String getcolumn_amountsourcetype() {
-        return column_amountsourcetype;
-    }
+
 
     public String getColumn_amount() {
         return column_amount;
@@ -89,6 +87,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public String getColumn_transType() {
         return column_transType;
     }
+
 
     public String getDatabase_create_statement() {
         return database_create_statement;
