@@ -131,8 +131,8 @@
     <!-- Multi-sim sim colors -->
     <color name="Teal_700">#ff00796b</color>
     <color name="Teal_800">#ff00695c</color>
-    <color name="Blue_700">#ff3367d6</color>
-    <color name="Blue_800">#ff2a56c6</color>
+    <color name="Blue_700">#e3eaf9</color>
+    <color name="Blue_800">#d1dcf8</color>
     <color name="Indigo_700">#ff303f9f</color>
     <color name="Indigo_800">#ff283593</color>
     <color name="Purple_700">#ff7b1fa2</color>

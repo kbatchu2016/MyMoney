@@ -32,10 +32,11 @@
         <item>ICICI Credit Card</item>
         <item>CITI Credit Card</item>
         <item>Traveling</item>
+        <item>NdlCon</item>
 
     </string-array>
     <string-array name="filterTypes_array">
-        <item>Select..</item>
+        <item>Select SearchType..</item>
         <item>Source Type</item>
         <item>Category</item>
         <item>Transaction Type</item>

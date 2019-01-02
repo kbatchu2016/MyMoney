@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -51,7 +52,7 @@ public class TransactionActivity extends AppCompatActivity {
    // View editTextSearch;
     Spinner spmonthyear,spFilterType;
     // spinner variables
-    Button btnserach;
+    ImageButton btnserach;
     List<String> mMonthYearList;
     ArrayAdapter<String> adapterMonthYear;
     LinearLayout rv;
@@ -68,7 +69,7 @@ public class TransactionActivity extends AppCompatActivity {
 
         editTextSearch = (EditText) findViewById(R.id.mSearch);
         editTextSearch.clearFocus();
-        btnserach = (Button) findViewById(R.id.btnSearch);
+        btnserach = (ImageButton) findViewById(R.id.btnSearch);
         // set a LinearLayoutManager with default vertical orientation
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -147,35 +148,6 @@ public class TransactionActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                //  displayRecyclerViewList();
-                //after the change calling the method and passing the search input
-  /*
-                // switch statement
-                switch(spFilterType.getSelectedItem().toString().trim())
-                {
-                    // case statements
-                    // values must be of same type of expression
-                    case "Source Type" :
-                       // filter_arrAmtSourceType(editable.toString());
-                        filter_SearchArray(editable.toString(),_arrAmtSourceType,"Source Type");
-                        break; // break is optional
-
-                    case "Category" :
-                        filter_SearchArray(editable.toString(),_arrCategory,"Category");
-                        break; // break is optional
-                    case "Transaction Type" :
-                        //filter_arrTransType(editable.toString());
-                        filter_SearchArray(editable.toString(),_arrTransType,"Transaction Type");
-                        break; // break is optional
-                    case "Description" :
-                        filter_SearchArray(editable.toString(),_arrDesc,"Description");
-
-                        break; // break is optional
-
-                    // No break is needed in the default case.
-                    default :
-                        // Statements
-                } */
 
             }
         });
@@ -250,25 +222,33 @@ private void displayRecyclerViewList()
              if(!searchFilter.equals("") ){
                 customAdapter.clear();
                 switch (ftyFilter.trim()){
-
                            // values must be of same type of expression
                 case "Source Type" :
-                    cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_amountsourcetype() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
-                    break; // break is optional
+                    if (!mmyyFilter.contains("All"))
+                        cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_monthYear()  + " ='" + mmyyFilter + "' AND "+  dbHelper.getColumn_amountsourcetype() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                    if (mmyyFilter.contains("All"))
+                        cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_amountsourcetype() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                    break;
 
                 case "Category" :
-                    cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_transCategory() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
-                    break; // break is optional
+                    if (!mmyyFilter.contains("All"))
+                        cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_monthYear()  + " ='" + mmyyFilter + "' AND "+  dbHelper.getColumn_transCategory() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                    if (mmyyFilter.contains("All"))
+                         cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_transCategory() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                    break;
                 case "Transaction Type" :
-                    //filter_arrTransType(editable.toString());
-                    cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_transType() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
-                    break; // break is optional
+                    if (!mmyyFilter.contains("All"))
+                        cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_monthYear()  + " ='" + mmyyFilter + "' AND "+  dbHelper.getColumn_transType() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                    if (mmyyFilter.contains("All"))
+                        cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_transType() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                    break;
                 case "Description" :
-                    cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_transDescription() +"  LIKE ' %" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                    if (!mmyyFilter.contains("All"))
+                        cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_monthYear()  + " ='" + mmyyFilter + "' AND "+  dbHelper.getColumn_transDescription() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                    if (mmyyFilter.contains("All"))
+                         cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_transDescription() +"  LIKE ' %" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                     break; // break is optional
 
-                    break; // break is optional
-
-                // No break is needed in the default case.
                 default :
                     // Statements
             }
@@ -277,8 +257,6 @@ private void displayRecyclerViewList()
                     customAdapter.clear();
                     cursor = mDatabase.rawQuery("select * from "+ dbHelper.getTable_name() +"  Order by  dateoftrans  DESC ;", null);
                 }
-
-
             else
             {
                 customAdapter.clear();
