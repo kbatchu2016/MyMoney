@@ -244,9 +244,9 @@ private void displayRecyclerViewList()
                     break;
                 case "Description" :
                     if (!mmyyFilter.contains("All"))
-                        cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_monthYear()  + " ='" + mmyyFilter + "' AND "+  dbHelper.getColumn_transDescription() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                        cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_monthYear()  + " ='" + mmyyFilter + "' AND  "+  dbHelper.getColumn_transDescription() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
                     if (mmyyFilter.contains("All"))
-                         cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE "+  dbHelper.getColumn_transDescription() +"  LIKE ' %" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
+                         cursor = mDatabase.rawQuery("Select * from "+ dbHelper.getTable_name() +" WHERE  "+  dbHelper.getColumn_transDescription() +"  LIKE '%" + searchFilter +"%' Order by  dateoftrans  DESC ;", null);
                      break; // break is optional
 
                 default :
