@@ -3,352 +3,281 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="0dp"
+        android:paddingBottom="0dp"
         android:layout_marginStart="0dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation"
-        app:itemTextColor="@color/micro_text_light"
-        />
-
-<ScrollView
-
-
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
-    android:fillViewport="false"
-    android:background="@drawable/relative_layout_background">
-
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rlMain"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:shape="rectangle"
-    android:background="@color/highlighted_text_dark">
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TableLayout
-        android:id="@+id/tblMaintrans"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="1dp"
-        android:paddingLeft="5dp"
-        android:layout_marginLeft="1dp"
-        android:layout_centerVertical="true"
-        android:background="@color/white"
- >
-       <!-- android:background="@drawable/ic_tableback3" -->
-
-        <TableRow android:layout_marginTop="10dp"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_centerHorizontal="true">
-
-            <CheckBox
-                android:id="@+id/chkIncome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:focusable="true"
-                android:text="Income" />
-
-            <CheckBox
-                android:id="@+id/ChkExpense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_toRightOf="@id/chkIncome"
-                android:checked="true"
-                android:text="Expense"
-                android:layout_gravity="start"
-                android:layout_marginLeft="20dp"/>
-
-
-        </TableRow>
-
-        <TableRow android:layout_marginTop="1dp"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_centerHorizontal="true">
-
-            <CheckBox
-                android:id="@+id/ChkCreditCardExpenses"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@id/ChkExpense"
-                android:checked="false"
-                android:text="CreditCard Expenses/Bills"
-                android:layout_gravity="start"/>
-
-        </TableRow>
-
-        <TableRow android:layout_marginTop="5dp"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <ImageView
-                android:id="@+id/ivDatePopup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_gravity="end"
-                android:layout_marginBottom="5dp"
-
-                android:contentDescription="AddDate"
-                app:srcCompat="@drawable/ic_date1" />
-
-            <EditText
-                android:id="@+id/etDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_marginLeft="20dp"
-                android:inputType="date"
-                android:text="Select Date" />
-        </TableRow>
-
-        <TableRow android:layout_marginTop="10dp"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
+        app:itemTextColor="@color/micro_text_light"/>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:fillViewport="true"
+        android:background="@drawable/relative_layout_background">
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/rlMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:shape="rectangle"
+            android:background="@drawable/layiutborder"  >
             <TextView
-                android:id="@+id/idSourceType"
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="0dp"
+                android:id="@+id/rllinearMain">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop ="-0dp"
+                    android:background="@drawable/layiutborder" >
+                    <CheckBox
+                        android:id="@+id/chkIncome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:text="Income" />
+                    <CheckBox
+                        android:id="@+id/ChkExpense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/chkIncome"
+                        android:checked="true"
+                        android:text="Expense"
+                        android:layout_gravity="start"
+                        android:layout_marginLeft="20dp"/>
+                    <CheckBox
+                        android:id="@+id/ChkCreditCardExpenses"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/chkIncome"
+                        android:layout_toRightOf="@+id/chkIncome"
+                        android:checked="false"
+                        android:text="CreditCard Expenses/Bills"
+                        android:layout_marginLeft="20dp"
+                        />
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_gravity="left"
+                    android:paddingTop="5dp"
+                    android:text="Select Date" />
+                <EditText
+                    android:id="@+id/etDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_date1"
+                    android:inputType="date"
+                    android:hint="Select Date"
+                    android:paddingLeft="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="left"
+                    />
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:textStyle="bold"
+                        android:text="SourceType" />
+                    <ImageView
+                        android:id="@+id/ivAddSourceType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="67dp"
+                        android:layout_gravity="start"
+                        android:padding="15dp"
+                        android:contentDescription="SourceType"
+                        app:srcCompat="@drawable/ic_cards2"/>
+                    <Spinner
+                        android:id="@+id/spAmtSourceType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/ivAddSourceType"
+                        android:hint="Select SourceType"
+                        android:layout_gravity="right"
+                        android:paddingTop="10dp"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:textStyle="bold"
+                        android:text="Category" />
+                    <ImageView
+                        android:id="@+id/ivcat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="67dp"
+                        android:layout_gravity="start"
+                        android:padding="15dp"
+                        android:contentDescription="AddCategory"
+                        app:srcCompat="@drawable/ic_category" />
+
+                    <Spinner
+                        android:id="@+id/spCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/ivcat"
+                        android:hint="Select Category"
+                        android:layout_gravity="right"
+                        android:paddingTop="10dp"
+                       />
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_gravity="left"
+                    android:paddingTop="5dp"
+                    android:text="Description" />
+                <EditText
+                    android:id="@+id/etDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Description"
+                    android:ems="10"
+                    android:layout_gravity="start"
+                    android:inputType="text"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:textStyle="bold"
+                    android:text="Enter Amount" />
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+                    <EditText
+                        android:id="@+id/etTransationAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Amount"
+                        android:drawableLeft="@drawable/ic_ruppee"
+                        android:layout_gravity="left|center"
+                        android:ems="10"
+                        android:inputType="numberDecimal"
+                        android:selectAllOnFocus="true"
+                        android:text="0.00"
+                        android:textAlignment="center"
+                        android:textSize="15sp"       />
+                    <ImageView
+                        android:id="@+id/ivAddTransaction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:layout_gravity="end"
+                        android:layout_toRightOf="@+id/etTransationAmount"
+                        android:contentDescription="AddTransaction"
+                        app:srcCompat="@drawable/ic_addtrans"
+                        android:layout_marginLeft="-20dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_gravity="end"
-                android:layout_marginLeft="1dp"
-                android:text="SourceType"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:layout_below="@+id/rllinearMain"
+                android:background="@drawable/layiutborder"  >
+                <TextView
+                    android:id="@+id/etcurrentMonthIncome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-            <Spinner
-                android:id="@+id/spAmtSourceType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_column="2"
-                android:text="Select SourceType" />
-        </TableRow>
-
-        <TableRow android:layout_marginTop="10dp"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <TextView
-                android:id="@+id/tvCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_gravity="end"
-                android:layout_marginLeft="1dp"
-                android:text="Category"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/spCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_marginLeft="20dp"
-                android:text="Select Category" />
-
-        </TableRow>
-
-        <TableRow android:layout_marginTop="10dp"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_gravity="end"
-                android:layout_marginLeft="1dp"
-                android:text="Description"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/etDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_marginLeft="20dp"
-                android:ems="10"
-                android:layout_gravity="start"
-                android:inputType="text"/>
-        </TableRow>
-
-        <TableRow android:layout_marginTop="5dp"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <ImageView
-                android:id="@+id/ivCurrencyIcon"
-                android:layout_width="31dp"
-                android:layout_height="30dp"
-                android:layout_column="1"
-                android:layout_below="@id/tvDescription"
-                android:layout_alignStart="@id/chkIncome"
-                android:layout_gravity="right|center"
-                android:layout_marginLeft="10dp"
-                android:contentDescription="AddTransaction"
-                android:src="@drawable/ic_ruppee" />
-
-            <EditText
-                android:id="@+id/etTransationAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_gravity="left|center"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:selectAllOnFocus="true"
-                android:text="0.00"
-                android:textAlignment="center"
-                android:textSize="15sp"
-
-
-                />
-
-            <ImageView
-                android:id="@+id/ivAddTransaction"
-                android:layout_width="wrap_content"
-                android:layout_height="67dp"
-                android:layout_gravity="end"
-                android:layout_column="2"
-                android:contentDescription="AddTransaction"
-                app:srcCompat="@drawable/ic_addtrans"
-                android:layout_marginLeft="-20dp"
-
-               />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"></TableRow>
-
-
-
-
-    </TableLayout>
-
-
-    <TextView
-        android:id="@+id/etcurrentMonthIncome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tblMaintrans"
-        android:inputType="textPersonName"
-        android:text="00.00"
-        android:textColor="@android:color/holo_green_dark"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        />
-
-    <TextView
-        android:id="@+id/etcurrentMonthExpense"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etcurrentMonthIncome"
-        android:inputType="textPersonName"
-        android:text="00.00"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        />
-
-    <TextView
-        android:id="@+id/etcurrentMonthPendingPayments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/etcurrentMonthExpense"
-        android:inputType="textPersonName"
-        android:text="00.00"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        />
-
-    <TextView
-        android:id="@+id/tvTotalBalance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        android:layout_below="@id/etcurrentMonthPendingPayments"
-
-        android:clickable="false"
-        android:text="Total \n Balance"
-        android:textAlignment="center"
-
-        android:textAllCaps="false"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/etTotalBalance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/etcurrentMonthPendingPayments"
-        android:layout_alignStart="@+id/tvTotalBalance"
-        android:layout_centerHorizontal="true"
-        android:inputType="textPersonName"
-        android:text="100000.00"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_purple"
-        android:textSize="40sp"
-        android:textStyle="bold" />
-
-
-
-
-</RelativeLayout>
-
-
-
-
-
-
-
-</ScrollView>
-
-
-
-    </android.support.constraint.ConstraintLayout>
+                    android:inputType="textPersonName"
+                    android:text="00.00"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:layout_centerHorizontal="true" />
+                <TextView
+                    android:id="@+id/etcurrentMonthExpense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/etcurrentMonthIncome"
+                    android:inputType="textPersonName"
+                    android:text="00.00"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center" />
+                <TextView
+                    android:id="@+id/etcurrentMonthPendingPayments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/etcurrentMonthExpense"
+                    android:inputType="textPersonName"
+                    android:text="00.00"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center" />
+                <TextView
+                    android:id="@+id/tvTotalBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="false"
+                    android:layout_below="@id/etcurrentMonthPendingPayments"
+                    android:clickable="false"
+                    android:text="Total \n Balance"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/etTotalBalance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/etcurrentMonthPendingPayments"
+                    android:layout_centerHorizontal="true"
+                    android:inputType="textPersonName"
+                    android:text="100000.00"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_purple"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
 
 
 

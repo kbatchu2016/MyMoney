@@ -11,18 +11,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
             android:label="నాMoney">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity
             android:name=".TransactionActivity"
             android:label="Details"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|stateVisible|adjustResize" />
         <activity
             android:name=".SettingsActivity"
             android:label="Settings" />
@@ -37,7 +41,7 @@
         <activity
             android:name=".AccountsViewActivity"
             android:label="Accounts"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

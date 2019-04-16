@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     CheckBox chkExpenseValue;
     CheckBox chkBillsValue;
     EditText etTransAmount;
-    ImageView ivIconAddDate;
     ImageView ivIconAddTransaction;
     EditText editDate;
     Spinner spAmtType;
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         chkBillsValue =(CheckBox) findViewById(R.id.ChkCreditCardExpenses);
         chkBillsValue.setChecked(false);
 
-        ivIconAddDate = (ImageView) findViewById(R.id.ivDatePopup);
+      //  ivIconAddDate = (ImageView) findViewById(R.id.ivDatePopup);
         editDate = (EditText) findViewById(R.id.etDate);
         ivIconAddTransaction = (ImageView) findViewById(R.id.ivAddTransaction);
         //////////////////       AmtSourceType - Spinner           //////////////////
